@@ -40,6 +40,7 @@
   },
   "dependencies": {
     "jaz-ts-utils": "^6.2.0",
+    "lodash": "^4.17.21",
     "node-gzip": "^1.1.2",
     "sdfz-demo-parser": "^5.11.0"
   },
