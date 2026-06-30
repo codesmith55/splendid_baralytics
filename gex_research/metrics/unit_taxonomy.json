@@ -1,0 +1,56 @@
+{
+  "version": 1,
+  "updated": "2026-06-12",
+  "notes": "BAR military unit taxonomy. Two orthogonal axes: TECH tier (1/2/3 -> color) and CLASS/role (-> symbol). Bump `version` on ANY change to classes/seeds/heuristics; the analysis DB records the version used per game so games can be re-analyzed and overwritten when this improves. See process/lib/unitType.mjs (classifier) and process/lib/analysisDb.mjs (version-aware store).",
+
+  "tech": {
+    "labels": { "1": "T1", "2": "T2", "3": "T3" },
+    "colors": { "1": "#6ea8d8", "2": "#e0a73a", "3": "#c65ce0" },
+    "detect": "seed.tech -> def.techLevel / customParams.techlevel -> cost band",
+    "t2CostFloor": 600,
+    "t3CostFloor": 2500
+  },
+
+  "classes": {
+    "spam":    { "symbol": "∴", "label": "Spam",       "desc": "very cheap mass units, traded freely (Tick, Rover)" },
+    "raider":  { "symbol": "»", "label": "Raider",     "desc": "fast cheap harassers that punish eco" },
+    "main":    { "symbol": "▲", "label": "Main line",  "desc": "core standing-army combat (Pawn, Rocketeer, Stout, Janus)" },
+    "brawler": { "symbol": "◆", "label": "Brawler",    "desc": "direct-fire assault, high HP, short range (Centurion, Mace)" },
+    "arty":    { "symbol": "◢", "label": "Artillery",  "desc": "indirect / long-range, slow (Shellshocker, Mauser)" },
+    "skirm":   { "symbol": "◇", "label": "Skirmisher", "desc": "ranged hit-and-run, low HP, kites" },
+    "aa":      { "symbol": "⇡", "label": "Anti-air",   "desc": "targets air only / primarily" },
+    "scout":   { "symbol": "○", "label": "Scout",      "desc": "fast, cheap, little/no weapon, vision" },
+    "other":   { "symbol": "·", "label": "Other",      "desc": "uncategorized military" }
+  },
+
+  "_seed_note": "defName -> {class, tech?}. Anchors the classifier for units where heuristics are weak. Internal names verified against a live All-That-Glitters stream (2026-06-12).",
+  "seeds": {
+    "armflea": { "class": "spam",   "tech": 1 },
+    "armfav":  { "class": "spam",   "tech": 1 },
+    "corak":   { "class": "raider", "tech": 1 },
+    "armpw":   { "class": "main",   "tech": 1 },
+    "armpeep": { "class": "scout",  "tech": 1 },
+    "armrock": { "class": "main",   "tech": 1 },
+    "corthud": { "class": "main",   "tech": 1 },
+    "armham":  { "class": "brawler","tech": 1 },
+    "armart":  { "class": "arty",   "tech": 1 },
+    "armstump":{ "class": "main",   "tech": 1 },
+    "armjanus":{ "class": "main",   "tech": 1 },
+    "armwar":  { "class": "brawler","tech": 1 },
+    "armmart": { "class": "arty",   "tech": 2 },
+    "armbanth":{ "class": "brawler","tech": 3 },
+    "armthor": { "class": "brawler","tech": 3 },
+    "armepoch":{ "class": "brawler","tech": 3 }
+  },
+
+  "_heuristics_note": "Fallback when a def is not seeded. Uses fields the widget/gex emit on the unit def. Cost-only data (slim live unit_def) degrades gracefully to spam/main by cost.",
+  "heuristics": {
+    "spamCostCeil": 40,
+    "artyRange": 650,
+    "artySpeed": 1.7,
+    "brawlerRange": 320,
+    "brawlerCost": 200,
+    "skirmRange": 500,
+    "skirmSpeed": 2.0
+  }
+}

@@ -1,107 +1,490 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __generator = (this && this.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g = Object.create((typeof Iterator === "function" ? Iterator : Object).prototype);
-    return g.next = verb(0), g["throw"] = verb(1), g["return"] = verb(2), typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
-    function verb(n) { return function (v) { return step([n, v]); }; }
-    function step(op) {
-        if (f) throw new TypeError("Generator is already executing.");
-        while (g && (g = 0, op[0] && (_ = 0)), _) try {
-            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-            if (y = 0, t) op = [op[0] & 2, t.value];
-            switch (op[0]) {
-                case 0: case 1: t = op; break;
-                case 4: _.label++; return { value: op[1], done: false };
-                case 5: _.label++; y = op[1]; op = [0]; continue;
-                case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                default:
-                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                    if (t[2]) _.ops.pop();
-                    _.trys.pop(); continue;
-            }
-            op = body.call(thisArg, _);
-        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
-    }
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var sdfz_demo_parser_1 = require("sdfz-demo-parser");
-// Load the full build.
-var _ = require("lodash");
-// Load the core build.
-var _ = require("lodash/core");
-// Load the FP build for immutable auto-curried iteratee-first data-last methods.
-var fp = require("lodash/fp");
-(function () { return __awaiter(void 0, void 0, void 0, function () {
-    var gameDir, gameFile, path, parser, demo, teamStats, infos, playerInfos;
-    var _a;
-    return __generator(this, function (_b) {
-        switch (_b.label) {
-            case 0:
-                gameDir = "/home/ryan/.local/state/Beyond All Reason/demos/";
-                gameFile = "2025-05-30_14-58-54-554_All That Glitters v2_2025.04.04.sdfz";
-                path = gameDir + "" + gameFile;
-                parser = new sdfz_demo_parser_1.DemoParser();
-                return [4 /*yield*/, parser.parseDemo(path)];
-            case 1:
-                demo = _b.sent();
-                teamStats = (_a = demo.statistics) === null || _a === void 0 ? void 0 : _a.teamStats;
-                infos = demo.info;
-                /*for(const key in teamStats)
-                {
-                    console.log(key, teamStats[key])
-                }*/
-                console.log(infos.players);
-                getPlayerStatsFrameByFrame(1, infos.players, teamStats);
-                playerInfos = infos.players;
-                return [2 /*return*/];
-        }
-    });
-}); })();
-function calculateResourceDiff(obj1, obj2) {
-    var diffObject = {};
-    for (var key in obj2) {
-        if (Object.prototype.hasOwnProperty.call(obj2, key) && typeof obj2[key] === "number") {
-            var originalKey = key; // Cast to keyof ResourceStats
-            var value1 = obj1[originalKey];
-            var value2 = obj2[originalKey];
-            if (typeof value1 === "number" && typeof value2 === "number") {
-                var diff = value2 - value1;
-                diffObject["".concat(originalKey, "Diff")] = diff;
-            }
-        }
-    }
-    return diffObject;
+// splendid_buildAnalyzer.js — comparative economy + collapse ("death") detector for BAR demos.
+//
+//   node splendid_buildAnalyzer.js [demo|latest] [--me <name>] [--dir <demosDir>] [--every <sec>]
+//
+// What it does (see splendid_buildAnalyzer.ts for the typed source of record):
+//   The demo's teamStats are *cumulative* counters sampled every 15 s. We differentiate
+//   them into per-second income and derive a single "total economy" = metal/s + energy/s/70
+//   (the repo's value formula). Then:
+//     1. Comparative total economy — allyTeam vs allyTeam over time (who is out-producing).
+//     2. Per-player splits — each player's share of their team's economy, metal/energy mix.
+//     3. Collapse detection — a dramatic, sustained drop in a player's economy is flagged as a
+//        loss/death event ("reductions in economy are dramatic indicators"). A near-total,
+//        unrecovered collapse is marked 💀 "died handedly".
+
+// ---- parser resolution (root has no node_modules; reuse the gex demoparser install) ----
+function loadDemoParser() {
+  const attempts = [
+    "sdfz-demo-parser",
+    "./gex_research/tools/demoparser/node_modules/sdfz-demo-parser",
+    "./sdfz-demo-parser",
+  ];
+  for (const id of attempts) {
+    try {
+      const dp = require(id).DemoParser;
+      if (typeof dp === "function") return dp;
+    } catch (_) { /* try next */ }
+  }
+  throw new Error(
+    "sdfz-demo-parser not found. Run `npm install` here, or keep " +
+    "gex_research/tools/demoparser/node_modules installed."
+  );
 }
-function getPlayerStatsFrameByFrame(playerId, info, stats) {
-    var playerStats = stats[playerId];
-    var playerInfo = null;
-    //console.log("playerStats:", playerStats);
-    //console.log("playerInfo:", info.find(info => info.playerId === playerId));
-    var energy_per_frame = 0;
-    var lastFrame = playerStats[0];
-    for (var i = 0; i < playerStats.length; i++) {
-        var frame = playerStats[i];
-        var thisFrame = calculateResourceDiff(lastFrame, frame);
-        //console.log(thisFrame);
-        var tinyFrame = _.pick(thisFrame, "metalUsedDiff", "energyUsedDiff", "metalProducedDiff", "energyProducedDiff", "metalExcessDiff", "energyExcessDiff", "damageDealtDiff", "damageReceivedDiff");
-        //console.log(tinyFrame);
-        var currentMetal = 1000 + frame["metalProduced"] + frame["metalReceived"] - frame["metalUsed"] - frame["metalSent"] - frame["metalExcess"];
-        var currentEnergy = 1000 + frame["energyProduced"] + frame["energyReceived"] - frame["energyUsed"] - frame["energySent"] - frame["energyExcess"];
-        var gameSeconds = (i * 15) % 60;
-        var gameMinutes = Math.floor(i / 4);
-        console.log(gameMinutes + ":" + (gameSeconds === 0 ? "00" : gameSeconds) + "| currentMetal: " + currentMetal + " :: currentEnergy: " + currentEnergy);
-        lastFrame = frame;
-    }
+
+const fs = require("fs");
+const path = require("path");
+
+const FPS = 30;                  // BAR sim frames per second
+const VALUE_E_DIV = 70;          // energy→metal value conversion (repo convention)
+const MIN_PEAK = 40;             // ignore "collapses" of trivially small economies (value/s)
+const COLLAPSE_FRAC = 0.4;       // econ below 40% of trailing peak = collapse
+const DECISIVE_FRAC = 0.15;      // below 15% and unrecovered = "died handedly"
+const RECOVER_FRAC = 0.5;        // climbing back above 50% of peak = recovered
+
+const DEMO_DIRS = [
+  process.env.BAR_DEMOS,
+  "C:/Users/codes/AppData/Local/Programs/Beyond-All-Reason/data/demos",
+  process.env.HOME && path.join(process.env.HOME, ".local/state/Beyond All Reason/demos"),
+].filter(Boolean);
+
+// ----------------------------------------------------------------------------- args
+function parseArgs(argv) {
+  const a = { demo: null, me: null, dir: null, every: 60, actions: null };
+  const rest = [];
+  for (let i = 0; i < argv.length; i++) {
+    const t = argv[i];
+    if (t === "--me") a.me = argv[++i];
+    else if (t === "--dir") a.dir = argv[++i];
+    else if (t === "--every") a.every = Number(argv[++i]) || 60;
+    else if (t === "--actions") a.actions = argv[++i];   // headless lifecycle actions.json (unit value)
+    else rest.push(t);
+  }
+  a.demo = rest[0] || "latest";
+  return a;
 }
+
+function demosDir(override) {
+  const dirs = override ? [override, ...DEMO_DIRS] : DEMO_DIRS;
+  for (const d of dirs) { try { if (fs.statSync(d).isDirectory()) return d; } catch (_) {} }
+  return null;
+}
+
+function resolveDemo(arg, dirOverride) {
+  if (arg && arg !== "latest" && fs.existsSync(arg)) return arg;
+  const dir = demosDir(dirOverride);
+  if (!dir) throw new Error("no demos directory found; pass a demo path or --dir <dir>");
+  if (arg && arg !== "latest") {
+    const direct = path.join(dir, arg);
+    if (fs.existsSync(direct)) return direct;
+  }
+  const demos = fs.readdirSync(dir).filter(f => f.endsWith(".sdfz"))
+    .map(f => ({ f, m: fs.statSync(path.join(dir, f)).mtimeMs }))
+    .sort((x, y) => y.m - x.m);
+  if (!demos.length) throw new Error(`no .sdfz demos in ${dir}`);
+  return path.join(dir, demos[0].f);
+}
+
+// ------------------------------------------------------------------------- team meta
+function buildTeamMeta(info) {
+  const meta = new Map(); // teamId -> { name, ally, faction, isAI }
+  for (const p of info.players || [])
+    meta.set(p.teamId, { name: p.name, ally: p.allyTeamId, faction: p.faction || "?", isAI: false });
+  for (const ai of info.ais || [])
+    meta.set(ai.teamId, { name: ai.name || `AI ${ai.teamId}`, ally: ai.allyTeamId, faction: ai.faction || "AI", isAI: true });
+  return meta;
+}
+
+// ------------------------------------------------- differentiate cumulative -> rates
+// Returns per-team series of { frame, sec, econ, metalInc, energyInc, buildUse, waste,
+//                              dmgRecvRate, unitsDiedRate, cumUnitsDied, cumDmgRecv }
+function computeSeries(teamStats) {
+  const out = new Map();
+  for (const key of Object.keys(teamStats)) {
+    const teamId = Number(key);
+    const samples = teamStats[key];
+    if (!samples || samples.length < 2) { out.set(teamId, []); continue; }
+    const series = [];
+    for (let i = 1; i < samples.length; i++) {
+      const a = samples[i - 1], b = samples[i];
+      const dt = Math.max((b.frame - a.frame) / FPS, 1e-6);
+      const metalInc = (b.metalProduced - a.metalProduced) / dt;
+      const energyInc = (b.energyProduced - a.energyProduced) / dt;
+      const econ = metalInc + energyInc / VALUE_E_DIV;
+      const buildUse = (b.metalUsed - a.metalUsed) / dt
+        + ((b.energyUsed - a.energyUsed) / dt) / VALUE_E_DIV;
+      const waste = (b.metalExcess - a.metalExcess) / dt
+        + ((b.energyExcess - a.energyExcess) / dt) / VALUE_E_DIV;
+      series.push({
+        frame: b.frame,
+        sec: b.frame / FPS,
+        econ, metalInc, energyInc, buildUse, waste,
+        dmgRecvRate: (b.damageReceived - a.damageReceived) / dt,
+        unitsDiedRate: (b.unitsDied - a.unitsDied) / dt,
+        cumUnitsDied: b.unitsDied,
+        cumDmgRecv: b.damageReceived,
+        // absolute per-interval deltas (for minute-over-minute battle/swing aggregation)
+        dDealt: b.damageDealt - a.damageDealt,
+        dTaken: b.damageReceived - a.damageReceived,
+        dKilled: b.unitsKilled - a.unitsKilled,
+        dLost: b.unitsDied - a.unitsDied,
+        dBuilt: b.unitsProduced - a.unitsProduced,
+        dProduced: (b.metalProduced - a.metalProduced) + (b.energyProduced - a.energyProduced) / VALUE_E_DIV,
+      });
+    }
+    out.set(teamId, series);
+  }
+  return out;
+}
+
+// When a game ends (or is mass-resigned) the FINAL stat interval shows a broad,
+// simultaneous economy crater across most teams — an artifact, not a death. Detect that
+// (median last/prev econ ratio < 0.5 among teams that had a real economy) and drop the
+// trailing sample from every series so it skews neither collapse detection nor finals.
+// Returns the number of flush samples trimmed.
+function trimEndFlush(seriesMap, maxTrim = 2) {
+  let trimmed = 0;
+  for (let pass = 0; pass < maxTrim; pass++) {
+    const arrs = [...seriesMap.values()].filter(s => s.length >= 2);
+    if (arrs.length < 3) break;
+    const len = Math.max(...arrs.map(s => s.length));
+    const ratios = [];
+    for (const s of arrs) {
+      if (s.length !== len) continue;
+      const last = s[s.length - 1].econ, prev = s[s.length - 2].econ;
+      if (prev > MIN_PEAK) ratios.push(last / prev);
+    }
+    if (ratios.length < 3) break;
+    ratios.sort((a, b) => a - b);
+    const median = ratios[Math.floor(ratios.length / 2)];
+    if (median >= 0.5) break;                 // not a broad crater — keep it
+    for (const [k, s] of seriesMap) if (s.length === len) seriesMap.set(k, s.slice(0, -1));
+    trimmed++;
+  }
+  return trimmed;
+}
+
+// ------------------------------------------------------------- collapse / death model
+function detectCollapse(series) {
+  // consider only the post-warmup window so the early-game ramp isn't read as a "peak"
+  const pts = series.filter(s => s.sec >= 30);
+  if (pts.length < 3) return null;
+
+  // global peak economy and its time
+  let peak = pts[0], peakIdx = 0;
+  pts.forEach((s, i) => { if (s.econ > peak.econ) { peak = s; peakIdx = i; } });
+  if (peak.econ < MIN_PEAK) return null;
+
+  // deepest trough AFTER the peak
+  let trough = pts[peakIdx], troughIdx = peakIdx;
+  for (let i = peakIdx; i < pts.length; i++) {
+    if (pts[i].econ < trough.econ) { trough = pts[i]; troughIdx = i; }
+  }
+  const dropFrac = 1 - trough.econ / peak.econ;
+  if (trough.econ > COLLAPSE_FRAC * peak.econ) return null; // never collapsed
+
+  // require the collapse to be SUSTAINED: ≥2 low samples (≥~30s) after onset, so a lone
+  // dip (a brief stall, a pause) is not mistaken for a death.
+  const lowSamples = pts.slice(peakIdx).filter(s => s.econ < COLLAPSE_FRAC * peak.econ).length;
+  if (lowSamples < 2) return null;
+
+  // recovery: did econ climb back above RECOVER_FRAC*peak after the trough?
+  let recovered = false, recoveredAt = null;
+  for (let i = troughIdx + 1; i < pts.length; i++) {
+    if (pts[i].econ >= RECOVER_FRAC * peak.econ) { recovered = true; recoveredAt = pts[i]; break; }
+  }
+  const decisive = trough.econ <= DECISIVE_FRAC * peak.econ && !recovered;
+
+  // corroboration: losses sustained between peak and trough
+  const unitsLost = Math.max(0, trough.cumUnitsDied - peak.cumUnitsDied);
+  const dmgTaken = Math.max(0, trough.cumDmgRecv - peak.cumDmgRecv);
+
+  return { peak, trough, dropFrac, recovered, recoveredAt, decisive, unitsLost, dmgTaken };
+}
+
+// ---------------------------------------------------- unit value flow (headless lifecycle)
+// The .sdfz demo records only player COMMANDS — it has no unit-creation/death events. To get
+// the RESOURCE VALUE of units built (+) and lost (−) per minute we need a headless lifecycle
+// dump (gex_research actions.json: unit_def + unit_created/unit_killed). value = metal + e/70,
+// commander = flat 1200 (matches process/lib/classify.mjs). Returns Map<teamId,{built[],lost[]}>.
+function loadValueFlow(actionsPath, bucketSec, nBuckets) {
+  const lines = fs.readFileSync(actionsPath, "utf8").split(/\r?\n/);
+  const bf = bucketSec * FPS;
+  const val = new Map();                       // defID -> value
+  const events = [];
+  for (const ln of lines) {
+    if (!ln) continue;
+    let e; try { e = JSON.parse(ln); } catch { continue; }
+    if (e.action === "unit_def") {
+      const com = e.isCommander === true || /com$/.test(e.defName || "");
+      val.set(e.defID, com ? 1200 : (e.metalCost || 0) + (e.energyCost || 0) / VALUE_E_DIV);
+    } else events.push(e);
+  }
+  const flow = new Map();
+  const ensure = t => { if (!flow.has(t)) flow.set(t, { built: new Array(nBuckets).fill(0), lost: new Array(nBuckets).fill(0) }); return flow.get(t); };
+  for (const e of events) {
+    if (typeof e.frame !== "number" || typeof e.teamID !== "number") continue;
+    const bi = Math.min(nBuckets - 1, Math.floor(e.frame / bf));
+    if (bi < 0) continue;
+    if (e.action === "unit_created" || e.action === "factory_unit_created") ensure(e.teamID).built[bi] += val.get(e.defID) || 0;
+    else if (e.action === "unit_killed") ensure(e.teamID).lost[bi] += val.get(e.defID) || 0;
+  }
+  return flow;
+}
+
+// ------------------------------------------------------- battles & swings (per minute)
+// Aggregate the per-interval deltas into minute buckets, per ally team and per player.
+// bucketSec is the "minute over minute" window. Returns:
+//   { perAlly: Map<ally, Bucket[]>, perTeam: Map<teamId, Bucket[]>, nBuckets }
+// where Bucket = { sec, dealt, taken, killed, lost, built, produced }
+function aggregateBuckets(series, teamMeta, allies, bucketSec, analysisEnd) {
+  const bf = bucketSec * FPS;
+  const nBuckets = Math.max(1, Math.ceil((analysisEnd + 1) / bf));
+  const blank = () => Array.from({ length: nBuckets }, (_, i) => ({
+    sec: (i + 1) * bucketSec, dealt: 0, taken: 0, killed: 0, lost: 0, built: 0, produced: 0,
+  }));
+  const perTeam = new Map(), perAlly = new Map();
+  for (const a of allies.keys()) perAlly.set(a, blank());
+  for (const [tid, m] of teamMeta) {
+    const tb = blank();
+    perTeam.set(tid, tb);
+    const ab = perAlly.get(m.ally);
+    for (const p of series.get(tid) || []) {
+      const bi = Math.min(nBuckets - 1, Math.floor((p.frame - 1) / bf));
+      for (const dst of [tb, ab]) {
+        dst[bi].dealt += p.dDealt; dst[bi].taken += p.dTaken; dst[bi].killed += p.dKilled;
+        dst[bi].lost += p.dLost; dst[bi].built += p.dBuilt; dst[bi].produced += p.dProduced;
+      }
+    }
+  }
+  return { perAlly, perTeam, nBuckets };
+}
+
+// ------------------------------------------------------------------------- formatting
+function mmss(sec) {
+  const m = Math.floor(sec / 60), s = Math.round(sec % 60);
+  return `${m}:${String(s).padStart(2, "0")}`;
+}
+function k(n) {
+  const v = Math.round(n);
+  return Math.abs(v) >= 1000 ? (v / 1000).toFixed(1) + "k" : String(v);
+}
+function pad(s, n) { s = String(s); return s.length >= n ? s : s + " ".repeat(n - s.length); }
+function padL(s, n) { s = String(s); return s.length >= n ? s : " ".repeat(n - s.length) + s; }
+
+// ------------------------------------------------------------------------------- main
+async function main() {
+  const args = parseArgs(process.argv.slice(2));
+  const DemoParser = loadDemoParser();
+  const demoPath = resolveDemo(args.demo, args.dir);
+
+  const demo = await new DemoParser({ verbose: false }).parseDemo(demoPath);
+  const info = demo.info || {};
+  const meta = info.meta || {};
+  const teamStats = (demo.statistics && demo.statistics.teamStats) || {};
+  const teamKeys = Object.keys(teamStats);              // teamStats is an object keyed by teamId
+  const firstSamples = teamKeys.length ? teamStats[teamKeys[0]] : null;
+  if (!firstSamples || firstSamples.length < 2) {
+    console.error(`No teamStats in ${path.basename(demoPath)} — game too short or aborted (try a longer demo).`);
+    process.exit(2);
+  }
+
+  const teamMeta = buildTeamMeta(info);
+  const series = computeSeries(teamStats);
+  trimEndFlush(series);                          // drop the game-end economy crater artifact
+  const winners = meta.winningAllyTeamIds || [];
+  // end of the analyzable window (after flush trim), for the timeline + finals
+  let analysisEnd = 0;
+  for (const s of series.values()) if (s.length) analysisEnd = Math.max(analysisEnd, s[s.length - 1].frame);
+
+  // ally grouping
+  const allies = new Map(); // ally -> [teamId]
+  for (const [tid, m] of teamMeta) { if (!allies.has(m.ally)) allies.set(m.ally, []); allies.get(m.ally).push(tid); }
+  const allyIds = [...allies.keys()].sort((a, b) => a - b);
+
+  const lastFrame = firstSamples[firstSamples.length - 1].frame;
+  const meName = args.me ? findMe(args.me, teamMeta) : null;
+
+  // ---- header
+  console.log("");
+  console.log(`BAR Build Analyzer — ${meta.map || meta.mapName || "?"}`);
+  console.log(`${path.basename(demoPath)}`);
+  console.log(`duration ${mmss(lastFrame / FPS)} · ${teamMeta.size} teams · winner allyTeam ${winners.length ? winners.join(",") : "?"}`);
+  if (meName) console.log(`highlighting: ${meName} (you)`);
+  console.log("");
+
+  // ---- 1. comparative team economy over time
+  console.log("== Comparative team economy  (value/s = metal/s + energy/s ÷ 70) ==");
+  const stepFrames = args.every * FPS;
+  const headerCols = allyIds.map(a => padL(`AT${a}${winners.includes(a) ? "*" : ""}`, 9)).join(" ");
+  console.log(`  ${pad("time", 6)} ${headerCols}   lead`);
+  const sampleFrames = [];
+  for (let f = stepFrames; f <= analysisEnd + 1; f += stepFrames) sampleFrames.push(f);
+  if (sampleFrames[sampleFrames.length - 1] < analysisEnd) sampleFrames.push(analysisEnd);
+  for (const F of sampleFrames) {
+    const totals = allyIds.map(a => allies.get(a).reduce((sum, tid) => sum + econAtFrame(series.get(tid), F), 0));
+    const max = Math.max(...totals), min = Math.min(...totals);
+    const leader = allyIds[totals.indexOf(max)];
+    const leadPct = max > 0 ? Math.round((1 - min / max) * 100) : 0;
+    const cols = totals.map(t => padL(k(t), 9)).join(" ");
+    console.log(`  ${pad(mmss(F / FPS), 6)} ${cols}   AT${leader} +${leadPct}%`);
+  }
+  console.log("");
+
+  // ---- 2. collapse / death detection
+  console.log("== Economy collapses  (death indicators) ==");
+  const events = [];
+  for (const [tid, m] of teamMeta) {
+    const c = detectCollapse(series.get(tid) || []);
+    if (c) events.push({ tid, m, c });
+  }
+  events.sort((a, b) => b.c.dropFrac - a.c.dropFrac);
+  if (!events.length) {
+    console.log("  (no significant economy collapse detected — all economies held)");
+  } else {
+    for (const { tid, m, c } of events) {
+      const glyph = c.decisive ? "💀" : c.recovered ? "↩ " : "⚠ ";
+      const tag = c.decisive ? "DIED HANDEDLY" : c.recovered ? `recovered by ${mmss(c.recoveredAt.sec)}` : "did not recover";
+      const mine = meName && m.name === meName ? "  <- you" : "";
+      const corro = (c.unitsLost || c.dmgTaken)
+        ? `  [${c.unitsLost} units lost, ${k(c.dmgTaken)} dmg taken]` : "";
+      console.log(
+        `  ${glyph} ${pad(m.name, 22)} AT${m.ally}  econ ${k(c.peak.econ)}→${k(c.trough.econ)}/s ` +
+        `(−${Math.round(c.dropFrac * 100)}%)  ${mmss(c.peak.sec)}→${mmss(c.trough.sec)}  ${tag}${corro}${mine}`
+      );
+    }
+  }
+  console.log("");
+
+  // ---- 3. battles & swings (minute over minute)
+  const { perAlly, perTeam } = aggregateBuckets(series, teamMeta, allies, args.every, analysisEnd);
+  const nB = perAlly.get(allyIds[0]).length;
+  // map-wide damage per bucket → dynamic "big battle" threshold
+  const mapDmg = [];
+  for (let i = 0; i < nB; i++) mapDmg.push(allyIds.reduce((s, a) => s + perAlly.get(a)[i].dealt, 0));
+  const active = mapDmg.filter(d => d > 0);
+  const meanDmg = active.length ? active.reduce((s, d) => s + d, 0) / active.length : 0;
+  const peakDmg = active.length ? Math.max(...active) : 0;
+  const battleThresh = Math.max(meanDmg * 1.3, peakDmg * 0.35);  // big = clearly above typical
+
+  console.log(`== Battles — minute over minute  (kills = enemy units destroyed, losses = own units lost) ==`);
+  console.log(`  ${pad("time", 6)} ${allyIds.map(a => padL(`AT${a} k/lost`, 12)).join("  ")}   map dmg   `);
+  for (let i = 0; i < nB; i++) {
+    if (mapDmg[i] <= 0) continue;                       // skip quiet minutes
+    const cols = allyIds.map(a => { const b = perAlly.get(a)[i]; return padL(`${b.killed}/${b.lost}`, 12); }).join("  ");
+    const big = mapDmg[i] >= battleThresh;
+    let flag = "";
+    if (big) {
+      // who came out ahead this minute, by trade margin (units killed − units lost)
+      const nets = allyIds.map(a => { const b = perAlly.get(a)[i]; return { a, net: b.killed - b.lost }; });
+      nets.sort((x, y) => y.net - x.net);
+      const margin = nets[0].net - nets[1].net;
+      const totalKilled = allyIds.reduce((s, a) => s + perAlly.get(a)[i].killed, 0) || 1;
+      flag = margin < totalKilled * 0.2 ? "🔥 big battle — even trade" : `🔥 big battle — edge AT${nets[0].a}`;
+    }
+    const label = mmss(Math.min((i + 1) * args.every, analysisEnd / FPS));
+    console.log(`  ${pad(label, 6)} ${cols}   ${padL(k(mapDmg[i]), 7)}   ${flag}`);
+  }
+  console.log("");
+
+  // biggest single-minute unit-loss spikes per team (the "− units" events) and build spikes
+  const lossEvents = [], buildEvents = [];
+  for (const [tid, m] of teamMeta) {
+    const buckets = perTeam.get(tid);
+    let maxLoss = { lost: 0, i: -1 }, maxBuild = { built: 0, i: -1 };
+    buckets.forEach((b, i) => { if (b.lost > maxLoss.lost) maxLoss = { lost: b.lost, i }; if (b.built > maxBuild.built) maxBuild = { built: b.built, i }; });
+    const capSec = i => Math.min((i + 1) * args.every, analysisEnd / FPS);
+    if (maxLoss.i >= 0 && maxLoss.lost >= 8) lossEvents.push({ m, sec: capSec(maxLoss.i), lost: maxLoss.lost, dmg: buckets[maxLoss.i].taken });
+    if (maxBuild.i >= 0 && maxBuild.built >= 8) buildEvents.push({ m, sec: capSec(maxBuild.i), built: maxBuild.built });
+  }
+  lossEvents.sort((a, b) => b.lost - a.lost);
+  buildEvents.sort((a, b) => b.built - a.built);
+  console.log("== Biggest unit swings (single minute, per player) ==");
+  console.log("  − losses:");
+  for (const e of lossEvents.slice(0, 6))
+    console.log(`     ${pad(mmss(e.sec), 6)} ${pad(e.m.name, 22)} AT${e.m.ally}  −${e.lost} units  (${k(e.dmg)} dmg taken)${meName && e.m.name === meName ? "  <- you" : ""}`);
+  console.log("  + production:");
+  for (const e of buildEvents.slice(0, 6))
+    console.log(`     ${pad(mmss(e.sec), 6)} ${pad(e.m.name, 22)} AT${e.m.ally}  +${e.built} units built${meName && e.m.name === meName ? "  <- you" : ""}`);
+  console.log("");
+
+  // ---- 3b. unit value flow (only when a headless lifecycle actions.json is supplied)
+  if (args.actions) {
+    if (!fs.existsSync(args.actions)) {
+      console.log(`(--actions file not found: ${args.actions} — skipping unit value flow)\n`);
+    } else {
+      const flow = loadValueFlow(args.actions, args.every, nB);
+      const allyFlow = new Map();
+      for (const a of allyIds) allyFlow.set(a, { built: new Array(nB).fill(0), lost: new Array(nB).fill(0) });
+      for (const [tid, m] of teamMeta) {
+        const fl = flow.get(tid); if (!fl) continue;
+        const af = allyFlow.get(m.ally);
+        for (let i = 0; i < nB; i++) { af.built[i] += fl.built[i]; af.lost[i] += fl.lost[i]; }
+      }
+      console.log("== Unit value flow — minute over minute  (value built + / lost −, metal + energy/70) ==");
+      console.log(`  source: ${path.basename(args.actions)} (headless lifecycle)`);
+      console.log(`  ${pad("time", 6)} ${allyIds.map(a => padL(`AT${a} +built/-lost`, 18)).join("  ")}`);
+      for (let i = 0; i < nB; i++) {
+        const any = allyIds.some(a => allyFlow.get(a).built[i] > 0 || allyFlow.get(a).lost[i] > 0);
+        if (!any) continue;
+        const cols = allyIds.map(a => { const f = allyFlow.get(a); return padL(`+${k(f.built[i])}/-${k(f.lost[i])}`, 18); }).join("  ");
+        console.log(`  ${pad(mmss(Math.min((i + 1) * args.every, analysisEnd / FPS)), 6)} ${cols}`);
+      }
+      // biggest single-minute material losses (value), per player
+      const valLoss = [];
+      for (const [tid, m] of teamMeta) {
+        const fl = flow.get(tid); if (!fl) continue;
+        let mx = { v: 0, i: -1 };
+        fl.lost.forEach((v, i) => { if (v > mx.v) mx = { v, i }; });
+        if (mx.i >= 0 && mx.v >= 500) valLoss.push({ m, sec: Math.min((mx.i + 1) * args.every, analysisEnd / FPS), v: mx.v });
+      }
+      valLoss.sort((a, b) => b.v - a.v);
+      console.log("  biggest material losses (value, single minute):");
+      for (const e of valLoss.slice(0, 6))
+        console.log(`     ${pad(mmss(e.sec), 6)} ${pad(e.m.name, 22)} AT${e.m.ally}  −${k(e.v)} value${meName && e.m.name === meName ? "  <- you" : ""}`);
+      console.log("");
+    }
+  }
+
+  // ---- 4. per-player splits / standings
+  console.log("== Per-player economy splits  (peak economy, metal:energy mix, team share) ==");
+  for (const a of allyIds) {
+    const win = winners.includes(a) ? "  (winner)" : "";
+    console.log(`  allyTeam ${a}${win}`);
+    const rows = allies.get(a).map(tid => {
+      const s = series.get(tid) || [];
+      const peak = s.reduce((p, x) => (x.econ > p ? x.econ : p), 0);
+      const fin = s.length ? s[s.length - 1] : { econ: 0, metalInc: 0, energyInc: 0 };
+      const eVal = fin.energyInc / VALUE_E_DIV;
+      const split = (fin.metalInc + eVal) > 0 ? Math.round(fin.metalInc / (fin.metalInc + eVal) * 100) : 0;
+      return { tid, m: teamMeta.get(tid), peak, fin: fin.econ, split };
+    });
+    const teamFinal = rows.reduce((sum, r) => sum + r.fin, 0) || 1;
+    rows.sort((x, y) => y.peak - x.peak);
+    for (const r of rows) {
+      const mine = meName && r.m.name === meName ? " <- you" : "";
+      console.log(
+        `    ${pad(r.m.name, 22)} peak ${padL(k(r.peak), 6)}/s  final ${padL(k(r.fin), 6)}/s  ` +
+        `M:E ${padL(r.split + ":" + (100 - r.split), 7)}  ${padL(Math.round(r.fin / teamFinal * 100) + "%", 4)} of team${mine}`
+      );
+    }
+  }
+  console.log("");
+}
+
+// econ (value/s) at-or-before frame F for a team series
+function econAtFrame(series, F) {
+  if (!series || !series.length) return 0;
+  let v = 0;
+  for (const s of series) { if (s.frame > F) break; v = s.econ; }
+  return v;
+}
+
+function findMe(name, teamMeta) {
+  const lc = name.toLowerCase();
+  for (const m of teamMeta.values()) if (m.name.toLowerCase() === lc) return m.name;
+  for (const m of teamMeta.values()) if (m.name.toLowerCase().includes(lc)) return m.name;
+  return name; // not found; still used as a label
+}
+
+main().catch(e => { console.error("✘ " + (e.stack || e.message)); process.exit(1); });

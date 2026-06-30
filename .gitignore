@@ -1,4 +1,16 @@
-dist
+# dependencies / build
 node_modules
+dist
+__pycache__
+*.pyc
+
+# local working files & logs
 /working-files
 debug.log
+*.log
+
+# gex_research — generated run outputs (regenerate: node process/run.mjs <config>)
+gex_research/output/
+gex_research/metrics/runs/output/
+# demo-parser roster caches written next to .sdfz files
+*.roster.json

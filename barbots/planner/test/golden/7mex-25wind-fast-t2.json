@@ -1,0 +1,21 @@
+{
+  "intentId": "7mex-25wind-fast-t2",
+  "checkpoints": [
+    { "id": "t2mex_online", "goal": "g_t2mex", "metric": "lost_seconds" }
+  ],
+  "goals": [
+    { "id": "g_mex123", "build": "mex", "count": 3, "who": "com" },
+    { "id": "g_solar12", "build": "solar", "count": 2, "who": "com", "after": "g_mex123" },
+    { "id": "g_factory", "build": "botlab", "who": "com", "after": "g_solar12" },
+    { "id": "g_solar34", "build": "solar", "count": 2, "who": "com", "after": "g_factory" },
+    { "id": "g_workers", "factory": "botlab", "produce": ["con", "con"], "assist": "com" },
+    { "id": "g_mex456", "build": "mex", "countToTotal": 6, "who": ["com", "worker1", "worker2"], "parallel": true, "after": "g_workers" },
+    { "id": "g_give", "meta": "give_unit", "unit": "worker2", "to": "ally:air", "timer": { "type": "walk_arrival", "target": "ally_air.bottomLeftMex" }, "after": "g_mex456" },
+    { "id": "g_mex7", "build": "mex", "countToTotal": 7 },
+    { "id": "g_wind25", "build": "wind", "countToTarget": 25, "conditional": { "on": "wind", "lowWindSubstitute": "solar_equivalent_eps" } },
+    { "id": "g_facqueue", "factory": "botlab", "produce": ["con", "laz", "con", "laz", { "repeat": "con" }], "after": "g_workers" },
+    { "id": "g_lazrocks", "meta": "reclaim_zone", "unit": "laz1", "zone": { "map": "all_that_glitters", "positions": [1, 2, 3, 5, 6, 7], "radiusElmos": 900 }, "filter": "features:rocks" },
+    { "id": "g_t2lab", "build": "t2lab", "priority": "critical", "after": "g_wind25" },
+    { "id": "g_t2mex", "build": "t2mex", "after": "g_t2lab" }
+  ]
+}

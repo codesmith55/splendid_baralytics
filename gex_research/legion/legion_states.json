@@ -1,0 +1,20 @@
+{
+  "fivewalk_3rd_on_medmex": {
+    "desc": "5-mex walk opening; factory up; 2 workers sent off (eco); 2 Lazarus made & reclaiming; 3rd worker starting med-mexes",
+    "t": 165,
+    "counts": { "mex": 5, "medmex": 0, "advsol": 0, "wind": 0, "solar": 0, "turret": 0, "moho": 0, "workers": 3, "lazarus": 2 },
+    "m": 350,
+    "e": 800,
+    "incM": 12.8,
+    "incE": 80,
+    "mCap": 1250,
+    "eCap": 1000,
+    "poolBP": 525,
+    "_notes": {
+      "incM": "5 legmex (5x1.369=6.85) + com 2 + ~4 from 2 Lazarus reclaim (variable)",
+      "incE": "5 legmex (+7 measured each) + com 30 + 3 workers (+5) = ~80 (legmex +5 in user's medmex formula)",
+      "poolBP": "com 300 + 3 workers x75 = 525 (2 workers on side eco, 3rd + com on med-mexes)",
+      "t": "~2:45 game time; modeled — task #2 calibrates from live"
+    }
+  }
+}

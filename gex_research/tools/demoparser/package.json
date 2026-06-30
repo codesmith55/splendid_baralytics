@@ -1,0 +1,10 @@
+{
+  "name": "gex-demoparser",
+  "private": true,
+  "type": "commonjs",
+  "version": "1.0.0",
+  "description": "Extract BAR replay roster (names/faction/ally/start) from a .sdfz demo header",
+  "dependencies": {
+    "sdfz-demo-parser": "^5.11.0"
+  }
+}

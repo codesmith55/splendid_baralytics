@@ -1,0 +1,36 @@
+{
+  "$comment": "RUN CONFIG — Skirmish test game (2026-06-10 03:09, All That Glitters). User playing solo with /cheat: 2nd commander spawned + 1000 metal compensation. Build under test: both coms take 3 mexes; front com makes 1 mex then Cortex Vehicle Plant -> 2 workers; worker1 makes con turret then starts geo. First run with new gex.lua fields (wind vector, income, storage, wreck events).",
+  "runId": "run-003-skirmish-double-com",
+  "title": "Skirmish double-commander build test — ATG v2.2.3 (2026-06-10)",
+  "created": "2026-06-10",
+  "input": {
+    "source": "headless",
+    "demoFile": "C:/Users/codes/AppData/Local/Programs/Beyond-All-Reason/data/demos/2026-06-10_03-09-39-466_All That Glitters v2.2.3_2025.06.24.sdfz",
+    "engine": "recoil_2025.06.24",
+    "reuseExisting": true
+  },
+  "roster": {
+    "source": "auto"
+  },
+  "sampling": {
+    "everyFrames": 450,
+    "fps": 30
+  },
+  "metrics": [
+    {
+      "id": "economy_composition",
+      "params": {
+        "value": { "formula": "metal_plus_energy_div_70" },
+        "commanderValue": 1200,
+        "commanderBuckets": ["build_power", "military"]
+      }
+    },
+    {
+      "id": "self_reclaim",
+      "params": {
+        "value": { "formula": "metal_plus_energy_div_70" },
+        "commanderValue": 1200
+      }
+    }
+  ]
+}
