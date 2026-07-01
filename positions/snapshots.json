@@ -15,6 +15,27 @@
   },
   "snapshots": [
     {
+      "id": "arm-1v0-t208-7mex",
+      "desc": "Armada 1v0 solo practice, 7th mex just completed (3:28); 5 solar, 9 wind, 2 con turret out",
+      "source": "2026-07-01_01-02-23-307_All That Glitters v2.2.3_2025.06.24.sdfz",
+      "date": "2026-07-01",
+      "faction": "arm",
+      "position": "1v0-practice",
+      "t": 208,
+      "m_inc": 13.02,
+      "e_net": 278.5,
+      "n_mex": 7,
+      "n_med": 0,
+      "n_solar": 5,
+      "n_wind": 9,
+      "n_advsol": 0,
+      "bp": 940,
+      "metal_bank": 105,
+      "energy_bank": 122,
+      "e_cap": 1504,
+      "tags": ["1v0", "7mex", "solar+wind-mixed", "2turret", "3workers"]
+    },
+    {
       "id": "leg-pos6-eco-t245-standard",
       "desc": "Legion pos6 eco, textbook 5-mex into factory+turret+estor, 2 workers just built",
       "source": "synthetic-calibrated",

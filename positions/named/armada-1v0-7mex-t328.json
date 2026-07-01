@@ -1,0 +1,83 @@
+{
+  "source": "2026-07-01_01-02-23-307_All That Glitters v2.2.3_2025.06.24.sdfz",
+  "t": 208,
+  "faction": "arm",
+  "observed": {
+    "metal": 105.32178497314,
+    "energy": 122.44823455811,
+    "storM": 1400,
+    "storE": 1504,
+    "metalIncome": 13.018750190735,
+    "energyIncome": 278.52572631836
+  },
+  "createState": {
+    "metal": 105.32178497314,
+    "energy": 122.44823455811,
+    "storM": 1400,
+    "storE": 1504,
+    "mexes": 7,
+    "solars": 5,
+    "winds": 9,
+    "converters": 0,
+    "extraEPerSec": 63.5,
+    "builders": [
+      {
+        "name": "commander",
+        "bp": 300,
+        "priority": "high"
+      },
+      {
+        "name": "worker",
+        "bp": 80,
+        "priority": "normal"
+      },
+      {
+        "name": "worker",
+        "bp": 80,
+        "priority": "normal"
+      },
+      {
+        "name": "worker",
+        "bp": 80,
+        "priority": "normal"
+      },
+      {
+        "name": "turret",
+        "bp": 200,
+        "priority": "normal"
+      },
+      {
+        "name": "turret",
+        "bp": 200,
+        "priority": "normal"
+      }
+    ]
+  },
+  "calibration": {
+    "mexes_completed": 7,
+    "workers_completed": 3,
+    "winds_completed": 9,
+    "solars_completed": 5,
+    "turrets_completed": 2,
+    "model_mIncome": 14.6,
+    "model_eIncome": 215,
+    "residual_mIncome": -1.581,
+    "synth_mexes": 6
+  },
+  "completed": {
+    "armcom": 1,
+    "armmex": 7,
+    "armsolar": 5,
+    "armlab": 1,
+    "armck": 3,
+    "armwin": 9,
+    "armrectr": 2,
+    "armnanotc": 2
+  },
+  "inProgress": {
+    "armck": 1,
+    "armwin": 2,
+    "armnanotc": 1
+  },
+  "mode": "headless-parse"
+}

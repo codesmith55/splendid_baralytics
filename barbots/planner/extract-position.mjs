@@ -269,13 +269,14 @@ async function parseActions(actionsPath, captureT, playerTeamId, label) {
   }
 
   // Classify completed units
-  let mexCount = 0, workerCount = 0, windCount = 0, solarCount = 0;
+  let mexCount = 0, workerCount = 0, windCount = 0, solarCount = 0, turretCount = 0;
   for (const u of finished) {
     const d = defs.get(u.defID);
     if (d?.isMetalExtractor)     { mexCount++;    continue; }
     if (isWorkerName(u.defName)) { workerCount++; continue; }
     if (isWindName(u.defName))   { windCount++;   continue; }
     if (isSolarName(u.defName))  { solarCount++;  continue; }
+    if (isTurretName(u.defName)) { turretCount++; continue; }
   }
 
   // Observed eco from nearest snapshot
@@ -303,6 +304,7 @@ async function parseActions(actionsPath, captureT, playerTeamId, label) {
     winds:  windCount,
     extraEPerSec,
     workerCount,
+    turretCount,
   });
 
   const cal = {
@@ -310,6 +312,7 @@ async function parseActions(actionsPath, captureT, playerTeamId, label) {
     workers_completed: workerCount,
     winds_completed:   windCount,
     solars_completed:  solarCount,
+    turrets_completed: turretCount,
     model_mIncome:     r3(model_m),
     model_eIncome:     r1(model_e),
     residual_mIncome:  r3(metalIncome - model_m),
@@ -340,7 +343,7 @@ async function parseActions(actionsPath, captureT, playerTeamId, label) {
 
 // ── shared createState builder ─────────────────────────────────────────────────
 function buildCreateState({ metal, energy, storM, storE, mexes, solars = 0, winds = 0,
-                             extraEPerSec, workerCount = 0 }) {
+                             extraEPerSec, workerCount = 0, turretCount = 0 }) {
   return {
     metal,
     energy,
@@ -354,6 +357,7 @@ function buildCreateState({ metal, energy, storM, storE, mexes, solars = 0, wind
     builders: [
       { name: "commander", bp: 300, priority: "high" },
       ...Array(workerCount).fill(null).map(() => ({ name: "worker", bp: 80, priority: "normal" })),
+      ...Array(turretCount).fill(null).map(() => ({ name: "turret", bp: 200, priority: "normal" })),
     ],
   };
 }
@@ -369,9 +373,15 @@ function isWindName(n) {
   return /^(arm|cor|leg)(vp|win)\d*$/i.test(n);
 }
 
-// Solar panels (including advsol)
+// Solar panels (including advsol). Regular solar defNames end "solar" (armsolar);
+// advanced solar defNames end "advsol" with no "ar" (armadvsol) — (ar)? covers both.
 function isSolarName(n) {
-  return /^(arm|cor|leg)(adv)?sol\d*$/i.test(n);
+  return /^(arm|cor|leg)(adv)?sol(ar)?\d*$/i.test(n);
+}
+
+// Con turrets (nano turret) — BP-granting structures, not mobile builders
+function isTurretName(n) {
+  return /^(arm|cor|leg)nanotc\d*$/i.test(n);
 }
 
 // ── numeric helpers ────────────────────────────────────────────────────────────
