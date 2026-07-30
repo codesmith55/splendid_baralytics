@@ -68,6 +68,10 @@ each doc ends with the canonical values it still needs.
 - [gunslinger-turnaround.md](gunslinger-turnaround.md) — front-player pivot: reclaim T1
   labs, build a T2 lab, pop one Consul, sell the lab, and stabilize on 1–2 Gunslingers
   (sized to a community patch).
+- [comm-reclaim-t2-rush.md](comm-reclaim-t2-rush.md) — reclaim the commander + T1 lab to
+  fund a **standing** (not sold) T2 lab + T2 con + metal storage for a sustained Gunslinger
+  or Persecutor rush. Gated on whether commander-reclaim is legal in context before any
+  economics apply.
 
 ## How to add a build
 

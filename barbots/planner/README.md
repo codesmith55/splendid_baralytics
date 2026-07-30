@@ -52,14 +52,28 @@ node expand-goals.mjs ../intents/7mex-25wind-fast-t2.md    # prints costed actio
 npm test          # both suites (parse: 18 cases, expand: 29 cases)
 ```
 
+## Experiments
+
+- **`experiments/legion-t2-fusion-path.mjs`** — sweeps Legion pos6 T2 fusion opening
+  (5 mex + 5 solar + factory start-state, T2 fusion goal-state) across medmex counts
+  0-4, with each medmex count picking its own optimal solar battery via inner sweep.
+  Uses eco_engine's native mex + upkeep mechanic (legmex is energy-*positive* at +7
+  e/s, medmex drains -30 e/s) and reads **unit costs directly from
+  `gex_research/legion/legion_unitdefs.json`** — no hand-typed values.
+  - Result: **3 medmex + 12 total solars (7 built post-env) + 2 estor → fusion
+    online at 7:40 (460s)**. 4 medmex hits +2.2 m/s income but the -30 e/s drain
+    slows fusion by 21s net. 0/1 medmex cases tie at 8:30. The sweep proves 3
+    medmex is the local optimum and gives the verbose per-step ledger for the
+    winner.
+  - Run: `node planner/experiments/legion-t2-fusion-path.mjs`
+
 ## Not yet built (next steps, in order)
 
-1. **Projection bridge** (next) — feed the expanded action list through
-   `splendid_baralytics/gex_research/process/lib/sim/eco_engine.mjs` (`projectOption`)
-   to produce M/E curves and per-goal projected start/end times. This also wants the
-   `_PROVISIONAL` unit costs replaced with canonical values.
-2. **Stall + mitigation pass** — annotate each goal with stalls (lost-seconds) and
-   mitigations in the preference order from intent-language.md.
+1. **Stall + mitigation pass** — consume `project.mjs` output, annotate each goal
+   with stall spans and mitigations (pre-walked build power, bank thresholds,
+   reclaim passes) in the preference order from intent-language.md.
+2. **Live adapter** — pair projected vs actual state during play, re-plan on
+   divergence.
 
-`parse-intent.mjs` → `expand-goals.mjs` produce the goal DAG and costed action list
-those steps consume.
+`parse-intent.mjs` → `expand-goals.mjs` → `project.mjs` produce the goal DAG,
+costed action list, and projected timeline those steps consume.
