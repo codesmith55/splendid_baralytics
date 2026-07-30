@@ -1,0 +1,10 @@
+{
+  "$comment": "TEMPLATE — criteria for a NEW metric. Copy, edit, then: node process/addMetric.mjs <thisfile>. addMetric validates it, appends a (draft) entry to metrics/catalog.json, and scaffolds process/lib/metrics/<id>.mjs for you to implement compute().",
+  "id": "eco_efficiency",
+  "title": "Economy efficiency over time — metal-excess % and energy:metal ratio per team",
+  "granularity": "team-per-time",
+  "value": { "formula": "metal_plus_energy_div_70" },
+  "inputs": ["team_stats", "extra_stat_update"],
+  "params": { "sampling": { "everyFrames": 450, "fps": 30 } },
+  "$notes": "After scaffolding, implement compute() in the generated module (see economy_composition.mjs as the reference). Set status=active in catalog.json when ready."
+}

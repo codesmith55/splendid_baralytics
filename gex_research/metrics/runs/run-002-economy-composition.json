@@ -1,0 +1,48 @@
+{
+  "$comment": "RUN CONFIG — Economy composition for the most recent 8v8 (2026-06-09 18:22, All That Glitters). Run via: node process/run.mjs 002",
+  "runId": "run-002-economy-composition",
+  "title": "Economy composition % per player — 8v8 All That Glitters v2.2.3  (2026-06-09)",
+  "created": "2026-06-09",
+
+  "input": {
+    "source": "headless",
+    "demoFile": "C:/Users/codes/AppData/Local/Programs/Beyond-All-Reason/data/demos/2026-06-09_18-22-32-850_All That Glitters v2.2.3_2025.06.24.sdfz",
+    "engine": "recoil_2025.06.24",
+    "reuseExisting": true,
+    "$note_source": "source=headless runs spring-headless on demoFile first then parses the resulting actions.json. reuseExisting=true skips re-extraction if actions.json is already in the temp working directory."
+  },
+
+  "roster": {
+    "source": "auto"
+  },
+
+  "sampling": { "everyFrames": 450, "fps": 30 },
+
+  "metrics": [
+    {
+      "id": "economy_composition",
+      "params": {
+        "value": { "formula": "metal_plus_energy_div_70" },
+        "commanderValue": 1200,
+        "commanderBuckets": ["build_power", "military"]
+      }
+    },
+    {
+      "id": "self_reclaim",
+      "params": {
+        "value": { "formula": "metal_plus_energy_div_70" },
+        "commanderValue": 1200
+      }
+    }
+  ],
+
+  "situations": [
+    { "id": "per_user" },
+    { "id": "mirror_by_start_position", "params": { "mapAdapter": "all_that_glitters", "maxPairDistance": 6000 } }
+  ],
+
+  "output": {
+    "dir": "../../output/run-002",
+    "formats": ["json", "html"]
+  }
+}

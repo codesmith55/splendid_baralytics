@@ -1,0 +1,27 @@
+{
+  "$comment": "MASTER LIST of every 'situation' — a way of slicing/comparing/pairing the output of a metric. The process applies a situation to a metric result. Add new situations with process/addSituation.mjs. 'module' resolves relative to process/lib/situations/.",
+  "version": 1,
+  "updated": "2026-06-09",
+  "situations": [
+    {
+      "id": "per_user",
+      "title": "Per-user — one series per user and the team they control",
+      "created": "2026-06-09",
+      "status": "active",
+      "module": "per_user.mjs",
+      "needs": [],
+      "desc": "Pass-through, presented per USER. The engine calls each army a 'team'; here a team is defined as the User controlling it. Each row carries userId + name and the teamID the user controls."
+    },
+    {
+      "id": "mirror_by_start_position",
+      "title": "Mirror matchup — pair each player with the opponent at the mirrored start position",
+      "created": "2026-06-09",
+      "status": "active",
+      "module": "mirror_by_start_position.mjs",
+      "needs": ["start_positions"],
+      "pairing": "reflect each team's start position across the midpoint of all starts; pair with the nearest opposing-allyteam start",
+      "desc": "Produces side-by-side pairs (you vs your mirror) so a player's composition can be compared against the structurally-equivalent opponent. Falls back to commander-spawn coordinates from the action log when no demo roster is supplied.",
+      "params": { "maxPairDistance": 4000 }
+    }
+  ]
+}

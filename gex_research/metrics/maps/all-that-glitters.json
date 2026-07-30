@@ -1,0 +1,174 @@
+{
+  "$comment": "Mirror-pairing schema for All That Glitters. User-maintained; edit to correct pairings for new map versions. See mirror_by_start_position.mjs for how this is consumed.",
+
+  "mapId": "all_that_glitters",
+  "displayName": "All That Glitters",
+  "namePattern": "All That Glitters",
+
+  "mirrorSchema": "split_axis",
+
+  "splitAxis": {
+    "description": "ATG has two structural mirror types. The 2 back-centre slots per side (those near the map's horizontal midline) are 180° point-reflected opposites: flip BOTH x and z through the map centre. The remaining 6 flank slots per side are single-axis (Z-only) mirror opposites: keep the same horizontal side, flip only z. Left-flank bottom pairs with left-flank top; right-flank bottom pairs with right-flank top.",
+
+    "backMiddle": {
+      "reflection": "XZ",
+      "xRangeFromCenter": 1000,
+      "note": "Positions where abs(x - mapW/2) < xRangeFromCenter are classified as back-middle and use full point-reflection (XZ). For ATG at mapW=6144 this means 2072 < x < 4072."
+    },
+
+    "flank": {
+      "reflection": "Z",
+      "matchSameSide": true,
+      "note": "All other positions use Z-only reflection. 'matchSameSide' restricts candidates to the same horizontal half of the map (x < mapW/2 matches x < mapW/2, etc.), so left-flank pairs with left-flank and right-flank pairs with right-flank. When one side has more flank players than the other (players chose asymmetric spawns), the excess are left unpaired."
+    },
+
+    "knownSlots": {
+      "$comment": "Approximate canonical spawn positions observed on ATG v2.2.3. Coordinates in elmos. Role and position number added for named positions (see positionRoles below). Used for documentation; the algorithm classifies by actual commander-spawn position, not these values.",
+      "bottom": [
+        { "label": "front-left-far",     "role": "Anti-Canyon", "position": 1, "approxX":  648, "approxZ": 8204 },
+        { "label": "front-left",         "role": "Carry",       "position": 2, "approxX": 1833, "approxZ": 8310 },
+        { "label": "front-centre",       "role": "Rainbow",     "position": 3, "approxX": 3091, "approxZ": 8216 },
+        { "label": "front-right",        "role": "Canyon",      "position": 4, "approxX": 5149, "approxZ": 8262 },
+        { "label": "back-left-far",      "role": "Back Corner", "position": 5, "approxX":  381, "approxZ": 9635 },
+        { "label": "back-left",          "role": "Air",         "position": 7, "approxX": 1736, "approxZ": 9939 },
+        { "label": "back-centre",        "role": "Tech",        "position": 6, "approxX": 3463, "approxZ": 9656 },
+        { "label": "back-right",         "role": "Back Canyon", "position": 8, "approxX": 5467, "approxZ": 9469 }
+      ],
+      "top": [
+        { "label": "front-centre-left",  "approxX": 3056, "approxZ": 1988 },
+        { "label": "front-centre-right", "approxX": 2427, "approxZ":  449 },
+        { "label": "front-right",        "approxX": 5467, "approxZ": 2021 },
+        { "label": "front-right-far",    "approxX": 5758, "approxZ":  606 },
+        { "label": "front-right-mid",    "approxX": 4293, "approxZ": 1993 },
+        { "label": "front-right-inner",  "approxX": 4186, "approxZ":  589 },
+        { "label": "front-left",         "approxX": 1157, "approxZ": 1961 },
+        { "label": "front-left-far",     "approxX":  670, "approxZ":  724 }
+      ]
+    }
+  },
+
+  "techSpawnMexes": {
+    "$comment": "Metal extractor positions for the Tech player spawn (position 6). Coordinates in elmos, ±8 elmos accuracy (metal map is 16 elmos/pixel). Extracted from ATG2.smf binary inside all_that_glitters_v2.2.3.sd7. 7th mex = most likely meta pick; confirm from current BAR community consensus.",
+
+    "blue_tech_spawn_7_mex_coordinates": {
+      "spawn":        { "x": 3520, "z": 9696 },
+      "triple_cluster": [
+        { "id": 1, "x": 3448, "z": 9800, "note": "immediate spawn mex" },
+        { "id": 2, "x": 3672, "z": 9720, "note": "immediate spawn mex" },
+        { "id": 3, "x": 3320, "z": 9608, "note": "immediate spawn mex" }
+      ],
+      "expansion_3": [
+        { "id": 4, "x": 2888, "z": 9320, "dist_from_spawn": 735 },
+        { "id": 5, "x": 2776, "z": 9864, "dist_from_spawn": 763 },
+        { "id": 6, "x": 3208, "z": 8920, "dist_from_spawn": 836 }
+      ],
+      "seventh_mex":  { "id": 7, "x": 4760, "z": 10056, "dist_from_spawn": 1291, "note": "back-right corner — safe expansion, most likely new meta 7th pick; confirm from current BAR community" }
+    },
+
+    "red_tech_spawn_7_mex_coordinates": {
+      "spawn":        { "x": 2800, "z": 715 },
+      "triple_cluster": [
+        { "id": 1, "x": 2696, "z":  712, "note": "immediate spawn mex" },
+        { "id": 2, "x": 2904, "z":  648, "note": "immediate spawn mex" },
+        { "id": 3, "x": 2904, "z":  872, "note": "immediate spawn mex" }
+      ],
+      "expansion_3": [
+        { "id": 4, "x": 2328, "z":  344, "dist_from_spawn": 600 },
+        { "id": 5, "x": 2760, "z": 1320, "dist_from_spawn": 606 },
+        { "id": 6, "x": 3336, "z":  424, "dist_from_spawn": 610 }
+      ],
+      "seventh_mex":  { "id": 7, "x": 3848, "z":  232, "dist_from_spawn": 1154, "note": "top-right corner — safe expansion, most likely new meta 7th pick; confirm from current BAR community" }
+    }
+  },
+
+  "positionRoles": {
+    "$comment": "Named position roles for ATG. Orientation: your team at bottom (high Z), opponents at top (low Z). 4 front positions (low-Z end of your half) numbered left-to-right (1-4), back positions numbered 5-8 (not strictly left-to-right: 5=far-left, 7=left-center, 6=center-right, 8=far-right). Front positions have an F-number abbreviation (F1-F4). Laning is cross-mirror: the map flips, so F1 lanes against enemy F4, F2 against F3, F3 against F2, F4 against F1.",
+    "orientation": "bottom_team",
+    "roles": [
+      {
+        "position": 1,
+        "role": "Anti-Canyon",
+        "abbrev": "AC",
+        "frontAbbrev": "F1",
+        "lanesAgainst": "F4",
+        "row": "front",
+        "approxX":  648,
+        "approxZ": 8204,
+        "description": "Far-left front. Fights into the canyon from the open side. Named for strategic opposition to the canyon geography on the right side of the map.",
+        "notes": "Metal-rich side; creates a mismatch advantage vs the opposing Canyon position."
+      },
+      {
+        "position": 2,
+        "role": "Carry",
+        "abbrev": "Carry",
+        "frontAbbrev": "F2",
+        "lanesAgainst": "F3",
+        "row": "front",
+        "approxX": 1833,
+        "approxZ": 8310,
+        "description": "Left-center front."
+      },
+      {
+        "position": 3,
+        "role": "Rainbow",
+        "abbrev": "Rainbow",
+        "frontAbbrev": "F3",
+        "lanesAgainst": "F2",
+        "row": "front",
+        "approxX": 3091,
+        "approxZ": 8216,
+        "description": "Center front. Faces opponents pushing from multiple directions — expects to fight 'a rainbow of enemy colors'."
+      },
+      {
+        "position": 4,
+        "role": "Canyon",
+        "abbrev": "Canyon",
+        "frontAbbrev": "F4",
+        "lanesAgainst": "F1",
+        "row": "front",
+        "approxX": 5149,
+        "approxZ": 8262,
+        "description": "Far-right front, inside the canyon geography. Fewer mexes than other positions; generally does not contest mexes outside the canyon. Economically weaker, creating a metal mismatch vs the opposing AC position.",
+        "notes": "Metal deficit vs AC makes even-unit-count fights unfavorable; relies on canyon geography for defensive advantage."
+      },
+      {
+        "position": 5,
+        "role": "Back Corner",
+        "abbrev": "BC",
+        "row": "back",
+        "approxX":  381,
+        "approxZ": 9635,
+        "description": "Far-left back, directly behind the AC position. Starts with 6 mexes; picks up 1-2 front mexes when AC is winning the front."
+      },
+      {
+        "position": 6,
+        "role": "Tech",
+        "abbrev": "Tech",
+        "row": "back",
+        "approxX": 3463,
+        "approxZ": 9656,
+        "description": "Center-right back. Bypasses early unit production to build the T2 factory, funnels team resources into a single T2 factory, then produces multiple T2 constructors to distribute across the team.",
+        "notes": "Acts as team T2 hub; individual economy sacrificed early for team-wide T2 acceleration."
+      },
+      {
+        "position": 7,
+        "role": "Air",
+        "abbrev": "Air",
+        "row": "back",
+        "approxX": 1736,
+        "approxZ": 9939,
+        "description": "Left-center back. Opens with an air factory (Cortex faction preferred — Shuriken interceptors are strong early), transitioning into air-based harassment and control."
+      },
+      {
+        "position": 8,
+        "role": "Back Canyon",
+        "abbrev": "BC2",
+        "row": "back",
+        "approxX": 5467,
+        "approxZ": 9469,
+        "description": "Far-right back, behind the Canyon position. Canyon-side mirror of Back Corner. Starts with 6 mexes; picks up 1-2 front mexes when the enemy allows it.",
+        "notes": "Symmetric to Back Corner (pos 5) in structure but on the canyon flank; canyon geography may constrain front mex access more than the AC-side equivalent."
+      }
+    ]
+  }
+}

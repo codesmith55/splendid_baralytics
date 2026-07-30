@@ -1,0 +1,42 @@
+{
+  "_generated_by": "ryan_adapter assess on 2026-07-01 -- edit to extend",
+  "_project": "barbots",
+  "permissions": {
+    "allow": [
+      "Bash(git status)",
+      "Bash(git log:*)",
+      "Bash(git diff:*)",
+      "Bash(git show:*)",
+      "Bash(git branch:*)",
+      "Bash(git stash list:*)",
+      "Bash(git ls-files:*)",
+      "Bash(python --version)",
+      "Bash(python -m pytest:*)",
+      "Bash(python -c \"import sys; print(sys.path)\")",
+      "Bash(curl -s http://127.0.0.1:11434/api/tags)",
+      "Bash(python -m task_monitor:*)",
+      "Bash(python -m scan_log:*)",
+      "Bash(python Capabilities.py --status)",
+      "Bash(python Capabilities.py --registry)",
+      "Bash(python Capabilities.py --spec)",
+      "Bash(npm run test:*)",
+      "Bash(npm run:*)",
+      "Bash(pnpm run:*)",
+      "Bash(npx:*)",
+      "Bash(node:*)"
+    ],
+    "deny": [
+      "Bash(rm -rf /:*)",
+      "Bash(rm -rf ~:*)",
+      "Bash(git push --force:*)",
+      "Bash(git push -f:*)",
+      "Bash(git reset --hard:*)",
+      "Bash(git clean -fd:*)",
+      "Bash(drop table:*)",
+      "Bash(DELETE FROM:*)",
+      "Read(**/.env*)",
+      "Read(**/*.pem)",
+      "Read(**/id_rsa*)"
+    ]
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls -la \"C:\\\\Users\\\\codes\\\\Documents\\\\GitHub\\\\\" | head -50)",
+      "PowerShell(Get-ChildItem \"C:\\\\Users\\\\codes\\\\Documents\\\\GitHub\\\\splendid_baralytics\" -Force | Where-Object { $_.Name -match \"eco_engine\" })",
+      "Bash(python capabilities.py --spec)",
+      "Bash(python bar_analytic_server.py)",
+      "Bash(ping -n 3 127.0.0.1)",
+      "Bash(Start-Sleep -Seconds 2)",
+      "Bash(Get-Content \"C:\\\\Users\\\\codes\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\C--Users-codes-Documents-GitHub-barbots\\\\de989814-d06f-460c-844a-354b21ee7d15\\\\tasks\\\\blhulxzqm.output\" -ErrorAction SilentlyContinue)",
+      "PowerShell(Get-Process python -ErrorAction SilentlyContinue)",
+      "Bash(Get-Content \"C:\\\\Users\\\\codes\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\C--Users-codes-Documents-GitHub-barbots\\\\4cf3bf13-612e-437f-87fc-d6811343483f\\\\tasks\\\\bcwlwhslo.output\" -Wait)",
+      "Bash(Select-String -Pattern \".\")",
+      "Bash(python bar_analytic_server.py --no-exit)",
+      "PowerShell(netstat -ano | findstr \":8787\"; Get-Process python -ErrorAction SilentlyContinue | Where-Object {$_.StartTime -gt \\(Get-Date\\).AddMinutes\\(-2\\)} | Select-Object Id, CPU, StartTime)",
+      "Bash(mkdir -p \"C:\\\\Users\\\\codes\\\\Documents\\\\GitHub\\\\splendid_baralytics\\\\.claude\\\\commands\")",
+      "Bash(git checkout *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)",
+      "Bash(gh pr create --title 'docs: CLAUDE.md agent guide + /barlytics slash command' --body ' *)"
+    ]
+  }
+}

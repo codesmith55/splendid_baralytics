@@ -1,0 +1,41 @@
+{
+  "_meta": {
+    "purpose": "Cost + walk table for planner/expand-goals.mjs. Maps a goal's unit type to metal/energy/build-work and gives each builder its build power, move speed, and build range.",
+    "buildWork": "Build work in buildpower-seconds (BAR units/*.lua `buildTime`). Wall-clock build_time_s = buildWork / builderBuildPower, so the same building takes longer when a weaker builder makes it.",
+    "elmosPerGridSquare": 48.3,
+    "elmosPerGridSquareNote": "= commander build range (145) / 3 squares. From bar-calc/eco-calculator-suite/bar_distance.py — the one tunable map-calibration assumption.",
+    "sources": {
+      "bar-calc": "Transcribed from splendid_baralytics/bar-calc/bar_unified.py (building costs) and eco-calculator-suite/bar_distance.py (builder speed/range/build-power). These are flagged `_source` and treated as canonical.",
+      "PROVISIONAL": "Entries with `_PROVISIONAL: true` are NOT in bar-calc (it only tables buildings, not bot units or the T2 lab). Numbers are placeholders; the canonical value must be pulled from the named `_canonical` BAR unit def. Do not trust these for projection."
+    }
+  },
+
+  "builders": {
+    "commander": { "buildPower": 300, "speed": 37.5, "buildRange": 145, "_source": "bar-calc/bar_distance.py" },
+    "con":       { "buildPower": 80,  "speed": 36.0, "buildRange": 130, "_source": "bar-calc/bar_distance.py" }
+  },
+  "_builderResolution": "Actor 'com'/'commander' -> commander profile. Every other actor (workers, con bots, laz, give/reclaim units, and the unassigned 'pool:any') -> con profile. pool:any is the placeholder for a build whose `who` the intent left open; the expander defaults it to a con and flags nothing, but the projection step should re-resolve it once site/actor assignment is real.",
+
+  "units": {
+    "mex":    { "metal": 50,  "energy": 500,  "buildWork": 1800,  "metalIncome": 1.8, "energyIncome": -3, "_source": "bar-calc/bar_unified.py (Mex)" },
+    "solar":  { "metal": 155, "energy": 0,    "buildWork": 2600,  "energyIncome": 20, "_source": "bar-calc/bar_unified.py (Solar)" },
+    "wind":   { "metal": 40,  "energy": 175,  "buildWork": 1600,  "energyIncome": 10, "_source": "bar-calc/bar_unified.py (Wind)", "_note": "energyIncome is wind-condition dependent; 10 = all-that-glitters average. The intent's `conditional` carries the substitution rule." },
+    "botlab": { "metal": 620, "energy": 1200, "buildWork": 6500,  "buildPower": 100, "isFactory": true, "_source": "bar-calc/bar_unified.py (BotFactory)" },
+    "t2mex":  { "metal": 620, "energy": 7700, "buildWork": 14900, "metalIncome": 7.3, "_source": "bar-calc/bar_unified.py (AMex / advanced extractor)" },
+
+    "con":   { "metal": 110, "energy": 1600, "buildWork": 3450,  "buildPower": 80,  "_source": "bar-calc/bar_unified.py (BotWorker) + gex_research/process/lib/sim/eco_engine.mjs (worker) — both agree", "_note": "maps to eco_engine 'worker' key; gives {builderBp:80, ePerSec:7} on completion" },
+    "laz":   { "metal": 110, "energy": 1100, "buildWork": 4500,  "_PROVISIONAL": true, "_canonical": "BAR units/armlaz.lua", "_note": "not in bar-calc or eco_engine; no income effect on completion" },
+    "t2lab": { "metal": 720, "energy": 1700, "buildWork": 16000, "buildPower": 200, "isFactory": true, "_PROVISIONAL": true, "_canonical": "BAR units/armalab.lua (advanced bot lab)", "_note": "not in bar-calc; adds 200 BP builder on completion" },
+
+    "_legion_section": "Legion unit costs from gex_research/legion/legion_unitdefs.json. Use leg_* names in Legion intent files so ARM tests are unaffected.",
+    "leg_mex":     { "metal": 50,  "energy": 500,  "buildWork": 1880, "_source": "legion_unitdefs.json (legmex)" },
+    "leg_factory": { "metal": 470, "energy": 1050, "buildWork": 5000, "buildPower": 150, "isFactory": true, "_source": "legion_unitdefs.json (leglab)" },
+    "leg_con":     { "metal": 100, "energy": 1600, "buildWork": 3250, "buildPower": 80,  "_source": "legion_unitdefs.json (legck)", "_note": "maps to eco_engine 'worker' key" },
+    "leg_medmex":  { "metal": 250, "energy": 5000, "buildWork": 5000, "_source": "legion_unitdefs.json (legmext15)", "_note": "upgrades legmex slot: ΔM ≈+2.28 m/s net, ΔE = −37 E/s swing. Proxied as mex:1 in eco_engine (ARM rate); build timing model is accurate." },
+    "leg_turret":  { "metal": 230, "energy": 3200, "buildWork": 5300, "_source": "legion_unitdefs.json (legnanotc)", "_note": "maps to eco_engine 'conTurret' (costs already match); gives {builderBp:200}" },
+    "leg_estor":   { "metal": 175, "energy": 1800, "buildWork": 4260, "_source": "legion_unitdefs.json (legestor)", "_note": "maps to eco_engine 'eStorage' gives {storE:6000}; costs differ from eco_engine's ARM eStorage entry" },
+    "leg_t2factory": { "metal": 2600, "energy": 16000, "buildWork": 25200, "buildPower": 600, "isFactory": true, "_source": "legion_unitdefs.json (legalab)", "_note": "T2 bot lab; FACTORY_BUILDERS adds 600 BP in project.mjs" },
+    "leg_t2con":     { "metal": 410,  "energy": 6900,  "buildWork": 9300,  "buildPower": 195, "_source": "legion_unitdefs.json (legack)", "_note": "T2 con bot; UNITS_EXT gives {builderBp:195, ePerSec:14}" },
+    "leg_fusion":    { "metal": 4000, "energy": 25000, "buildWork": 66000, "_source": "legion_unitdefs.json (legfus)", "_note": "T2 fusion; UNITS_EXT gives {ePerSec:950}" }
+  }
+}

@@ -1,0 +1,88 @@
+!welcome-message 6 Eco Rules in Order.
+Metal + Energy = BP
+Metal + No Energy = Solar
+Default = Wind
+Metal + Energy + BP = Estore (1/3 CT)
+No Metal + Energy + Estorage = Reclaim Solars
+No Metal + Energy + No Solars = EConverters
+ 
+ Open a Skirmish lobby and pick a map(glitters fine), turn game mode ending = never, play the first 5 minutes and then pause. 
+ Zoom out, holding shift select everything and look in the bottom left to see how much metal and energy everything you have is worth, add your current metal and energy. Back to lobby try again and compare or move on to the next build mode. 
+ 
+ Build Order Modes: 
+ Mode 1: Suggest opening 3 mex > 2 solar > factory > wind. Only Workers, focus on your eco and expansion without thinking about units. Prioritize using spacebar(insert) micro to utilize the eco rules. When you have metal and energy, tell your commander to make more workers to expand in more directions. Workers all just expand out. When you don't have energy, make more wind or solar. When you run out of metal, start reclaiming solars and making econverters. 
+ 
+ Mode 2: Normal standarish build order 
+ 2 mex, 2 wind, 3rd mex, 2 more wind (4 total)
+
+!welcome-message 6 Eco Rules in Order.
+Metal + Energy = BP
+Metal + No Energy = Solar
+Default = Wind
+Metal + Energy + BP = Estore (1/3 CT)
+No Metal + Energy + Estorage = Reclaim Solars
+No Metal + Energy + No Solars = EConverters
+ 
+ Open a Skirmish lobby and pick a map(glitters fine), turn game mode ending = never, play the first 5 minutes and then pause. 
+ Zoom out, holding shift select everything and look in the bottom left to see how much metal and energy everything you have is worth, add your current metal and energy. Back to lobby try again and compare or move on to the next build mode. 
+ 
+ Suggested Build Orders: 
+ Mode 1: 3 mex > 2 solar > factory 
+ Mode 2: 2 mex > 2 wind > mex > 2 wind > factory
+ FactoryBuilds: Only Workers, focus on your eco and expansion without thinking about units. Prioritize using spacebar(insert) micro to utilize the eco rules. When you have metal and energy, tell your commander to make more workers to expand in more directions. Workers all just expand out. 
+
+
+
+ Mode 2: Normal standarish rocket bot or thug push
+ 2 mex > 2 wind or solar > 3rd mex > 2 more wind or solar > factory > mex or wind 
+ Factory builds on repeat yes: worker tick pawn lazarus 5 thug (or 5 rocket bot), with 3 insert(alt) made ticks first, and 3 insert made workers after
+ You'll make tick x3 worker x4 pawn laz 5 thug 1 worker etc on repeat. You just want the extra 3 workers. 
+ Worker 1 expands forward
+ Worker 2 takes a mex and makes wind 
+ Worker 3 expands forward
+ Worker 4 works on the factory
+ When you run out of metal, your commander starts walking forward, the more solars you make, the faster this will be, but the less units you will have
+
+
+####
+
+!welcome-message 6 Eco Rules in Order.
+Metal + Energy = BP
+Metal + No Energy = Solar
+Default = Wind
+Metal + Energy + BP = Estore (1/3 CT)
+No Metal + Energy + Estorage = Reclaim Solars
+No Metal + Energy + No Solars = EConverters
+ 
+ Open a Skirmish lobby and pick a map(glitters fine), turn game mode ending = never, play the first 5 minutes and then pause. 
+ Zoom out, holding shift select everything and look in the bottom left to see how much metal and energy everything you have is worth, add your current metal and energy. Back to lobby try again and compare or move on to the next build mode. 
+ 
+ Build Order Modes: 
+ Mode 1: Suggest opening 3 mex > 2 solar > factory > wind. Only Workers, focus on your eco and expansion without thinking about units. Prioritize using spacebar(insert) micro to utilize the eco rules. When you have metal and energy, tell your commander to make more workers to expand in more directions. Workers all just expand out. When you don't have energy, make more wind or solar. When you run out of metal, start reclaiming solars and making econverters. 
+ 
+ Mode 2: Normal standarish rocket bot or thug push
+ 2 mex > 2 wind or solar > 3rd mex > 2 more wind or solar > factory > mex or wind 
+ Factory builds on repeat yes: worker tick pawn lazarus 5 thug (or 5 rocket bot), with 3 insert(alt) made ticks first, and 3 insert made workers after
+ You'll make tick x3 worker x4 pawn laz 5 thug 1 worker etc on repeat. You just want the extra 3 workers. 
+ Worker 1 expands forward
+ Worker 2 takes a mex and makes wind 
+ Worker 3 expands forward
+ Worker 4 works on the factory
+ When you run out of metal, your commander starts walking forward, the more solars you make, the faster this will be, but the less units you will have when you walk
+
+
+
+####
+
+
+
+6 Eco Rules in Order.
+Metal + Energy = BP
+Metal + No Energy = Solar
+Default = Wind
+Metal + Energy + BP = Estore (1/3 CT)
+No Metal + Energy + Estorage = Reclaim Solars
+No Metal + Energy + No Solars = EConverters"
+
+6 Eco Rules in Order. 1: Metal + Energy = BP :2: Metal + No Energy = Solar :3: Default = Wind :4: Metal + Energy + BP = Estore (1/3 CT) :5:No Metal + Energy + Estorage = Reclaim Solars :6:No Metal + Energy + No Solars = EConverters
+
