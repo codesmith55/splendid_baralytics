@@ -13,40 +13,25 @@
 //        loss/death event ("reductions in economy are dramatic indicators"). A near-total,
 //        unrecovered collapse is marked 💀 "died handedly".
 
-// ---- parser resolution (root has no node_modules; reuse the gex demoparser install) ----
-function loadDemoParser() {
-  const attempts = [
-    "sdfz-demo-parser",
-    "./gex_research/tools/demoparser/node_modules/sdfz-demo-parser",
-    "./sdfz-demo-parser",
-  ];
-  for (const id of attempts) {
-    try {
-      const dp = require(id).DemoParser;
-      if (typeof dp === "function") return dp;
-    } catch (_) { /* try next */ }
-  }
-  throw new Error(
-    "sdfz-demo-parser not found. Run `npm install` here, or keep " +
-    "gex_research/tools/demoparser/node_modules installed."
-  );
-}
+// Parsing (demo resolution, cumulative→rate series, end-flush trim, unit value flow) lives in
+// splendid_buildParser.js — the shared "build parser" the simulator and strategizer also use.
+// This file keeps only the analysis: comparative economy, collapse detection, battles, splits.
+//
+// Sibling scripts:
+//   splendid_buildParser.js      — game → reality moments (economy, units, builder positions)
+//   splendid_buildSimulator.js   — bar_calc Environment port; reset-to-reality + simulate
+//   splendid_buildStrategizer.js — chooses what each build-power source should do next
 
 const fs = require("fs");
 const path = require("path");
+const {
+  FPS, VALUE_E_DIV, MIN_PEAK,
+  loadDemoParser, resolveDemo, buildTeamMeta, computeSeries, trimEndFlush, loadValueFlow,
+} = require("./splendid_buildParser");
 
-const FPS = 30;                  // BAR sim frames per second
-const VALUE_E_DIV = 70;          // energy→metal value conversion (repo convention)
-const MIN_PEAK = 40;             // ignore "collapses" of trivially small economies (value/s)
 const COLLAPSE_FRAC = 0.4;       // econ below 40% of trailing peak = collapse
 const DECISIVE_FRAC = 0.15;      // below 15% and unrecovered = "died handedly"
 const RECOVER_FRAC = 0.5;        // climbing back above 50% of peak = recovered
-
-const DEMO_DIRS = [
-  process.env.BAR_DEMOS,
-  "C:/Users/codes/AppData/Local/Programs/Beyond-All-Reason/data/demos",
-  process.env.HOME && path.join(process.env.HOME, ".local/state/Beyond All Reason/demos"),
-].filter(Boolean);
 
 // ----------------------------------------------------------------------------- args
 function parseArgs(argv) {
@@ -62,106 +47,6 @@ function parseArgs(argv) {
   }
   a.demo = rest[0] || "latest";
   return a;
-}
-
-function demosDir(override) {
-  const dirs = override ? [override, ...DEMO_DIRS] : DEMO_DIRS;
-  for (const d of dirs) { try { if (fs.statSync(d).isDirectory()) return d; } catch (_) {} }
-  return null;
-}
-
-function resolveDemo(arg, dirOverride) {
-  if (arg && arg !== "latest" && fs.existsSync(arg)) return arg;
-  const dir = demosDir(dirOverride);
-  if (!dir) throw new Error("no demos directory found; pass a demo path or --dir <dir>");
-  if (arg && arg !== "latest") {
-    const direct = path.join(dir, arg);
-    if (fs.existsSync(direct)) return direct;
-  }
-  const demos = fs.readdirSync(dir).filter(f => f.endsWith(".sdfz"))
-    .map(f => ({ f, m: fs.statSync(path.join(dir, f)).mtimeMs }))
-    .sort((x, y) => y.m - x.m);
-  if (!demos.length) throw new Error(`no .sdfz demos in ${dir}`);
-  return path.join(dir, demos[0].f);
-}
-
-// ------------------------------------------------------------------------- team meta
-function buildTeamMeta(info) {
-  const meta = new Map(); // teamId -> { name, ally, faction, isAI }
-  for (const p of info.players || [])
-    meta.set(p.teamId, { name: p.name, ally: p.allyTeamId, faction: p.faction || "?", isAI: false });
-  for (const ai of info.ais || [])
-    meta.set(ai.teamId, { name: ai.name || `AI ${ai.teamId}`, ally: ai.allyTeamId, faction: ai.faction || "AI", isAI: true });
-  return meta;
-}
-
-// ------------------------------------------------- differentiate cumulative -> rates
-// Returns per-team series of { frame, sec, econ, metalInc, energyInc, buildUse, waste,
-//                              dmgRecvRate, unitsDiedRate, cumUnitsDied, cumDmgRecv }
-function computeSeries(teamStats) {
-  const out = new Map();
-  for (const key of Object.keys(teamStats)) {
-    const teamId = Number(key);
-    const samples = teamStats[key];
-    if (!samples || samples.length < 2) { out.set(teamId, []); continue; }
-    const series = [];
-    for (let i = 1; i < samples.length; i++) {
-      const a = samples[i - 1], b = samples[i];
-      const dt = Math.max((b.frame - a.frame) / FPS, 1e-6);
-      const metalInc = (b.metalProduced - a.metalProduced) / dt;
-      const energyInc = (b.energyProduced - a.energyProduced) / dt;
-      const econ = metalInc + energyInc / VALUE_E_DIV;
-      const buildUse = (b.metalUsed - a.metalUsed) / dt
-        + ((b.energyUsed - a.energyUsed) / dt) / VALUE_E_DIV;
-      const waste = (b.metalExcess - a.metalExcess) / dt
-        + ((b.energyExcess - a.energyExcess) / dt) / VALUE_E_DIV;
-      series.push({
-        frame: b.frame,
-        sec: b.frame / FPS,
-        econ, metalInc, energyInc, buildUse, waste,
-        dmgRecvRate: (b.damageReceived - a.damageReceived) / dt,
-        unitsDiedRate: (b.unitsDied - a.unitsDied) / dt,
-        cumUnitsDied: b.unitsDied,
-        cumDmgRecv: b.damageReceived,
-        // absolute per-interval deltas (for minute-over-minute battle/swing aggregation)
-        dDealt: b.damageDealt - a.damageDealt,
-        dTaken: b.damageReceived - a.damageReceived,
-        dKilled: b.unitsKilled - a.unitsKilled,
-        dLost: b.unitsDied - a.unitsDied,
-        dBuilt: b.unitsProduced - a.unitsProduced,
-        dProduced: (b.metalProduced - a.metalProduced) + (b.energyProduced - a.energyProduced) / VALUE_E_DIV,
-      });
-    }
-    out.set(teamId, series);
-  }
-  return out;
-}
-
-// When a game ends (or is mass-resigned) the FINAL stat interval shows a broad,
-// simultaneous economy crater across most teams — an artifact, not a death. Detect that
-// (median last/prev econ ratio < 0.5 among teams that had a real economy) and drop the
-// trailing sample from every series so it skews neither collapse detection nor finals.
-// Returns the number of flush samples trimmed.
-function trimEndFlush(seriesMap, maxTrim = 2) {
-  let trimmed = 0;
-  for (let pass = 0; pass < maxTrim; pass++) {
-    const arrs = [...seriesMap.values()].filter(s => s.length >= 2);
-    if (arrs.length < 3) break;
-    const len = Math.max(...arrs.map(s => s.length));
-    const ratios = [];
-    for (const s of arrs) {
-      if (s.length !== len) continue;
-      const last = s[s.length - 1].econ, prev = s[s.length - 2].econ;
-      if (prev > MIN_PEAK) ratios.push(last / prev);
-    }
-    if (ratios.length < 3) break;
-    ratios.sort((a, b) => a - b);
-    const median = ratios[Math.floor(ratios.length / 2)];
-    if (median >= 0.5) break;                 // not a broad crater — keep it
-    for (const [k, s] of seriesMap) if (s.length === len) seriesMap.set(k, s.slice(0, -1));
-    trimmed++;
-  }
-  return trimmed;
 }
 
 // ------------------------------------------------------------- collapse / death model
@@ -200,36 +85,6 @@ function detectCollapse(series) {
   const dmgTaken = Math.max(0, trough.cumDmgRecv - peak.cumDmgRecv);
 
   return { peak, trough, dropFrac, recovered, recoveredAt, decisive, unitsLost, dmgTaken };
-}
-
-// ---------------------------------------------------- unit value flow (headless lifecycle)
-// The .sdfz demo records only player COMMANDS — it has no unit-creation/death events. To get
-// the RESOURCE VALUE of units built (+) and lost (−) per minute we need a headless lifecycle
-// dump (gex_research actions.json: unit_def + unit_created/unit_killed). value = metal + e/70,
-// commander = flat 1200 (matches process/lib/classify.mjs). Returns Map<teamId,{built[],lost[]}>.
-function loadValueFlow(actionsPath, bucketSec, nBuckets) {
-  const lines = fs.readFileSync(actionsPath, "utf8").split(/\r?\n/);
-  const bf = bucketSec * FPS;
-  const val = new Map();                       // defID -> value
-  const events = [];
-  for (const ln of lines) {
-    if (!ln) continue;
-    let e; try { e = JSON.parse(ln); } catch { continue; }
-    if (e.action === "unit_def") {
-      const com = e.isCommander === true || /com$/.test(e.defName || "");
-      val.set(e.defID, com ? 1200 : (e.metalCost || 0) + (e.energyCost || 0) / VALUE_E_DIV);
-    } else events.push(e);
-  }
-  const flow = new Map();
-  const ensure = t => { if (!flow.has(t)) flow.set(t, { built: new Array(nBuckets).fill(0), lost: new Array(nBuckets).fill(0) }); return flow.get(t); };
-  for (const e of events) {
-    if (typeof e.frame !== "number" || typeof e.teamID !== "number") continue;
-    const bi = Math.min(nBuckets - 1, Math.floor(e.frame / bf));
-    if (bi < 0) continue;
-    if (e.action === "unit_created" || e.action === "factory_unit_created") ensure(e.teamID).built[bi] += val.get(e.defID) || 0;
-    else if (e.action === "unit_killed") ensure(e.teamID).lost[bi] += val.get(e.defID) || 0;
-  }
-  return flow;
 }
 
 // ------------------------------------------------------- battles & swings (per minute)
