@@ -13,6 +13,11 @@ lua, node, npm
 ## Entry points
 
 - `npm run test`  — node planner/test/parse-intent.test.mjs && node planner/test/expand-goals.test.m
+- `python decider/decider.py --game <jsonl|1> [--all-profiles]`  — state → playstyle-weighted intent
+- `python adapter/transcript.py '<intent json>'`  — intent → keyboard/mouse action transcript
+- `python adapter/bar_adapter.py [--once '<intent>']`  — adapter role on the relay hub
+- `python bots/run_bot.py --offline|--demo <game> | (live)`  — full Watcher→Decider→Acter loop
+  (hub + acter live in `../ryan_adapter/relay`: `python -m relay hub` / `python -m relay acter`)
 
 ## Session protocol
 
