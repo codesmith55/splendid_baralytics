@@ -40,6 +40,15 @@ const out = {
   winningAllyTeamIds: pick(meta, "winningAllyTeamIds") || [],
   durationMs: pick(meta, "durationMs"),
   playerCount: players.length,
+  // AI opponents are not in `players`, so a skirmish against a bot looks like a
+  // solo game without this. Callers distinguish 1v0 from 1vAI on it.
+  aiCount: (info.ais || []).length,
+  ais: (info.ais || []).map(a => ({
+    aiId: pick(a, "aiId", "id"), name: pick(a, "name", "shortName"),
+    shortName: pick(a, "shortName"), teamId: pick(a, "teamId", "team"),
+    allyTeamId: pick(a, "allyTeamId", "allyTeam"),
+    hostPlayerId: pick(a, "hostPlayerId"),
+  })),
   players,
 };
 

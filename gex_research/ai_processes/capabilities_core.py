@@ -114,7 +114,7 @@ from typing import Dict, List, Optional, Tuple
 # Version constants
 # -----------------------------------------------------------------------------
 
-CORE_VERSION   = "1.3"   # bump when the protocol/framework changes
+CORE_VERSION   = "1.4"   # bump when the protocol/framework changes
 SCHEMA_VERSION = "1.3"   # bump when the --spec JSON schema changes
 
 
@@ -165,10 +165,12 @@ def _discover_local() -> List[Dict]:
     wrapper itself are excluded.
     """
     here = _LOCAL_DIR if _LOCAL_DIR is not None else Path(__file__).parent
-    exclude = {"capabilities", "capabilities_core", "__init__"}
+    # Case-insensitive: Windows projects ship `Capabilities.py`, which would
+    # otherwise be re-imported (with every sibling module) on each menu open.
+    exclude = {"capabilities", "capabilities_core", "__init__", "cap_view"}
     discovered: List[Dict] = []
     for path in sorted(here.glob("*.py")):
-        if path.stem in exclude:
+        if path.stem.lower() in exclude:
             continue
         try:
             spec = importlib.util.spec_from_file_location(path.stem, path)

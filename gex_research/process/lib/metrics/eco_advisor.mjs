@@ -2,7 +2,7 @@
 //
 // Walks the replay in 15s intervals from the PLAYER'S PERSPECTIVE: reconstructs
 // what they could see (stockpiles, income, wind, their own structures), applies
-// the economic rule cascade from bar-calc/build-order-calc/bar_economy.md, and
+// the economic rule cascade from bar-calc/bar_economy.md, and
 // emits the response that "would have made sense". Then compares against what
 // they actually completed next, producing a followed/deviated verdict per interval.
 //

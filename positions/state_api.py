@@ -6,7 +6,10 @@ Pure-function state transitions. JSON-in / JSON-out (HTTP-compatible).
 All public api_* functions accept / return plain dicts.
 
 Canonical source for economy constants used by compare.py, navigator.py,
-meta_log.py, and live/bar_analytic_server.py.
+meta_log.py, and live/bar_analytic_server.py - itself resolved from
+bar-calc/econ_model.json + the engine unit-def dumps (bar-calc/econ_data.py),
+the same files splendid_buildSimulator.js and bar_unified.py read.
+`python positions/state_api.py --selftest` checks against bar-calc/parity.json.
 
 State lifecycle:
   state_from_dict(d) → GameState
@@ -22,42 +25,61 @@ import math, copy
 from dataclasses import dataclass, field
 from typing import Optional, Callable
 
-# ── Physical constants ─────────────────────────────────────────────────────────
-SPOT        = 1.825
-T2_MINGEN   = 300.0     # E/s net required for T2 factory viability
+# ── Model constants ────────────────────────────────────────────────────────────
+# Every number below is resolved from bar-calc/econ_model.json + the engine
+# unit-def dumps it lists (see bar-calc/econ_data.py). The names are kept so
+# navigator.py, compare.py, eco_viz.py and bar_analytic_server.py import as before.
+# `python positions/state_api.py --selftest` checks them against bar-calc/parity.json.
+import os as _os, sys as _sys
+_BAR_CALC = _os.path.join(_os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))), 'bar-calc')
+if _BAR_CALC not in _sys.path:
+    _sys.path.insert(0, _BAR_CALC)
+import econ_data as _ED   # noqa: E402
 
-T1_INC      = 0.75 * SPOT   # legmex:    1.3688 m/s
-MED_INC     = 2.00 * SPOT   # legmext15: 3.6500 m/s (total slot)
-MOHO_INC    = 4.00 * SPOT   # legmoho:   7.3000 m/s (same extractsMetal as armmoho)
+_K = _ED.legion_constants()
 
-MED_DELTA       = MED_INC  - T1_INC     # +2.281 m/s (T1 → med delta)
-MOHO_FROM_T1    = MOHO_INC - T1_INC     # +5.931 m/s (T1 → moho delta)
-MOHO_FROM_MED   = MOHO_INC - MED_INC    # +3.650 m/s (med → moho delta)
+SPOT        = _K['SPOT']          # m/s of a x1.0 extractor on the reference spot
+T2_MINGEN   = _K['T2_MINGEN']     # E/s net required for T2 factory viability
 
-T1_E_NET    = +7.0   # legmex net energy: eUpk=-7 (generates 7, no upkeep cost)
-MED_E_NET   = -30.0  # medmex net energy: cancels legmex +7, adds -30 drain
-MOHO_E_NET  = -20.0  # legmoho net energy: -20 E/s drain
-SOLAR_E     = 20.0   # E/s per solar panel
+T1_INC      = _K['T1_INC']        # legmex     (x0.75 calibrated)
+MED_INC     = _K['MED_INC']       # legmext15  (x2.0, total slot)
+MOHO_INC    = _K['MOHO_INC']      # legmoho    (x4.0)
 
-MED_SWING   = T1_E_NET - MED_E_NET      # 37 E/s swing T1→med
+MED_DELTA       = _K['MED_DELTA']       # T1 -> med delta
+MOHO_FROM_T1    = _K['MOHO_FROM_T1']    # T1 -> moho delta
+MOHO_FROM_MED   = _K['MOHO_FROM_MED']   # med -> moho delta
 
-# Unit costs (from legion_unitdefs.json, bar_unified.py)
-T1_METAL,   T1_E_COST,   T1_BW    = 50,   500,   1880
-MED_METAL,  MED_E_COST,  MED_BW   = 250,  5000,  5000
-SOL_METAL,  SOL_E_COST,  SOL_BW   = 155,  0,     2600
-WIND_METAL, WIND_E_COST, WIND_BW  = 40,   175,   1600
-MOHO_METAL, MOHO_E_COST, MOHO_BW  = 640,  8100,  14100
+T1_E_NET    = _K['T1_E_NET']    # legmex net energy (engine energyUpkeep -7 = produces 7)
+MED_E_NET   = _K['MED_E_NET']   # medmex net energy (-30 drain)
+MOHO_E_NET  = _K['MOHO_E_NET']  # legmoho net energy (-20 drain)
+SOLAR_E     = _K['SOLAR_E']     # E/s per solar panel
 
-BASE_M, BASE_E, BASE_CAP, COM_BP  = 2.0, 25.0, 200.0, 300
+MED_SWING   = _K['MED_SWING']   # E/s swing T1->med
+MED_UPK     = _K['MED_UPK']     # medmex upkeep (E/s)
+MOHO_UPK    = -MOHO_E_NET       # moho upkeep (E/s)
+MEX_UPK     = _K['MEX_UPK']     # legmex upkeep (engine: it produces, so 0)
+TUR_BP      = _K['TUR_BP']      # legnanotc build power
+CON_BP      = _K['CON_BP']      # legck build power
 
-# Reclaim values — 100 % (solar is a BP loan; medmex/mex reclaimed before moho build)
-RCL_SOLAR = SOL_METAL           # 155m per panel
-RCL_MED   = MED_METAL           # 250m per medmex shell
-RCL_T1    = T1_METAL            # 50m per legmex
+# Unit costs (engine defs: legmex, legmext15, legsolar, legwin, legmoho)
+T1_METAL,   T1_E_COST,   T1_BW    = _K['T1_METAL'],   _K['T1_E_COST'],   _K['T1_BW']
+MED_METAL,  MED_E_COST,  MED_BW   = _K['MED_METAL'],  _K['MED_E_COST'],  _K['MED_BW']
+SOL_METAL,  SOL_E_COST,  SOL_BW   = _K['SOL_METAL'],  _K['SOL_E_COST'],  _K['SOL_BW']
+WIND_METAL, WIND_E_COST, WIND_BW  = _K['WIND_METAL'], _K['WIND_E_COST'], _K['WIND_BW']
+MOHO_METAL, MOHO_E_COST, MOHO_BW  = _K['MOHO_METAL'], _K['MOHO_E_COST'], _K['MOHO_BW']
+
+# Commander (legcom): passive incomes, energy cap (team base + commander storage), build power
+BASE_M, BASE_E, BASE_CAP, COM_BP  = _K['BASE_M'], _K['BASE_E'], _K['BASE_CAP'], _K['COM_BP']
+METAL_CAP = _K['METAL_CAP']        # model bank cap for metal (econ_model.json legion.metalCap)
+
+# Reclaim values - 100 % (solar is a BP loan; medmex/mex reclaimed before moho build)
+RCL_SOLAR = _K['RCL_SOLAR']
+RCL_MED   = _K['RCL_MED']
+RCL_T1    = _K['RCL_T1']
 
 # Moho net costs after reclaim of what's underneath
-MOHO_NET_FROM_T1  = MOHO_METAL - RCL_T1              # 590m
-MOHO_NET_FROM_MED = MOHO_METAL - RCL_MED - RCL_T1   # 340m
+MOHO_NET_FROM_T1  = _K['MOHO_NET_FROM_T1']
+MOHO_NET_FROM_MED = _K['MOHO_NET_FROM_MED']
 
 # ── Action definitions ─────────────────────────────────────────────────────────
 # Keys used by apply_action, roi, available_actions.
@@ -65,59 +87,24 @@ MOHO_NET_FROM_MED = MOHO_METAL - RCL_MED - RCL_T1   # 340m
 # 'energy'      : energy cost paid during build
 # 'bw'          : build work (wall_s = bw / bp)
 # 'dm'          : m_inc delta on completion
-# 'de_inc'      : e_inc delta on completion
+# 'de_inc'      : e_inc delta on completion (None = the current wind_e)
 # 'de_upk'      : e_upk delta on completion (positive = more drain)
 # 'reclaim'     : metal returned to bank BEFORE the build starts
-# 'prereq'      : callable(state) -> bool — hard gate, returns False if action unavailable
-# 'n_*'         : unit count deltas on completion
+# 'prereq'      : callable(state) -> bool - hard gate, returns False if action unavailable
+# 'dn_*'        : unit count deltas on completion
+# The table is data: econ_model.json `legion.actions` resolved against the engine defs
+# (costs, income deltas from `replaces`, reclaim credits). See econ_data.legion_actions().
 
-ACTIONS: dict[str, dict] = {
+def _prereq_fn(req: dict):
+    return lambda s: all(getattr(s, k, 0) >= v for k, v in req.items())
 
-    'solar': {
-        'label': 'Build solar panel (+20 E/s)',
-        'metal': SOL_METAL, 'energy': SOL_E_COST, 'bw': SOL_BW,
-        'dm': 0, 'de_inc': SOLAR_E, 'de_upk': 0,
-        'dn_solar': 1, 'reclaim': 0,
-    },
 
-    'wind': {
-        'label': 'Build wind turbine (+wind_e E/s)',
-        'metal': WIND_METAL, 'energy': WIND_E_COST, 'bw': WIND_BW,
-        'dm': 0, 'de_inc': None,  # resolved to wind_e at call time
-        'de_upk': 0, 'dn_wind': 1, 'reclaim': 0,
-    },
-
-    'leg_mex': {
-        'label': 'Build T1 legmex (+1.37 m/s, +7 E/s)',
-        'metal': T1_METAL, 'energy': T1_E_COST, 'bw': T1_BW,
-        'dm': T1_INC, 'de_inc': T1_E_NET, 'de_upk': 0,
-        'dn_mex': 1, 'reclaim': 0,
-    },
-
-    'leg_medmex': {
-        'label': 'Upgrade T1 → medmex (+2.28 m/s, -37 E/s swing)',
-        'metal': MED_METAL, 'energy': MED_E_COST, 'bw': MED_BW,
-        'dm': MED_DELTA, 'de_inc': -T1_E_NET, 'de_upk': 30,
-        'dn_mex': -1, 'dn_med': 1, 'reclaim': 0,
-        'prereq': lambda s: s.n_mex >= 1,
-    },
-
-    'upgrade_t1_moho': {
-        'label': 'Upgrade T1 legmex → T2 moho (590m net, +5.93 m/s, -27 E/s swing)',
-        'metal': MOHO_NET_FROM_T1, 'energy': MOHO_E_COST, 'bw': MOHO_BW,
-        'dm': MOHO_FROM_T1, 'de_inc': -T1_E_NET, 'de_upk': 20,
-        'dn_mex': -1, 'dn_moho': 1, 'reclaim': RCL_T1,
-        'prereq': lambda s: s.n_mex >= 1,
-    },
-
-    'upgrade_med_moho': {
-        'label': 'Upgrade medmex → T2 moho (340m net, +3.65 m/s, +10 E/s gain)',
-        'metal': MOHO_NET_FROM_MED, 'energy': MOHO_E_COST, 'bw': MOHO_BW,
-        'dm': MOHO_FROM_MED, 'de_inc': 0, 'de_upk': -10,
-        'dn_med': -1, 'dn_moho': 1, 'reclaim': RCL_MED + RCL_T1,
-        'prereq': lambda s: s.n_med >= 1,
-    },
-}
+ACTIONS: dict[str, dict] = {}
+for _aid, _a in _ED.legion_actions().items():
+    _entry = {k: v for k, v in _a.items() if k not in ('prereq', 'replaces')}
+    if _a.get('prereq'):
+        _entry['prereq'] = _prereq_fn(_a['prereq'])
+    ACTIONS[_aid] = _entry
 
 
 # ── GameState ──────────────────────────────────────────────────────────────────
@@ -168,7 +155,7 @@ class GameState:
 
     def tick(self, dt: float) -> None:
         self.m_gen  += self.m_inc * dt
-        self.metal   = min(self.metal + self.m_inc * dt, 2000.0)
+        self.metal   = min(self.metal + self.m_inc * dt, METAL_CAP)
         self.energy  = max(0.0, min(self.energy + self.e_net * dt, self.e_cap))
         self.t      += dt
 
@@ -204,10 +191,8 @@ def state_from_dict(d: dict) -> GameState:
     # Reconstruct e_inc / e_upk from e_net if only e_net is provided
     if 'e_net' in d and 'e_inc' not in d:
         # Estimate upkeep from mex counts; gross income = e_net + upkeep
-        # T1 mex: e_inc += 7 (no upkeep)
-        # medmex: e_upk += 30
-        # moho: e_upk += 20
-        estimated_upk = s.n_med * 30 + s.n_moho * 20
+        # T1 mex: e_inc += T1_E_NET (no upkeep); medmex: e_upk += MED_UPK; moho: e_upk += MOHO_UPK
+        estimated_upk = s.n_med * MED_UPK + s.n_moho * MOHO_UPK
         s.e_upk = estimated_upk
         s.e_inc = float(d['e_net']) + estimated_upk
     else:
@@ -293,7 +278,7 @@ def apply_action(s: GameState, action_id: str,
         ns.tick(wait)
 
     # Reclaim credit (returned before build starts)
-    ns.metal = min(ns.metal + a.get('reclaim', 0), 2000.0)
+    ns.metal = min(ns.metal + a.get('reclaim', 0), METAL_CAP)
 
     # Spend net metal
     ns.metal -= a['metal']
@@ -420,8 +405,8 @@ def t2_wealth(s: GameState) -> dict:
         'n_med':           s.n_med,
         'n_mex':           s.n_mex,
         'n_moho':          s.n_moho,
-        'moho_net_from_med': MOHO_NET_FROM_MED,            # 340m
-        'moho_net_from_t1':  MOHO_NET_FROM_T1,             # 590m
+        'moho_net_from_med': MOHO_NET_FROM_MED,
+        'moho_net_from_t1':  MOHO_NET_FROM_T1,
         'roi_med_moho_s':  roi(s, 'upgrade_med_moho')['roi_s'],  # ~71.9s (energy norm)
         'roi_t1_moho_s':   roi(s, 'upgrade_t1_moho' )['roi_s'],  # ~134.7s (energy norm)
 
@@ -429,9 +414,9 @@ def t2_wealth(s: GameState) -> dict:
         'med_moho_fundable_now': med_fundable,
         't1_moho_fundable_now':  t1_fundable,
 
-        # Energy note: each med→moho improves energy by +10 E/s
-        'e_gain_per_med_moho': 10,
-        'e_cost_per_t1_moho':  27,
+        # Energy note: net E/s change of each upgrade (engine deltas)
+        'e_gain_per_med_moho': (ACTIONS['upgrade_med_moho']['de_inc'] or 0) - ACTIONS['upgrade_med_moho']['de_upk'],
+        'e_cost_per_t1_moho':  -((ACTIONS['upgrade_t1_moho']['de_inc'] or 0) - ACTIONS['upgrade_t1_moho']['de_upk']),
     }
 
 
@@ -532,3 +517,55 @@ def api_available_actions(params: dict) -> dict:
         'available': available_actions(s),
         'roi': {aid: roi(s, aid, wind_e) for aid in available_actions(s)},
     }
+
+
+# ── Parity selftest ────────────────────────────────────────────────────────────
+
+def selftest(tol: float = 1e-6) -> bool:
+    """Compare the resolved constants + ACTIONS with bar-calc/parity.json (written by
+    `python bar-calc/bar_unified.py --write-parity`)."""
+    import json
+    if not _os.path.exists(_ED.PARITY_PATH):
+        print('no parity file; run: python bar-calc/bar_unified.py --write-parity')
+        return False
+    with open(_ED.PARITY_PATH, encoding='utf-8') as f:
+        want = json.load(f)['legion']
+    bad = []
+    g = globals()
+    for k, v in want['constants'].items():
+        have = g.get(k)
+        if have is None or not isinstance(v, (int, float)) or abs(float(have) - v) > tol * max(1.0, abs(v)):
+            bad.append((f'constants.{k}', v, have))
+    for aid, a in want['actions'].items():
+        mine = ACTIONS.get(aid)
+        if mine is None:
+            bad.append((f'actions.{aid}', 'present', 'missing'))
+            continue
+        for k, v in a.items():
+            if k in ('prereq', 'replaces'):
+                continue
+            have = mine.get(k)
+            if isinstance(v, (int, float)) and not isinstance(v, bool):
+                ok = have is not None and abs(float(have) - v) <= tol * max(1.0, abs(v))
+            else:
+                ok = have == v
+            if not ok:
+                bad.append((f'actions.{aid}.{k}', v, have))
+    for aid in ACTIONS:
+        if aid not in want['actions']:
+            bad.append((f'actions.{aid}', 'missing', 'present'))
+    print(f"state_api: {len(ACTIONS)} actions, BASE_E={BASE_E:g} BASE_CAP={BASE_CAP:g} T1_INC={T1_INC:.4f} "
+          f"SOL_BW={SOL_BW:g} WIND_METAL={WIND_METAL:g}")
+    for k, v, h in bad[:30]:
+        print(f'  x {k}: parity {v!r}  state_api {h!r}')
+    print('selftest OK' if not bad else f'selftest FAILED ({len(bad)} differences)')
+    return not bad
+
+
+if __name__ == '__main__':
+    if hasattr(_sys.stdout, 'reconfigure'):
+        _sys.stdout.reconfigure(encoding='utf-8')
+    if '--selftest' in _sys.argv:
+        _sys.exit(0 if selftest() else 1)
+    import json as _json
+    print(_json.dumps({aid: {k: v for k, v in a.items() if k != 'prereq'} for aid, a in ACTIONS.items()}, indent=1))

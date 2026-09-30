@@ -131,6 +131,15 @@ local activeFeatures  = {}   -- featureID -> {sourceName, x, z, allyTeam}
 local UNIT_DEF_CAN_RESURRECT = {}  -- defID -> true for units with canResurrect
 local UNIT_DEF_IS_RECLAIMER  = {}  -- defID -> true for builder-but-not-factory units
 
+-- SPLENDID 2026-09-22: per-frame reclaim sampling.
+-- Spring grants reclaim metal continuously, so a unit's metalMake rises for the
+-- duration of the reclaim rather than spiking in one frame. `unit_resources` only
+-- reports a LIFETIME TOTAL at death/game-end, which cannot show that shape or
+-- separate one reclaimed object from the next. So emit the raw per-frame rate for
+-- any unit whose metalMake cannot be passive income (see UNIT_DEF_METAL_PASSIVE).
+-- Kept deliberately dumb: no burst detection here, the analysis decides.
+local UNIT_DEF_METAL_PASSIVE = {}  -- defID -> true for metal extractors + energy converters
+
 local UNIT_TYPE_ARMY = {}
 local UNIT_TYPE_DEF = {}
 local UNIT_TYPE_UTIL = {}
@@ -291,6 +300,23 @@ function widget:GameFrame(n)
                         energyMake = 0,
                         energyUse = 0
                     }
+                end
+
+                -- SPLENDID: raw per-frame reclaim rate (see UNIT_DEF_METAL_PASSIVE).
+                -- metalMake is a RATE in metal/second; divide by 30 for this frame's metal.
+                if ((metalMake or 0) > 0) then
+                    local uDefID = Spring.GetUnitDefID(unitID)
+                    if (uDefID and not UNIT_DEF_METAL_PASSIVE[uDefID]) then
+                        local ux, _, uz = Spring.GetUnitPosition(unitID)
+                        writeJson("reclaim_sample", {
+                            { "unitID", unitID },
+                            { "defID", uDefID },
+                            { "teamID", Spring.GetUnitTeam(unitID) },
+                            { "metalMake", metalMake },
+                            { "x", ux and math.floor(ux) or -1 },
+                            { "z", uz and math.floor(uz) or -1 }
+                        })
+                    end
                 end
 
                 UNIT_RESOURCE_PRODUCTION[unitID].metalMake = UNIT_RESOURCE_PRODUCTION[unitID].metalMake + (metalMake / 30)
@@ -846,6 +872,21 @@ function widget:Initialize()
         -- "losHeight":40,"trackStretch":1,"maxHeightDif":15.354561805725,"wreckName":"armaak_dead","height":30,"idleAutoHeal":2.5,"power":613.33331298828,
         -- "armorType":12,"losRadius":400,"cost":613.33331298828,"translatedHumanName":"Archangel","translatedTooltip":"Advanced Amphibious Anti-Air Bot"
         -- }
+        -- SPLENDID (2026-09-28): the BUILD TREE. Upstream emits no buildOptions, so
+        -- nothing downstream can know that an air con needs an air lab standing first —
+        -- every consumer had to hard-code the gates. Emitted as a comma-joined string
+        -- of defNames because writeJsonRaw serialises only strings, numbers and
+        -- booleans; handing io.write a table would crash the widget.
+        local splendidBuildOptions = ""
+        if v.buildOptions then
+            local opts = {}
+            for _, oid in ipairs(v.buildOptions) do
+                local od = UnitDefs[oid]
+                if od then opts[#opts + 1] = od.name end
+            end
+            splendidBuildOptions = table.concat(opts, ",")
+        end
+
         writeJsonRaw("unit_def", {
             -- basic stuff
             { "defID", k },
@@ -886,7 +927,18 @@ function widget:Initialize()
             { "isReclaimer", v.isBuilder and not v.isFactory },
             { "isFactory", v.isFactory },
             { "canResurrect", v.canResurrect == true },
-            { "weaponCount", #v.weapons }
+            { "weaponCount", #v.weapons },
+
+            -- SPLENDID (2026-09-28): the build tree and the things that gate it.
+            -- `isFactory` above only says a def IS a factory; `isBuilder` is what tells
+            -- a con bot from a tank, and techLevel/faction are the engine's own answer
+            -- to questions the readers were inferring from defName prefixes.
+            { "isBuilder", v.isBuilder == true },
+            { "canAssist", v.canAssist == true },
+            { "buildDistance", v.buildDistance or 0 },
+            { "techLevel", tonumber(v.customParams.techlevel or "0") },
+            { "faction", v.customParams.faction or "" },
+            { "buildOptions", splendidBuildOptions }
         })
 
         UNIT_DEF_NAMES[k] = v["name"]
@@ -895,6 +947,12 @@ function widget:Initialize()
         UNIT_DEF_HEALTH[k] = v.health
         if v.canResurrect == true then UNIT_DEF_CAN_RESURRECT[k] = true end
         if v.isBuilder and not v.isFactory then UNIT_DEF_IS_RECLAIMER[k] = true end
+
+        -- SPLENDID: a unit whose metalMake is NOT reclaim. Metal extractors and
+        -- energy converters make metal continuously by design; every other unit
+        -- showing metalMake is either reclaiming or being reclaimed.
+        if v.extractsMetal and v.extractsMetal > 0 then UNIT_DEF_METAL_PASSIVE[k] = true end
+        if tonumber(v.customParams.energyconv_capacity or "0") > 0 then UNIT_DEF_METAL_PASSIVE[k] = true end
 
         if ((not v.customParams.iscommander) and (v.weapons and #v.weapons > 0) and (v.speed and v.speed > 0)) then
             UNIT_TYPE_ARMY[k] = v.metalCost

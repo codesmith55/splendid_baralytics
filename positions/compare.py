@@ -28,30 +28,19 @@ if hasattr(sys.stdout, 'reconfigure'):
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 
-# ── Legion constants ───────────────────────────────────────────────────────────
+# ── Legion constants — resolved from bar-calc/econ_model.json via state_api ────
+# (state_api.py reads the same engine defs that bar_unified.py and
+#  splendid_buildSimulator.js use; no hand-copied numbers live here any more)
+if HERE not in sys.path:
+    sys.path.insert(0, HERE)
+from state_api import (                                   # noqa: E402
+    BASE_M, BASE_E, BASE_CAP, COM_BP, SPOT, T1_INC, MED_DELTA, MED_SWING,
+    T2_MINGEN, SOLAR_E, MED_UPK, T1_E_NET as LEGMEX_E,
+    MEX_UPK, TUR_BP, CON_BP, _ED,
+)
+# MEX_UPK: legmex upkeep — the engine has it PRODUCING (+7), so 0.  TUR_BP: legnanotc.  CON_BP: legck.
 
-BASE_M    = 2.0
-BASE_E    = 25.0
-BASE_CAP  = 200.0
-MEX_UPK   = 3.0
-COM_BP    = 300
-TUR_BP    = 200
-CON_BP    = 80
-SPOT      = 1.825
-T1_INC    = 0.75 * SPOT
-MED_DELTA = (2.00 - 0.75) * SPOT   # +2.281 m/s net
-MED_SWING = 37                      # E/s per medmex drain
-LEGMEX_E  = 7.0
-T2_MINGEN = 300.0
-
-UNIT = {
-    'solar':      (155,     0, 2600),
-    'wind':       ( 40,   175, 1600),
-    'leg_mex':    ( 50,   500, 1880),
-    'leg_medmex': (250,  5000, 5000),
-    'leg_turret': (230,  3200, 5300),
-    'leg_con':    (100,  1600, 3250),
-}
+UNIT = _ED.legion_unit_costs()   # id → (metal, energy, build work); gross metal
 
 
 # ── Eco state ──────────────────────────────────────────────────────────────────
@@ -197,8 +186,8 @@ def eco_from_snapshot(snap: dict) -> Eco:
     # Reconstruct e_inc and e_upk from e_net + known upkeep
     n_med  = s.n_med
     n_mex  = s.n_mex
-    # Upkeep = all mex slots × 3 + medmex drain × 30
-    s.e_upk = n_mex * MEX_UPK + n_med * 30
+    # Upkeep = legmex slots × MEX_UPK + medmex drain × MED_UPK
+    s.e_upk = n_mex * MEX_UPK + n_med * MED_UPK
     # e_inc = e_net + e_upk (gross income)
     s.e_inc = snap.get('e_net', 110) + s.e_upk
     return s
@@ -233,8 +222,8 @@ def do_build(s: Eco, unit: str, wind_e: float, verbose: bool) -> None:
 
     label = ""
     if unit == 'solar':
-        s.n_solar += 1;  s.e_inc += 20
-        label = f"+20 E/s → e_net {s.e_net:.0f}"
+        s.n_solar += 1;  s.e_inc += SOLAR_E
+        label = f"+{SOLAR_E:.0f} E/s → e_net {s.e_net:.0f}"
     elif unit == 'wind':
         s.n_wind  += 1;  s.e_inc += wind_e
         label = f"+{wind_e:.0f} E/s → e_net {s.e_net:.0f}"
@@ -242,7 +231,7 @@ def do_build(s: Eco, unit: str, wind_e: float, verbose: bool) -> None:
         s.n_mex += 1;  s.m_inc += T1_INC;  s.e_inc += LEGMEX_E;  s.e_upk += MEX_UPK
         label = f"+{T1_INC:.2f} m/s → m_inc {s.m_inc:.2f}  e_net {s.e_net:.0f}"
     elif unit == 'leg_medmex':
-        s.n_med += 1;  s.m_inc += MED_DELTA;  s.e_inc -= LEGMEX_E;  s.e_upk += 30
+        s.n_med += 1;  s.m_inc += MED_DELTA;  s.e_inc -= LEGMEX_E;  s.e_upk += MED_UPK
         label = f"+{MED_DELTA:.2f} m/s → m_inc {s.m_inc:.2f}  e_net {s.e_net:.0f}"
         if s.first_med_t is None:
             s.first_med_t = s.t

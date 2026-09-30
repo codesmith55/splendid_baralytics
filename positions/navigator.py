@@ -252,6 +252,8 @@ def project_strategies(
 
 if __name__ == '__main__':
     import argparse, json
+    if hasattr(sys.stdout, 'reconfigure'):
+        sys.stdout.reconfigure(encoding='utf-8')   # action labels contain arrows
 
     ap = argparse.ArgumentParser(description='Economy state navigator CLI')
     ap.add_argument('--snapshot',  default=None, help='Snapshot ID from snapshots.json')
