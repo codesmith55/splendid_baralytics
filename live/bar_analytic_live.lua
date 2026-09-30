@@ -471,6 +471,12 @@ function widget:UnitCreated(unitID, unitDefID, teamID)
         { "defName", UNIT_DEF_NAMES[unitDefID] }, { "unit_x", x }, { "unit_y", y }, { "unit_z", z },
     })
 end
+function widget:UnitFinished(unitID, unitDefID, teamID)
+    emit("unit_finished", {
+        { "unitID", unitID }, { "teamID", teamID }, { "defID", unitDefID },
+        { "defName", UNIT_DEF_NAMES[unitDefID] },
+    })
+end
 function widget:UnitFromFactory(unitID, unitDefID, unitTeam, factID, factDefID)
     emit("factory_unit_created", {
         { "unitID", unitID }, { "defID", unitDefID }, { "teamID", unitTeam },

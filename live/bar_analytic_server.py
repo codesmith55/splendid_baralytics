@@ -56,6 +56,13 @@ GAMES_DIR = os.path.join(HERE, "games")   # archived per-game JSONL recordings (
 FRAMES_PER_MINUTE = 30 * 60        # engine runs at 30 fps → 1800 frames per game-minute
 EARLY_FRAME_LIMIT = 30 * 60 * 8    # retain unit-creation log for the first 8 min (build classify)
 
+# buckets counted as "infrastructure/eco" for flow tracking (keep in sync with
+# eco_viz.INFRA_BUCKETS; everything else counts as army)
+ECO_BUCKETS = ("economy", "defense", "build_power", "infrastructure")
+_EMPTY_FLOW = {"eco_made": 0.0, "army_made": 0.0, "eco_lost": 0.0, "army_lost": 0.0,
+               "eco_self_removed": 0.0, "enemy_killed": 0.0,
+               "units_made": 0, "units_lost": 0}
+
 try:
     from build_classifier import classify_build
     _BUILD_AVAILABLE = True
@@ -93,12 +100,32 @@ class Live:
         self.winners = None
         self.shares = {}          # "fromTeam>toTeam" -> {fromTeam,toTeam,donation,overflow,total,lastFrame}
         self.build_log = {}       # teamID -> ordered [{frame,defID,defName}] for build classification
+        self.flow = {}            # teamID -> cumulative created/destroyed value counters
+        self.made_started = {}    # teamID -> made-counters from unit_created (fallback for
+                                  #   streams recorded before the widget emitted unit_finished)
+        self.finished_seen = False
         self.t2_frame = {}        # allyTeamID -> frame the team first reached T2 (from t2_reached poll)
         self.minute_snaps = {}    # game-minute (int) -> full snapshot dict, for recall + compare
         self._last_min = -1       # highest game-minute captured so far
         self.started_wall = time.time()   # wall-clock when tracking of this game began
         if self.aberrant_store is not None:
             self.aberrant_store.clear()
+
+    def _flow(self, tid):
+        f = self.flow.get(tid)
+        if f is None:
+            f = self.flow[tid] = dict(_EMPTY_FLOW)
+        return f
+
+    def _team_flow(self, tid):
+        """Snapshot view of a team's flow. `made` counts construction COMPLETED
+        (unit_finished); on streams recorded before the widget emitted that
+        event, fall back to construction-started counts."""
+        f = dict(self.flow.get(tid) or _EMPTY_FLOW)
+        if not self.finished_seen:
+            f.update(self.made_started.get(
+                tid, {"eco_made": 0.0, "army_made": 0.0, "units_made": 0}))
+        return f
 
     def apply(self, ev):
         a = ev.get("action")
@@ -163,8 +190,37 @@ class Live:
                     if len(log) < 400:           # bound: opening + early army is plenty
                         log.append({"frame": fr, "defID": ev.get("defID"),
                                     "defName": ev.get("defName", "")})
+                if tid is not None:
+                    d = self.unit_defs.get(ev.get("defID"), {})
+                    m = self.made_started.setdefault(
+                        tid, {"eco_made": 0.0, "army_made": 0.0, "units_made": 0})
+                    key = "eco_made" if d.get("bucket", "other") in ECO_BUCKETS else "army_made"
+                    m[key] += d.get("value", 0) or 0
+                    m["units_made"] += 1
+            elif a == "unit_finished":
+                tid = ev.get("teamID")
+                if tid is not None:
+                    self.finished_seen = True
+                    d = self.unit_defs.get(ev.get("defID"), {})
+                    f = self._flow(tid)
+                    key = "eco_made" if d.get("bucket", "other") in ECO_BUCKETS else "army_made"
+                    f[key] += d.get("value", 0) or 0
+                    f["units_made"] += 1
             elif a == "unit_killed":
                 self.builders.pop(ev.get("unitID"), None)
+                tid, atk = ev.get("teamID"), ev.get("attackerTeam")
+                d = self.unit_defs.get(ev.get("defID"), {})
+                v = d.get("value", 0) or 0
+                if tid is not None:
+                    f = self._flow(tid)
+                    is_eco = d.get("bucket", "other") in ECO_BUCKETS
+                    f["eco_lost" if is_eco else "army_lost"] += v
+                    f["units_lost"] += 1
+                    # no enemy attacker on an eco unit ≈ own reclaim / self-d / recycle
+                    if is_eco and (atk is None or atk == tid) and not self.over:
+                        f["eco_self_removed"] += v
+                if atk is not None and atk != tid:
+                    self._flow(atk)["enemy_killed"] += v
                 if _ABERRANT_AVAILABLE and self.aberrant_store is not None:
                     did = ev.get("defID")
                     ab_unit_info = (ev, dict(self.unit_defs.get(did, {})))
@@ -243,6 +299,7 @@ class Live:
                                          or (total + (s.get("storageValue", 0) or 0))),
                     "builders": team_builders,
                     "idleBuilderCount": sum(1 for b in team_builders if b["idle"]),
+                    "flow": self._team_flow(tid),
                 })
             teams.sort(key=lambda t: (t["allyTeamID"], t["teamID"]))
             return {
@@ -456,6 +513,21 @@ def tail_thread(default_path, watch_glob, scan_interval, end_grace, idle_end, li
             except Exception as e:   # logging must never wedge the loop
                 print(f"[bar_analytic_server] end-of-game logging failed: {e}")
         live.persist_snapshots()   # final flush of the per-minute recall timeline
+        if has_data:
+            try:                   # behavioral trait detection into the player DB
+                import player_db
+                r = player_db.ingest_game(live)
+                print(f"[bar_analytic_server] player DB: {r['game_id']} -> "
+                      f"{r['observations']} observations ({r['players']} players)")
+            except Exception as e:
+                print(f"[bar_analytic_server] player DB ingest failed: {e}")
+            try:                   # full analysis pass -> live/passes/<id>.json
+                import analysis_pass
+                r = analysis_pass.run_pass(live, save=True)
+                print(f"[bar_analytic_server] analysis pass: {r['game_id']} -> "
+                      f"{r['rows']} metric rows saved")
+            except Exception as e:
+                print(f"[bar_analytic_server] analysis pass failed: {e}")
         try:                       # archive the raw JSONL so this game stays re-analyzable
             if live.source and os.path.isfile(live.source):
                 os.makedirs(GAMES_DIR, exist_ok=True)
@@ -664,6 +736,7 @@ def replay_into_live(path):
             except json.JSONDecodeError:
                 continue
             g.capture_due_snapshots()
+    g.source = path            # provenance: lets consumers derive a stable game id
     return g
 
 
@@ -788,10 +861,134 @@ def make_handler(live):
                             "model": "legion-eco (state_api)", "teams": teams}
                 self._send(json.dumps(body).encode("utf-8"), "application/json")
 
+            elif path == "/api/pass":
+                # full analysis pass on the LIVE game (metric table + conclusions);
+                # ?save=1 persists to live/passes/; ?game=<ref> runs on an archive
+                import analysis_pass
+                try:
+                    g = load_game(params.get("game"), live=live)
+                    out = analysis_pass.run_pass(g, save=params.get("save") == "1")
+                except Exception as e:
+                    out = {"error": f"{type(e).__name__}: {e}"}
+                self._send(json.dumps(out).encode("utf-8"), "application/json")
+
             elif path == "/api/shares":
                 # energy donation/overflow flows between teammates, "X > Y"
                 self._send(json.dumps({"shares": live.shares_named()}).encode("utf-8"),
                            "application/json")
+
+            elif path == "/viz" or path == "/viz/bubbles":
+                # composite size+activity pairs: live (auto-refresh) or ?minute=N recall;
+                # ?window=W sets the activity/insight window in game-minutes (default 2)
+                import eco_viz
+                minute = params.get("minute")
+                if minute is not None:
+                    snap = live.recall(int(minute))
+                    if not snap:
+                        self._send(json.dumps({"error": f"no snapshot at minute {minute}",
+                                               "available": live.minutes()}).encode("utf-8"),
+                                   "application/json")
+                        return
+                    cur, refresh = int(minute), None
+                else:
+                    snap, cur = live.snapshot(), None
+                    refresh = int(params.get("refresh", 5))
+                window = int(params.get("window", 2))
+                ref_min = cur if cur is not None else int(snap.get("gameSeconds", 0) // 60)
+                prev = live.recall(ref_min - window) if ref_min - window >= 0 else None
+                prev1 = live.recall(ref_min - 1) if ref_min >= 1 else None
+                page = eco_viz.render_bubbles(
+                    snap, meta=snap.get("session", {}).get("mapName", ""),
+                    refresh=refresh, minute_links=live.minutes(), current=cur,
+                    prev_snap=prev, prev1_snap=prev1,
+                    window_label=(f"last {window} min" if prev else "whole game"))
+                self._send(page.encode("utf-8"), "text/html; charset=utf-8")
+
+            elif path == "/viz/player":
+                # full economy dashboard for one team, rendered from live series;
+                # ?minute=N truncates every series to that point in time
+                import eco_viz
+                snap = live.snapshot()
+                try:
+                    tid = int(params["team"])
+                except (KeyError, ValueError):
+                    alive = [t["teamID"] for t in snap.get("teams", []) if not t.get("dead")]
+                    tid = alive[0] if alive else None
+                if tid is None:
+                    self._send(b'{"error": "no living team"}', "application/json")
+                    return
+                series = eco_viz.game_series(live, tid)
+                minute = params.get("minute")
+                if minute is not None:
+                    cut = int(minute) * 60
+                    keep = sum(1 for t in series["t"] if t <= cut) or 1
+                    series["t"] = series["t"][:keep]
+                    series["metrics"] = {k: v[:keep] for k, v in series["metrics"].items()}
+                    if series.get("buckets"):
+                        series["buckets"] = {k: v[:keep] for k, v in series["buckets"].items()}
+                page = eco_viz.render_player(
+                    series, meta=snap.get("session", {}).get("mapName", ""))
+                if minute is None:
+                    page = page.replace("</body>",
+                        f'<script>setTimeout(()=>location.reload(),'
+                        f'{int(params.get("refresh", 15)) * 1000})</script></body>')
+                self._send(page.encode("utf-8"), "text/html; charset=utf-8")
+
+            elif path == "/hex":
+                # economy-balance hex (imbalance from perfect economy + response
+                # flags); ?team=N one player, else all alive; ?minute=M recall;
+                # ?rot=P initial orientation; ?refresh=S live reload
+                import display_hex
+                minute = params.get("minute")
+                snap = live.recall(int(minute)) if minute is not None else live.snapshot()
+                if not snap:
+                    self._send(json.dumps({"error": f"no snapshot at minute {minute}",
+                                           "available": live.minutes()}).encode("utf-8"),
+                               "application/json")
+                    return
+                teams = [t for t in snap.get("teams", []) if not t.get("dead")]
+                if params.get("team") is not None:
+                    teams = [t for t in teams if t["teamID"] == int(params["team"])]
+                page = display_hex.render_page(
+                    [display_hex.eco_hex(t) for t in teams],
+                    subtitle=f'{snap.get("session", {}).get("mapName", "")} · metal/bp/energy '
+                             "imbalance · response flags on opposing vertices",
+                    rot=int(params.get("rot", 0)))
+                if minute is None and params.get("refresh"):
+                    page = page.replace("</body>",
+                        f'<script>setTimeout(()=>location.reload(),'
+                        f'{int(params["refresh"]) * 1000})</script></body>')
+                self._send(page.encode("utf-8"), "text/html; charset=utf-8")
+
+            elif path == "/builds":
+                # the build-order chronicle site, re-rendered from live/builds/
+                import build_orders
+                build_orders.render_site()
+                with open(build_orders.SITE_PATH, encoding="utf-8") as fh:
+                    self._send(fh.read().encode("utf-8"), "text/html; charset=utf-8")
+
+            elif path == "/viz/h2h":
+                # ?a=<side>&b=<side>; side = teamID | snap:<id>[:strategy] | state:<file>[:strategy]
+                import eco_viz
+                a_spec, b_spec = params.get("a", "").strip(), params.get("b", "").strip()
+
+                def _side(spec):
+                    if spec.startswith(("snap:", "state:")):
+                        return eco_viz.load_theory_ref(spec)
+                    return eco_viz.game_series(live, int(spec))
+                try:
+                    A, B = _side(a_spec), _side(b_spec)
+                except (ValueError, KeyError, FileNotFoundError) as e:
+                    self._send(json.dumps({"error": str(e),
+                        "usage": "/viz/h2h?a=0&b=snap:<id>[:strategy]"}).encode("utf-8"),
+                        "application/json")
+                    return
+                page = eco_viz.render_h2h(
+                    A, B, meta=live.snapshot().get("session", {}).get("mapName", ""))
+                page = page.replace("</body>",
+                    f'<script>setTimeout(()=>location.reload(),'
+                    f'{int(params.get("refresh", 15)) * 1000})</script></body>')
+                self._send(page.encode("utf-8"), "text/html; charset=utf-8")
 
             elif path == "/api/functions":
                 # discovery: the analysis registry (names + params) for /api/run
@@ -799,6 +996,17 @@ def make_handler(live):
                     {"name": n, "params": s["params"], "desc": s["desc"]}
                     for n, s in REGISTRY.items()
                 ]}).encode("utf-8"), "application/json")
+
+            elif path == "/api/econ_model":
+                # the data layer behind /api/project, /api/t2, /api/analyze and the navigator:
+                # bar-calc/econ_model.json resolved against the engine unit-def dumps (bar-calc/econ_data.py),
+                # the same files splendid_buildSimulator.js and bar-calc/bar_unified.py read.
+                try:
+                    import econ_data as _econ                      # positions/ → bar-calc on sys.path via state_api
+                    body = {"available": True, "model": _econ.model_summary()}
+                except Exception as e:                             # pragma: no cover - reported, not fatal
+                    body = {"available": False, "error": str(e)}
+                self._send(json.dumps(body).encode("utf-8"), "application/json")
 
             elif path == "/api/games":
                 # archived games available to /api/run as a `game` source

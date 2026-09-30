@@ -1,0 +1,588 @@
+{
+ "id": "game-1786039527_t9",
+ "game": "game-1786039527",
+ "team": 9,
+ "player": "[MADO]DrSen",
+ "side": "armada",
+ "map": "All That Glitters v2.2.3",
+ "mode": "8v8",
+ "recorded": true,
+ "name": "wind-heavy 11mex/10wind/3solar@5:00 ([MADO]DrSen)",
+ "name_suggested": true,
+ "starred": true,
+ "extracted_at": 1787931476.7590876,
+ "duration": 1540.1,
+ "events": [
+  {
+   "t": 9.6,
+   "class": "mex",
+   "def": "armmex"
+  },
+  {
+   "t": 16.1,
+   "class": "mex",
+   "def": "armmex"
+  },
+  {
+   "t": 22.6,
+   "class": "mex",
+   "def": "armmex"
+  },
+  {
+   "t": 31.7,
+   "class": "solar",
+   "def": "armsolar"
+  },
+  {
+   "t": 40.7,
+   "class": "solar",
+   "def": "armsolar"
+  },
+  {
+   "t": 57.7,
+   "class": "factory",
+   "def": "armlab"
+  },
+  {
+   "t": 63.3,
+   "class": "wind",
+   "def": "armwin"
+  },
+  {
+   "t": 69.3,
+   "class": "wind",
+   "def": "armwin"
+  },
+  {
+   "t": 75.3,
+   "class": "wind",
+   "def": "armwin"
+  },
+  {
+   "t": 81.8,
+   "class": "wind",
+   "def": "armwin"
+  },
+  {
+   "t": 87.8,
+   "class": "wind",
+   "def": "armwin"
+  },
+  {
+   "t": 93.8,
+   "class": "wind",
+   "def": "armwin"
+  },
+  {
+   "t": 123.5,
+   "class": "mex",
+   "def": "armmex"
+  },
+  {
+   "t": 137.8,
+   "class": "nano",
+   "def": "armnanotc"
+  },
+  {
+   "t": 156.3,
+   "class": "mex",
+   "def": "armmex"
+  },
+  {
+   "t": 158.5,
+   "class": "wind",
+   "def": "armwin"
+  },
+  {
+   "t": 179.7,
+   "class": "mex",
+   "def": "armmex"
+  },
+  {
+   "t": 179.8,
+   "class": "mex",
+   "def": "armmex"
+  },
+  {
+   "t": 195.5,
+   "class": "mex",
+   "def": "armmex"
+  },
+  {
+   "t": 198.2,
+   "class": "solar",
+   "def": "armsolar"
+  },
+  {
+   "t": 217.4,
+   "class": "mex",
+   "def": "armmex"
+  },
+  {
+   "t": 227.5,
+   "class": "mex",
+   "def": "armmex"
+  },
+  {
+   "t": 234.2,
+   "class": "mex",
+   "def": "armmex"
+  },
+  {
+   "t": 248.8,
+   "class": "wind",
+   "def": "armwin"
+  },
+  {
+   "t": 251.0,
+   "class": "factory",
+   "def": "armlab"
+  },
+  {
+   "t": 269.1,
+   "class": "wind",
+   "def": "armwin"
+  },
+  {
+   "t": 289.6,
+   "class": "wind",
+   "def": "armwin"
+  },
+  {
+   "t": 313.3,
+   "class": "mex",
+   "def": "armmex"
+  },
+  {
+   "t": 319.5,
+   "class": "nano",
+   "def": "armnanotc"
+  },
+  {
+   "t": 320.5,
+   "class": "mex",
+   "def": "armmex"
+  },
+  {
+   "t": 327.0,
+   "class": "wind",
+   "def": "armwin"
+  },
+  {
+   "t": 335.0,
+   "class": "wind",
+   "def": "armwin"
+  },
+  {
+   "t": 369.3,
+   "class": "wind",
+   "def": "armwin"
+  },
+  {
+   "t": 375.5,
+   "class": "wind",
+   "def": "armwin"
+  },
+  {
+   "t": 379.8,
+   "class": "nano",
+   "def": "armnanotc"
+  },
+  {
+   "t": 381.6,
+   "class": "wind",
+   "def": "armwin"
+  },
+  {
+   "t": 387.5,
+   "class": "wind",
+   "def": "armwin"
+  },
+  {
+   "t": 395.0,
+   "class": "wind",
+   "def": "armwin"
+  },
+  {
+   "t": 402.5,
+   "class": "wind",
+   "def": "armwin"
+  },
+  {
+   "t": 408.1,
+   "class": "nano",
+   "def": "armnanotc"
+  },
+  {
+   "t": 408.3,
+   "class": "solar",
+   "def": "armsolar"
+  },
+  {
+   "t": 429.9,
+   "class": "wind",
+   "def": "armwin"
+  },
+  {
+   "t": 436.0,
+   "class": "wind",
+   "def": "armwin"
+  },
+  {
+   "t": 444.5,
+   "class": "wind",
+   "def": "armwin"
+  },
+  {
+   "t": 482.4,
+   "class": "advsolar",
+   "def": "armadvsol"
+  },
+  {
+   "t": 500.7,
+   "class": "nano",
+   "def": "armnanotc"
+  },
+  {
+   "t": 518.6,
+   "class": "moho",
+   "def": "armmoho"
+  },
+  {
+   "t": 524.0,
+   "class": "advsolar",
+   "def": "armadvsol"
+  },
+  {
+   "t": 537.6,
+   "class": "nano",
+   "def": "armnanotc"
+  },
+  {
+   "t": 553.4,
+   "class": "moho",
+   "def": "armmoho"
+  },
+  {
+   "t": 563.1,
+   "class": "advsolar",
+   "def": "armadvsol"
+  },
+  {
+   "t": 581.2,
+   "class": "advsolar",
+   "def": "armadvsol"
+  },
+  {
+   "t": 596.9,
+   "class": "moho",
+   "def": "armmoho"
+  },
+  {
+   "t": 602.6,
+   "class": "nano",
+   "def": "armnanotc"
+  },
+  {
+   "t": 613.5,
+   "class": "factory",
+   "def": "armvp"
+  },
+  {
+   "t": 660.0,
+   "class": "factory",
+   "def": "armavp"
+  },
+  {
+   "t": 660.2,
+   "class": "moho",
+   "def": "armmoho"
+  },
+  {
+   "t": 746.5,
+   "class": "wind",
+   "def": "armwin"
+  },
+  {
+   "t": 755.4,
+   "class": "wind",
+   "def": "armwin"
+  },
+  {
+   "t": 766.7,
+   "class": "wind",
+   "def": "armwin"
+  },
+  {
+   "t": 769.6,
+   "class": "moho",
+   "def": "armmoho"
+  },
+  {
+   "t": 777.4,
+   "class": "wind",
+   "def": "armwin"
+  },
+  {
+   "t": 787.2,
+   "class": "moho",
+   "def": "armmoho"
+  },
+  {
+   "t": 796.8,
+   "class": "moho",
+   "def": "armmoho"
+  },
+  {
+   "t": 797.1,
+   "class": "wind",
+   "def": "armwin"
+  },
+  {
+   "t": 817.1,
+   "class": "wind",
+   "def": "armwin"
+  },
+  {
+   "t": 825.3,
+   "class": "moho",
+   "def": "armmoho"
+  },
+  {
+   "t": 836.1,
+   "class": "wind",
+   "def": "armwin"
+  },
+  {
+   "t": 837.0,
+   "class": "moho",
+   "def": "armmoho"
+  },
+  {
+   "t": 841.5,
+   "class": "mex",
+   "def": "armmex"
+  },
+  {
+   "t": 854.1,
+   "class": "wind",
+   "def": "armwin"
+  },
+  {
+   "t": 872.0,
+   "class": "wind",
+   "def": "armwin"
+  },
+  {
+   "t": 876.7,
+   "class": "moho",
+   "def": "armmoho"
+  },
+  {
+   "t": 890.0,
+   "class": "wind",
+   "def": "armwin"
+  },
+  {
+   "t": 891.9,
+   "class": "moho",
+   "def": "armmoho"
+  }
+ ],
+ "snapshots": [
+  {
+   "t": 0,
+   "metal": 1000,
+   "energy": 1000,
+   "m_inc": 0,
+   "e_inc": 0,
+   "m_gathered": 0,
+   "e_gathered": 0
+  },
+  {
+   "t": 60,
+   "metal": 374,
+   "energy": 643,
+   "m_inc": 7.5,
+   "e_inc": 70,
+   "m_gathered": 350,
+   "e_gathered": 2615
+  },
+  {
+   "t": 120,
+   "metal": 146,
+   "energy": 669,
+   "m_inc": 7.5,
+   "e_inc": 150,
+   "m_gathered": 800,
+   "e_gathered": 10718
+  },
+  {
+   "t": 180,
+   "metal": 89,
+   "energy": 4,
+   "m_inc": 10.3,
+   "e_inc": 152,
+   "m_gathered": 1344,
+   "e_gathered": 18657
+  },
+  {
+   "t": 240,
+   "metal": 2,
+   "energy": 1284,
+   "m_inc": 48.7,
+   "e_inc": 215,
+   "m_gathered": 2384,
+   "e_gathered": 29820
+  },
+  {
+   "t": 300,
+   "metal": 762,
+   "energy": 1343,
+   "m_inc": 23.5,
+   "e_inc": 249,
+   "m_gathered": 4312,
+   "e_gathered": 43057
+  },
+  {
+   "t": 360,
+   "metal": 1192,
+   "energy": 2884,
+   "m_inc": 27.2,
+   "e_inc": 295,
+   "m_gathered": 5991,
+   "e_gathered": 58787
+  },
+  {
+   "t": 420,
+   "metal": 1191,
+   "energy": 7199,
+   "m_inc": 27.2,
+   "e_inc": 412,
+   "m_gathered": 7624,
+   "e_gathered": 79880
+  },
+  {
+   "t": 480,
+   "metal": 936,
+   "energy": 5758,
+   "m_inc": 27.2,
+   "e_inc": 473,
+   "m_gathered": 9279,
+   "e_gathered": 106496
+  },
+  {
+   "t": 540,
+   "metal": 54,
+   "energy": 52,
+   "m_inc": 32.7,
+   "e_inc": 495,
+   "m_gathered": 11064,
+   "e_gathered": 138302
+  },
+  {
+   "t": 600,
+   "metal": 918,
+   "energy": 4255,
+   "m_inc": 45.7,
+   "e_inc": 702,
+   "m_gathered": 14259,
+   "e_gathered": 177736
+  },
+  {
+   "t": 660,
+   "metal": 733,
+   "energy": 4,
+   "m_inc": 43.7,
+   "e_inc": 694,
+   "m_gathered": 18017,
+   "e_gathered": 212736
+  },
+  {
+   "t": 720,
+   "metal": 143,
+   "energy": 4789,
+   "m_inc": 49.3,
+   "e_inc": 801,
+   "m_gathered": 21209,
+   "e_gathered": 255281
+  },
+  {
+   "t": 780,
+   "metal": 217,
+   "energy": 10541,
+   "m_inc": 58.8,
+   "e_inc": 1579,
+   "m_gathered": 24667,
+   "e_gathered": 325977
+  },
+  {
+   "t": 840,
+   "metal": 2027,
+   "energy": 10745,
+   "m_inc": 80.8,
+   "e_inc": 1529,
+   "m_gathered": 29006,
+   "e_gathered": 422768
+  },
+  {
+   "t": 900,
+   "metal": 2804,
+   "energy": 10849,
+   "m_inc": 91.8,
+   "e_inc": 1713,
+   "m_gathered": 34243,
+   "e_gathered": 524912
+  }
+ ],
+ "counts_at": {
+  "180": {
+   "mex": 7,
+   "solar": 2,
+   "factory": 1,
+   "wind": 7,
+   "nano": 1
+  },
+  "300": {
+   "mex": 11,
+   "solar": 3,
+   "factory": 2,
+   "wind": 10,
+   "nano": 1
+  },
+  "480": {
+   "mex": 13,
+   "solar": 4,
+   "factory": 2,
+   "wind": 21,
+   "nano": 4
+  },
+  "600": {
+   "mex": 13,
+   "solar": 4,
+   "factory": 2,
+   "wind": 21,
+   "nano": 6,
+   "advsolar": 4,
+   "moho": 3
+  }
+ },
+ "benchmarks": {
+  "mex3": 22.6,
+  "mex5": 156.3,
+  "mex7": 179.8,
+  "wind5": 87.8,
+  "wind10": 289.6,
+  "wind20": 436.0,
+  "wind30": 872.0,
+  "solar2": 40.7,
+  "factory1": 57.7,
+  "factory2": 251.0,
+  "advsolar1": 482.4,
+  "advsolar2": 524.0,
+  "nano1": 137.8,
+  "nano3": 379.8,
+  "moho1": 518.6,
+  "moho7": 796.8
+ }
+}

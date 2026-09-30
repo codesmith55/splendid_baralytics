@@ -15,6 +15,9 @@ Usage:
     --snapshot N     dump the full recalled state at minute N
     --compare  N     per-team delta minute N -> N+1
     --project  N     project minute N forward, grade vs actual N+1
+    --viz [TEAM]     render a player economy dashboard (HTML, live/viz/)
+    --h2h A,B        head-to-head report; each side = teamID, snap:<id>[:strategy]
+                     (positions/snapshots.json), or state:<file.json>[:strategy]
 
   --path defaults to the widget's live JSONL (bar_analytic_server.DEFAULT_PATH).
   --json prints raw JSON instead of the formatted table.
@@ -137,6 +140,14 @@ def main():
                     help="CLI runner: comma list of registry analyses, e.g. build,shares,project:7")
     ap.add_argument("--status",   action="store_true",
                     help="quick health check of the JSONL: freshness, event histogram, share sample")
+    ap.add_argument("--viz",      nargs="?", const="*", metavar="TEAM",
+                    help="render a player economy dashboard to live/viz/ (default: first living team)")
+    ap.add_argument("--h2h",      metavar="A,B",
+                    help="head-to-head report; side = teamID | snap:<id>[:strategy] | state:<file>[:strategy]")
+    ap.add_argument("--bubbles",  nargs="?", const=-1, type=int, metavar="MINUTE",
+                    help="composite size+activity bubble pairs (default: end of game; N = recall minute N)")
+    ap.add_argument("--window",   type=int, default=2, metavar="MIN",
+                    help="activity/insight window in game-minutes for --bubbles (default 2)")
     ap.add_argument("--json",     action="store_true", help="raw JSON output")
     args = ap.parse_args()
 
@@ -157,6 +168,54 @@ def main():
           f"({len(mins)} total)")
 
     # ---- minute-independent actions (work even with no economy frames) -------------
+    if args.bubbles is not None:
+        import eco_viz
+        base = os.path.splitext(os.path.basename(args.path))[0]
+        if args.bubbles >= 0:
+            s = live.recall(args.bubbles)
+            if not s:
+                print(f"no snapshot at minute {args.bubbles}; available: {mins}"); return
+            cur, name = args.bubbles, f"{base}_bubbles_m{args.bubbles}.html"
+        else:
+            s, cur, name = snap, None, f"{base}_bubbles.html"
+        ref_min = cur if cur is not None else int(s.get("gameSeconds", 0) // 60)
+        prev = live.recall(ref_min - args.window) if ref_min - args.window >= 0 else None
+        prev1 = live.recall(ref_min - 1) if ref_min >= 1 else None
+        page = eco_viz.render_bubbles(
+            s, meta=snap["session"].get("mapName", ""), current=cur, prev_snap=prev,
+            prev1_snap=prev1,
+            window_label=(f"last {args.window} min" if prev else "whole game"))
+        print(f"report: {eco_viz.write_report(page, name)}")
+        return
+
+    if args.viz is not None or args.h2h:
+        import eco_viz
+        base = os.path.splitext(os.path.basename(args.path))[0]
+        meta = f"{snap['session'].get('mapName', '?')} · {os.path.basename(args.path)}"
+
+        def side(spec):
+            spec = spec.strip()
+            if spec.startswith(("snap:", "state:")):
+                return eco_viz.load_theory_ref(spec)
+            return eco_viz.game_series(live, int(spec))
+
+        if args.h2h:
+            a_spec, b_spec = args.h2h.split(",", 1)
+            A, B = side(a_spec), side(b_spec)
+            slug = "".join(c if c.isalnum() else "-" for c in f"{A['label']}_vs_{B['label']}")[:80]
+            path = eco_viz.write_report(eco_viz.render_h2h(A, B, meta), f"h2h_{slug}.html")
+        else:
+            tid = (int(args.viz) if args.viz != "*" else
+                   next((t["teamID"] for t in snap["teams"] if not t.get("dead")), None))
+            if tid is None:
+                print("no living team to visualize."); return
+            S = eco_viz.game_series(live, tid)
+            if not S["t"]:
+                print(f"no per-minute snapshots for team {tid}."); return
+            path = eco_viz.write_report(eco_viz.render_player(S, meta), f"{base}_team{tid}.html")
+        print(f"report: {path}")
+        return
+
     if args.run:
         from analyses import run as run_analyses
         funcs = [f.strip() for f in args.run.split(",") if f.strip()]

@@ -188,6 +188,37 @@ def _shares(game):
     return {"shares": game.shares_named()}
 
 
+def _series(game, team=None):
+    """Per-minute metric series (the eco_viz data layer) for one team or all."""
+    import eco_viz
+    snap = game.snapshot()
+    tids = ([int(team)] if team is not None
+            else [t["teamID"] for t in snap.get("teams", [])])
+    return {"teams": [eco_viz.game_series(game, t) for t in tids]}
+
+
+def _insights(game, minute=None, window=2):
+    """Directional judgments from metric combinations over a window: trade
+    efficiency (metal-sink detection), bank swings judged by cause, idle-BP
+    vs optimal-wait, army growth vs economy size."""
+    import eco_viz
+    window = int(window)
+    if minute is not None:
+        cur = game.recall(int(minute))
+        if not cur:
+            return {"error": f"no snapshot at minute {minute}", "available": game.minutes()}
+        ref = int(minute)
+    else:
+        cur = game.snapshot()
+        ref = int(cur.get("gameSeconds", 0) // 60)
+    prev = game.recall(ref - window) if ref - window >= 0 else None
+    res = eco_viz.compute_insights(cur, prev)
+    names = {t["teamID"]: t.get("name", str(t["teamID"])) for t in cur.get("teams", [])}
+    return {"minute": ref, "window": (window if prev else None),
+            "teams": [{"teamID": tid, "name": names.get(tid, str(tid)), **r}
+                      for tid, r in res.items()]}
+
+
 REGISTRY = {
     "minutes": {"fn": _minutes, "params": [],         "desc": "recallable game-minutes"},
     "recall":  {"fn": _recall,  "params": ["minute"], "desc": "full per-team state at minute N"},
@@ -195,7 +226,28 @@ REGISTRY = {
     "project": {"fn": _project, "params": ["minute"], "desc": "eco projection from N, graded vs actual N+1"},
     "build":   {"fn": _build,   "params": ["team?"],  "desc": "opening build cadence + phase2 + bp split (ARM/COR/Legion)"},
     "shares":  {"fn": _shares,  "params": [],         "desc": "energy/metal donation+overflow flows X>Y"},
+    "series":  {"fn": _series,  "params": ["team?"],  "desc": "per-minute metric time series (eco_viz data layer)"},
+    "insights": {"fn": _insights, "params": ["minute?", "window?"],
+                 "desc": "directional judgments: trade efficiency, bank swings by cause, BP state, army growth"},
+    "tags": {"fn": lambda game: _tags(game), "params": [],
+             "desc": "cross-game tendency tags from the player DB for everyone in this game"},
+    "pass": {"fn": lambda game, save=False: _pass(game, save), "params": ["save?"],
+             "desc": "full analysis pass: per-minute metric table + the pass's own conclusions"},
 }
+
+
+def _pass(game, save=False):
+    import analysis_pass
+    return analysis_pass.run_pass(game, save=save in (True, 1, "1", "true", "yes"))
+
+
+def _tags(game):
+    """Known tendencies (players.db) for the players in this game."""
+    import player_db
+    names = {t.get("name", "") for t in game.snapshot().get("teams", [])}
+    lines = [ln for ln in player_db.tag_lines() if ln.split(":", 1)[0] in names]
+    return {"tags": lines, "knownPlayers": sorted(n for n in names
+            if any(ln.startswith(n + ":") for ln in lines))}
 
 
 def _parse_request(req):
