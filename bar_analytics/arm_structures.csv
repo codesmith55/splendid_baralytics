@@ -1,0 +1,89 @@
+Armada Structure,Description,Tier,Type,BC,MC,EC,EP,MP,difference between armada and cortex,,,,CortexStructure,Description,Tier,Type,BC,MC,EC,EP,MP,Health
+Energy Converter,Converts 70 energy into 1 metal per sec,1,Building,2605,1,1150,-70,1,yes,,,,Energy Converter,Converts 70 energy into 1 metal per sec,1,Building,2682,1,1250,-70,1,167
+Naval Energy Converter,Converts 70 energy into 1.1 metal per sec,1,Building,2958,1,2500,-70,1.1,no,,,,Naval Energy Converter,Converts 70 energy into 1.1 metal per sec,1,Building,2682,1,2500,-70,1.1,133
+Beholder,Perimeter Camera,1,Building,750,32,850,-13,0,no,,,,Sonar Station,Early Warning System,1,Building,,20,450,0,0,58
+Wind Turbine,Produces Energy. Depends on wind strength.,1,Building,1600,40,175,wind speed,0,yes,,,,Beholder,Perimeter Camera,1,Building,750,32,850,-13,0,280
+Metal Extractor,Extracts Metal from Metalspots,1,Building,1800,50,500,-3,metalspot,no,,,,Wind Turbine,Produces Energy. Depends on wind strength.,1,Building,1687,45,175,wind speed,0,199
+Tidal Generator,Produces Energy (depends on map),1,Building,2188,90,250,map,0,yes,,,,Metal Extractor,Extracts Metal from Metalspots,1,Building,1874,50,500,-3,metalspot,194
+Naval Radar/Sonar Tower,Early Warning System,1,Building,1800,130,1000,0,0,no,,,,Radar Tower,,1,Building,1137,60,630,0,0,90
+Solar Collector,Produces 20 Energy,1,Building,2800,155,0,20,0,,,,,Tidal Generator,Produces Energy (depends on map),1,Building,2094,85,250,map,0,395
+Energy Storage,Increases Energy Storage (6000),1,Building,4119,170,1700,0,0,,,,,Castro,Short Range Jamming Device,1,Building,4577,115,5200,-65,0,1070
+Twilight,Stealthy Cloakable Metal Extractor,1,Building,1800,200,1500,-15,metalspot,,,,,Naval Radar/Sonar Tower,,1,Building,1800,130,1000,0,0,114
+Construction Turret,Assist & Repair in large radius. Transportable,1,Building,5312,210,3200,0,0,,,,,Solar Collector,Produces 20 Energy,1,Building,2800,150,0,20,0,355
+Sneaky Pete,Cloakable Jammer Tower,1,Building,9955,240,8500,-65,0,,,,,Energy Storage,Increases Energy Storage (6000),1,Building,4257,175,1800,0,0,2000
+Naval Energy Storage,Increases Energy Storage (6000),1,Building,7085,300,2600,0,0,,,,,Construction Turret,Assist & Repair in large radius. Transportable,1,Building,5312,210,3200,0,0,560
+Metal Storage,Increases Metal Storage (3000),1,Building,2925,330,570,0,0,,,,,Naval Construction Turret,,1,Building,,230,2600,0,0,560
+Advanced Solar Collector,Produces 75 Energy,1,Building,7950,350,5000,80,0,,,,,Exploiter,Armed Metal Extractor,1,Building,2724,240,1900,,metalspot,1440
+Naval Metal Storage,Increases Metal Storage (3000),1,Building,3741,400,1200,0,0,,,,,Naval Energy Storage,Increases Energy Storage (6000),1,Building,7241,300,2700,0,0,3400
+Geothermal Powerplant,Produces 300 Energy,1,Building,13708,560,13000,300,0,,,,,Metal Storage,Increases Metal Storage (3000),1,Building,2925,340,590,0,0,2100
+Radar Tower,Early Warning System. Transportable (Heavy),2,Building,1137,60,630,0,0,,,,,Advanced Solar Collector,Produces 75 Energy,1,Building,8143,370,4000,75,0,1200
+Veil,Long-Range Jamming Tower,2,Building,9080,125,19000,-125,0,,,,,Naval Metal Storage,Increases Metal Storage (3000),1,Building,3874,370,1600,0,0,3900
+Decoy Fusion Reactor,"Does not produce Energy, used to confuse the enemy",2,Building,7500,370,100,0,0,,,,,Geothermal Powerplant,Produces 300 Energy,1,Building,12875,540,13000,300,0,2050
+Advanced Energy Converter,Converts 600 energy into 10.3 metal per sec,2,Building,34980,380,21000,-600,10.3,,,,,Light Mine,Light Mine,1,Defense,50,5,270,0,0,11
+Air Repair Pad,Automatically Repairs Aircraft,2,Building,9090,400,4300,0,0,,,,,Dragon's Teeth,Fortification,1,Defense,255,8,0,0,0,2800
+Advanced Radar Tower,Long-Range Radar,2,Building,11800,560,19000,0,0,,,,,Shark's Teeth,Naval Fortification,1,Defense,400,15,0,0,0,4450
+Advanced Metal Extractor,Advanced Metal Extractor/Storage,2,Building,14938,620,7700,-20,4 x metalspot,,,,,Medium Mine,Medium Mine,1,Defense,100,16,1050,0,0,11
+Hardened Metal Storage,Increases Metal Storage (10000),2,Building,20391,750,11500,0,0,,,,,Heavy Mine,Heavy Mine,1,Defense,125,21,1350,0,0,11
+Pinpointer,"Enhanced Radar Targeting, more facilities enhance accuracy",2,Building,8707,810,7200,-100,0,,,,,Heavy Mine,"Heavy Mine, Naval Series",1,Defense,,25,1600,0,0,11
+Hardened Energy Storage,Increases Energy Storage (40000),2,Building,20302,830,10000,0,0,,,,,Thistle,Light Anti-air Tower. Transportable (Heavy),1,Defense,1749,80,850,0,0,335
+Prude,"Safe Geothermal Powerplant, produces 750 Energy",2,Building,41347,1150,25000,750,0,,,,,Guard,Light Laser Tower. Transportable (Heavy),1,Defense,2724,90,700,-42,0,650
+Advanced Geothermal Powerplant,Produces 1250 Energy (Hazardous),2,Building,33152,1600,27000,1250,0,,,,,Slingshot,Floating Anti-air Tower,1,Defense,2200,90,1000,0,0,395
+Fusion Reactor,Produces 1000 Energy,2,Building,70014,4300,21000,1000,0,,,,,Gun Platform,light plasma defense (naval),1,Defense,,120,950,,,810
+Cloakable Fusion Reactor,Produces 1050 Energy,2,Building,84389,4700,26000,1000,0,,,,,Urchin,Offshore Torpedo Launcher,1,Defense,3760,170,1800,0,0,1440
+Naval Fusion Reactor,Produces 1200 Energy,2,Building,,5200,33500,1200,0,,,,,Twin Guard,Anti-Swarm Double Guard,1,Defense,5448,195,1750,,,1670
+Advanced Fusion Reactor,Produces 3000 Energy (Hazardous),2,Building,312498,9700,69000,3000,0,,,,,Jellyfish,Coastal Torpedo Launcher,1,Defense,6800,250,2200,0,0,2350
+Dragon's Teeth,Fortification,1,Defense,255,8,0,0,0,,,,,Dragon's Maw,Pop-up Flamethrower Turret,1,Defense,4419,290,1550,0,0,1610
+Shark's Teeth,Naval Fortification,1,Defense,370,15,0,0,0,,,,,Juno,Anti Radar/Jammer/Minefield/ScoutSpam Weapon,1,Defense,27681,660,16000,,,2500
+Nettle,Light Anti-air Tower. Transportable (Heavy),1,Defense,1800,80,900,0,0,,,,,Eradicator,Bomb-Resistant Medium-Range Anti-Air Missile Battery,1,Defense,12000,800,7900,0,0,4450
+Sentry,Light Laser Tower. Transportable (Heavy),1,Defense,2662,85,680,-42,0,,,,,Agitator,Medium Plasma Artillery,1,Defense,19268,1300,13500,0,0,3250
+Naval Nettle,Floating Anti-air Tower,1,Defense,2200,90,1000,0,0,,,,,Shipyard,Produces Tech 1 Ships,1,Factory,6600,600,1200,,,4300
+Harpoon,Offshore Torpedo Launcher,1,Defense,3700,170,1500,0,0,,,,,Bot Lab,Produces Tech 1 Bots,1,Factory,6500,620,1300,0,0,2900
+Beamer,Beam Laser Turret. Transportable (Heavy),1,Defense,5324,190,1500,-60,0,,,,,Vehicle Plant,Produces Tech 1 Vehicles,1,Factory,7151,720,1800,0,0,3000
+Anemone,Coastal Torpedo Launcher,1,Defense,6600,240,2200,0,0,,,,,Aircraft Plant,Produces Tech 1 Aircraft,1,Factory,7180,840,1350,0,0,2150
+Dragon's Claw,Pop-up Lightning Turret,1,Defense,4638,340,1600,0,0,,,,,Hovercraft Platform,Builds Hovercraft,1,Factory,11000,900,3000,0,0,3750
+Ferret,Pop-Up Anti-Air Missile Battery,1,Defense,5810,360,5700,-12,0,,,,,Naval Hovercraft Platform,Builds Hovercraft,1,Factory,11000,900,3000,0,0,3750
+Overwatch,Heavy Laser Tower,1,Defense,12500,440,4700,-41,0,,,,,Seaplane Platform,Builds Seaplanes,1,Factory,11800,1400,5500,0,0,2200
+Juno,Anti Radar/Jammer/Minefield/ScoutSpam Weapon,1,Defense,21833,640,17000,-160,-2.7,,,,,Shroud,Long-Range Jamming Tower,2,Building,9392,130,20000,-125,0,890
+Chainsaw,Bomb-Resistant Medium-Range Anti-Air Missile Battery,1,Defense,12000,750,7300,0,0,,,,,Advanced Sonar Station,Extended Sonar,2,Building,,160,2400,0,0,2400
+Gauntlet,Medium Plasma Artillery,1,Defense,21377,1250,12500,0,0,,,,,Advanced Energy Converter,Converts 600 energy into 10.3 metal per sec,2,Building,31253,370,21000,-600,10.3,560
+Fortification Wall,Advanced Fortification,2,Defense,900,40,500,0,0,,,,,Air Repair Pad,Automatically Repairs Aircraft,2,Building,9315,400,4400,0,0,1780
+Pit Bull,Pop-up Gauss Cannon,2,Defense,14961,680,14000,-16,0,,,,,Advanced Radar Tower,Long Range Radar,2,Building,11960,560,19000,0,0,365
+Tracer,Intrusion Countermeasure System - tracks down stealthy units,2,Defense,11877,710,7100,-125,0,,,,,Advanced Metal Extractor,Advanced Metal Extractor/Storage,2,Building,14125,640,8100,-20,4 x metalspot,3900
+Arbalest,Anti-Air Flak Gun,2,Defense,19005,820,13000,0,0,,,,,Naval Advanced Metal Extractor,Advanced Metal Extractor/Storage,2,Building,,710,10500,,4 x metalspot,2300
+Citadel,Anti-Nuke System,2,Defense,60000,1500,38000,-88,-1,,,,,Hardened Metal Storage,Increases Metal Storage (10000),2,Building,20524,760,11000,0,0,11200
+Mercury,Long Range Anti-Air Tower,2,Defense,28000,1600,33000,-137,0,,,,,Pinpointer,"Enhanced Radar Targeting, more facilities enhance accuracy",2,Building,10898,800,7500,-100,0,2000
+Paralyzer,EMP Missile Launcher,2,Defense,79247,1600,29000,-256,-8,,,,,Hardened Energy Storage,Increases Energy Storage (40000),2,Building,20416,840,11000,0,0,12700
+Rattlesnake,Cloakable Pop-up Plasma Artillery,2,Defense,27072,2500,17000,-24,0,,,,,Advanced Geothermal Powerplant,Produces 1250 Energy (Hazardous),2,Building,32078,1500,27000,1250,0,4150
+Keeper,Plasma Deflector,2,Defense,55000,3000,54000,0,0,,,,,Advanced Exploiter,Armed Advanced Metal Extractor,2,Building,32500,2400,12000,,4 x metalspot,7800
+Pulsar,Tachyon Accelerator,2,Defense,52071,3500,74000,-151,0,,,,,Cerberus,Geothermal Plasma Battery,2,Building,59640,3100,35000,,0,8300
+Basilica,Long Range Plasma Cannon,2,Defense,85185,4500,64000,-378,0,,,,,Fusion Reactor,Produces 1100 Energy,2,Building,75424,4500,26000,1100,0,5000
+Armageddon,Nuclear ICBM Launcher,2,Defense,178453,8100,90000,-1111,-8,,,,,Naval Fusion Reactor,Produces 1220 Energy,2,Building,,5400,34000,1220,0,5900
+Ragnarok,Rapid-Fire Long-Range Plasma Cannon,2,Defense,1400000,63000,752000,-25000,0,,,,,Advanced Fusion Reactor,Produces 3000 Energy (Hazardous),2,Building,329243,9700,48000,3000,0,9400
+Shipyard,Produces Tech 1 Ships,1,Factory,6655,600,1200,0,0,,,,,Fortification Wall,Advanced Fortification,2,Defense,900,40,500,0,0,8900
+Bot Lab,Produces Tech 1 Bots,1,Factory,6500,650,1200,0,0,,,,,Scorpion,Pop-up Sabot Battery,2,Defense,15035,730,14000,,0,3000
+Vehicle Plant,Produces Tech 1 Vehicles,1,Factory,7192,740,1800,0,0,,,,,Nemesis,Intrusion Countermeasure System - tracks down stealthy units,2,Defense,11955,750,6700,,0,2800
+Aircraft Plant,Produces Tech 1 Aircraft,1,Factory,7240,860,1350,0,0,,,,,Birdshot,Anti-Air Flak Gun,2,Defense,20112,850,14000,0,0,1840
+Hovercraft Platform,Builds Hovercraft,1,Factory,11000,900,3000,0,0,,,,,Prevailer,Anti-Nuke System,2,Defense,60000,1500,40000,,,3650
+Naval Hovercraft Platform,Builds Hovercraft,1,Factory,11000,900,3000,0,0,,,,,Screamer,Long Range Anti-Air Tower,2,Defense,28000,1650,32000,,,1670
+Seaplane Platform,Builds Seaplanes,1,Factory,12000,1450,5000,0,0,,,,,Persecutor,Pop-up Plasma Artillery,2,Defense,25717,2500,17000,,,4250
+Advanced Bot Lab,Produces Tech 2 Bots,2,Factory,16224,2900,15000,0,0,,,,,Bulwark,Energy Weapon,2,Defense,55276,3000,37000,,,9400
+Advanced Vehicle Plant,Produces Tech 2 Vehicles,2,Factory,17940,2900,14000,0,0,,,,,Overseer,Plasma Deflector,2,Defense,55000,3200,55000,,,3550
+Advanced Aircraft Plant,Produces Tech 2 Aircraft,2,Factory,20851,3200,29000,0,0,,,,,Basilisk,Long Range Plasma Cannon,2,Defense,93237,4600,67000,,,4700
+Experimental Gantry,Produces Experimental Units,3,Factory,61380,7900,58000,0,0,,,,,Apocalypse,Nuclear ICBM Launcher,2,Defense,181243,7700,82000,,,6200
+,,,,,,,,,,,,,Calamity,Rapid-Fire Long-Range Plasma Cannon,2,Defense,1400000,61000,718000,,,33500
+,,,,,,,,,,,,,Advanced Vehicle Plant,Produces Tech 2 Vehicles,2,Factory,18492,2800,16000,0,0,5100
+,,,,,,,,,,,,,Advanced Bot Lab,Produces Tech 2 Bots,2,Factory,16819,2900,16000,0,0,4500
+,,,,,,,,,,,,,Advanced Aircraft Plant,Produces Tech 2 Aircraft,2,Factory,20678,3200,28000,0,0,3900
+,,,,,,,,,,,,,Naval Advanced Energy Converter,Converts 650 energy into 11 metal per sec,2,,,400,23500,-650,11,445
+,,,,,,,,,,,,,Experimental Gantry,Produces Experimental Units,3,Factory,67321,8350,62500,0,0,17800
+,,,,,,,,,,,,,SAM,Hardened Anti-Air Missle Battery,,Defense,5237,315,6100,,0,2800
+,,,,,,,,,,,,,Warden,Heavy Laser Tower,,Defense,12650,480,4700,,0,2750
+,,,,,,,,,,,,,Coral,Floating Heavy Laser Tower,,Defense,,480,6200,,,4350
+,,,,,,,,,,,,,Janitor,Floating Anti-Air Missile Battery,,,,480,2400,,,1420
+,,,,,,,,,,,,,Naval Birdshot,Anti-Air Flak Gun - Naval Series,,,,890,25000,,,2000
+,,,,,,,,,,,,,Lamprey,Advanced Torpedo Launcher,,,,1050,8500,,,2800
+,,,,,,,,,,,,,Catalyst,Tactical Missile Launcher,,,58927,1200,14000,,,3550
+,,,,,,,,,,,,,Devastator,Floating Multi-Weapon Platform,,,,1200,15000,,,6700
+,,,,,,,,,,,,,Amphibious Complex,Produces Amphibious/Underwater Units,,,,1200,5600,,,2800
+,,,,,,,,,,,,,Advanced Shipyard,Produces Tech 2 Ships,,,,3100,10000,,,5900
+,,,,,,,,,,,,,Experimental Gantry 2,Produces Experimental Units,,,,8400,62000,,,17800
