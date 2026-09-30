@@ -14,3 +14,37 @@ gex_research/output/
 gex_research/metrics/runs/output/
 # demo-parser roster caches written next to .sdfz files
 *.roster.json
+
+# eco_viz — generated HTML reports (regenerate: python live/replay_jsonl.py --viz / --h2h)
+live/viz/
+# player-behavior DB (rebuild: python live/player_db.py ingest --all) + archived game streams
+live/players.db
+live/games/
+
+# bar_watchers — runtime state (DB, logs, fetched replays, rendered dashboard)
+bar_watchers/context/
+bar_watchers/replays/
+bar_watchers/dashboard_out/
+bar_watchers/**/*.db
+bar_watchers/**/*.db-wal
+bar_watchers/**/*.db-journal
+
+# horizon_viz - generated HTML (regenerate: python bar-calc/horizon_viz.py --game 1)
+bar-calc/viz/
+
+# econ_db - rebuildable (python bar-calc/econ_db.py --ingest)
+bar-calc/econ.db
+bar-calc/econ.db-wal
+bar-calc/econ.db-shm
+
+# demo header scan cache (rebuild: python bar-calc/bar_unified.py --find-demo --refresh)
+bar-calc/demo_index.json
+
+# live game snapshots — regenerable, heavy (like live/games/)
+live/snapshots/
+# local build DBs
+bar_analytics/*.db
+bar-calc/_junk/**/*.db
+
+# personal Claude Code permissions — machine-local by design
+.claude/settings.local.json

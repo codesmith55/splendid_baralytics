@@ -72,7 +72,27 @@
       "Bash(touch C:/Users/codes/AppData/Local/Programs/Beyond-All-Reason/data/devmode.txt)",
       "Bash(mkdir -p C:/Users/codes/AppData/Local/Programs/Beyond-All-Reason/data/games)",
       "Bash(gh api \"repos/przystuj/bar_widgets/contents/turbo_buildorders/gadgets/tool_turbo_buildorders_handler.lua\" --jq '.content' | base64 -d > \"C:/Users/codes/AppData/Local/Programs/Beyond-All-Reason/data/games/BAR.sdd/luarules/gadgets/tool_turbo_buildorders_handler.lua\" *)",
-      "Bash(tasklist //FI \"IMAGENAME eq spring*\")"
+      "Bash(tasklist //FI \"IMAGENAME eq spring*\")",
+      "PowerShell(Get-Content live\\\\games\\\\game-1786203020.jsonl -TotalCount 3; '---'; \\(Get-Content live\\\\games\\\\game-1786203020.jsonl | Measure-Object -Line\\).Lines)",
+      "PowerShell($lines = Get-Content live\\\\games\\\\game-1786203020.jsonl; $lines | Select-Object -Skip 3 -First 4; '---actions---'; $lines | ForEach-Object { \\($_ | ConvertFrom-Json\\).action } | Group-Object | Sort-Object Count -Descending | Format-Table Name,Count -AutoSize)",
+      "Bash(gh auth *)",
+      "Bash(python -m py_compile bridge.py query.py)",
+      "Bash(python bridge.py)",
+      "Bash(gh repo *)",
+      "PowerShell(powershell.exe -NoProfile -ExecutionPolicy Bypass -File \"C:\\\\Users\\\\codes\\\\Documents\\\\GitHub\\\\telegram_bridge\\\\install_task.ps1\")",
+      "PowerShell($hb = Get-Item \"C:\\\\Users\\\\codes\\\\Documents\\\\GitHub\\\\telegram_bridge\\\\health\\\\bridge.heartbeat\" -ErrorAction SilentlyContinue; if \\($hb\\) { \"heartbeat age: $\\([int]\\(\\(Get-Date\\) - $hb.LastWriteTime\\).TotalSeconds\\)s\" } else { \"no heartbeat file\" }; Get-Content \"C:\\\\Users\\\\codes\\\\Documents\\\\GitHub\\\\telegram_bridge\\\\bridge.log\" -Tail 2)",
+      "PowerShell(cd C:\\\\Users\\\\codes\\\\Documents\\\\GitHub\\\\splendid_baralytics\\\\live; $p = Start-Process python -ArgumentList \"bar_analytic_server.py\",\"--no-exit\",\"--port\",\"8793\" -PassThru -WindowStyle Hidden; Start-Sleep 4; try { $r = Invoke-WebRequest -Uri \"http://127.0.0.1:8793/builds\" -TimeoutSec 10 -UseBasicParsing; \"builds route: $\\($r.StatusCode\\), $\\($r.RawContentLength\\) bytes\" } finally { Stop-Process -Id $p.Id -Force })",
+      "PowerShell(cd C:\\\\Users\\\\codes\\\\Documents\\\\GitHub\\\\splendid_baralytics\\\\live; $p = Start-Process python -ArgumentList \"bar_analytic_server.py\",\"--no-exit\",\"--port\",\"8794\" -PassThru -WindowStyle Hidden; Start-Sleep 4; try { foreach \\($u in \"http://127.0.0.1:8794/hex\", \"http://127.0.0.1:8794/hex?team=0&rot=1\"\\) { $r = Invoke-WebRequest -Uri $u -TimeoutSec 10 -UseBasicParsing; \"$\\($r.StatusCode\\) $\\($r.RawContentLength\\)b  $u\" } } finally { Stop-Process -Id $p.Id -Force })",
+      "Bash(python bar-calc/bar_unified.py --horizon --at 195 --rows 3 --until 200)",
+      "Bash(python bar-calc/bar_unified.py --selftest)",
+      "Bash(python positions/state_api.py --selftest)",
+      "Bash(python bar-calc/bar_unified.py --wind-validate)",
+      "Bash(python bar-calc/bar_unified.py --extract \"20260925-165017\" --until 480)",
+      "Bash(curl -s http://127.0.0.1:8799/health)",
+      "Bash(curl -s \"http://127.0.0.1:8799/games?count=14&matchup=1vAI,1v0&today=1&min_kb=40\")",
+      "Bash(python -c \"import json,sys; d=json.load\\(sys.stdin\\); [print\\(f'  {g[\\\\\"index\\\\\"]:>3} {g[\\\\\"played_local\\\\\"]} {g[\\\\\"matchup\\\\\"]:>6} {g[\\\\\"size_kb\\\\\"]:>5}KB {g[\\\\\"id\\\\\"]}'\\) for g in d['games']]\")",
+      "Bash(curl -s -m 240 \"http://127.0.0.1:8799/games?count=14&matchup=1vAI,1v0&today=1&min_kb=40\")",
+      "Read(//c/Users/codes/Documents/GitHub/splendid_baralytics/**)"
     ]
   }
 }
