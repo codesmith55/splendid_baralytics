@@ -15,7 +15,73 @@ into builds, ROI, and timing.
 
 ---
 
+## Consolidation status (2026-09-18)
+
+**`bar_unified.py` is the consolidated Python calculator** (§1 constants, §2 grid/walk, §3 wind,
+§4 object data + ROI, §5 Environment, §6 ROI report, §7 parity, §8 CLI). The root
+`splendid_buildSimulator.js` is its port and the working runtime for real game data (continuous
+per-builder tick, reset-to-reality, divergence); `positions/state_api.py` is the Legion state engine
+behind the live server's projection endpoints.
+
+**All three now pull from the same files** — `econ_model.json` (model choices) resolved against the
+engine unit-def dumps (`gex_research/sample_output/actions.json`, `gex_research/legion/legion_unitdefs.json`)
+through `econ_data.py`; `parity.json` pins the resolved numbers and each side's `--selftest` checks it:
+```
+python bar-calc/bar_unified.py --write-parity        # regenerate after a data change
+python bar-calc/bar_unified.py --selftest
+python positions/state_api.py --selftest
+node splendid_buildSimulator.js --selftest
+python bar-calc/econ_data.py --check                 # drift in tables not yet on the layer
+```
+**Engine truth is refreshed from real games** (2026-09-20): `python bar-calc/bar_unified.py --harvest-defs`
+finds the newest 8v8 demo, replays it headlessly with gex.lua just long enough to capture the
+frame-0 `unit_def` block (~40 s), and writes `units_<dateTime>.json` (dateTime = the game's start).
+`econ_model.json`'s `engineDefs` glob applies the newest units file last, so it is the default. A
+faction the game did not load (leg* when Legion was not enabled in the lobby) is pulled through from
+the previous data into the new file (`carriedFrom` on each def, `carried` in the header), so every
+units file is complete on its own: fresh Armada/Cortex, prior Legion.
+
+Numbers that changed when the hand tables were replaced by engine truth: AdvSolar 350/5000/7950
+(+80 E/s), EStorage 170/1700/4110, MStorage 330/570/2920, BotFactory 500/950/5000 (150 BP),
+commander +30 E/s, Legion solar/wind = legsolar 2800 bw / legwin 45 m 1680 bw, base energy cap 1000.
+The calibrated legmex ×0.75 (1.369 m/s) is kept as an explicit override in the config.
+
+**The pre-consolidation originals now live in `_junk/`** (2026-09-22) so they stop reading as
+live code — see `_junk/README.md`. `build-order-calc/bar_economy.md` was promoted to
+`bar-calc/bar_economy.md`, since the strategizer and `eco_advisor.mjs` cite it.
+
+**Wind is folded in (2026-09-22).** `bar_unified.py` §3 is the engine's real generator: wind is a
+2-D vector, re-rolled every 450 frames (15 s) by ADDING a random delta and clamping the new length
+to the map's [min, max], with a smoothstep from old to new across the window; a turbine's output is
+the vector's length. Validated against recorded games by `--wind-validate` (450-frame smoothstep
+beats every other period/shape; 0.02-0.33 E/s mean error). `RecordedWind` replays one game's actual
+wind; `WindModel` samples a map's distribution. **`wind_income()` no longer returns `(min+max)/2`** -
+that midpoint understates badly (All That Glitters is [0, 16] per the map file, midpoint 8.0 E/s,
+measured ~11.9).
+
+**The map reader is folded in (2026-09-22).** `bar_unified.py` §4 reads a map archive for metal-spot
+positions, geovents, start positions, world size, extractor radius and the real wind range — the
+authoritative source for §3's `[min, max]`. Rewritten to pure stdlib (the original needed numpy,
+scipy and py7zr; now only a NEW archive needs py7zr), with spot income calibrated against `metalSpot`
+so it reads 1.825 m/s rather than the raw 7.2. `bar_analytics/map_classify.py` and `eco_planner.py`
+are still only in that untracked folder.
+
+**Still not folded into `bar_unified.py`** (originals in `_junk/` remain the reference):
+wind-simulator's e-stall search and optimal wind/solar/storage solver; eco_simulator's per-builder engine and
+stall trace (the JS port re-implemented the tick); bar_calc's `build_with_priorities` /
+`calc_build_towards_object` / `compare_environments` (the JS strategizer covers priority/towards);
+worker_analysis sweep; build-time-calculator's `find_optimal_winds`; yetanotherbarcalc's break-even;
+eco_calculator's CSV parsing, Cortex sanity check and markdown writer.
+
+**Cleanup steps below (2–4) are still open**: build-time-calculator/, eco_guide_old.md, air_steps.md
+and the source copies in the other repos all still exist.
+
+---
+
 ## Subfolder map
+
+> **All five code subfolders below were moved to `_junk/` on 2026-09-22.** The table records what
+> they were. Start from `bar_unified.py`, not from these.
 
 | Subfolder | What it is | Status |
 |-----------|-----------|--------|

@@ -1,0 +1,6 @@
+{
+ "_note": "Hand-edited corrections to the harvested defs. Never overwritten by a harvest; econ_db.ingest_defs merges it so every reader agrees. `unavailable` marks defs the LIVE game does not offer even though a dump contains them, which happens when the dump was harvested from a local sdd build or an older rapid version. unit_catalog hides them from tiers and options unless you pass --include-unavailable. Re-run `python bar-calc/econ_db.py --ingest` after editing.",
+ "unavailable": {
+  "legmext15": "Overcharged Metal Extractor (250 metal, 2x extraction, 30 E/s upkeep). Removed from the live game, reported 2026-09-28. Still present in units_20260928_155608.json because that harvest came from the local sdd build (the demo records the game as 'Beyond All Reason $VERSION'), so the dump is not the live rapid version. Consequence: Legion has NO advanced T1 extractor, so its only metal scaling above legmex is the T2 legmoho at 640 metal, same as Armada and Cortex."
+ }
+}

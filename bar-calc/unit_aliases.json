@@ -1,0 +1,208 @@
+{
+ "_note": "user-given names for engine defs. Hand-edited and never overwritten by the def harvest; econ_db.ingest_defs merges it into the unit_defs table so every reader resolves the same names. Add an entry as \"defName\": [\"alias\", ...]. Re-run `python bar-calc/econ_db.py --ingest` after editing.",
+ "armack": [
+  "adv con bot",
+  "t2 con",
+  "advanced construction bot"
+ ],
+ "armacv": [
+  "adv con vehicle",
+  "t2 con vehicle"
+ ],
+ "armalab": [
+  "t2 lab",
+  "t2 bot lab",
+  "advanced bot lab"
+ ],
+ "armamex": [
+  "twilight",
+  "stealth mex",
+  "cloaked mex"
+ ],
+ "armadvsol": [
+  "adv solar",
+  "advanced solar"
+ ],
+ "armap": [
+  "air lab",
+  "airlab",
+  "air plant"
+ ],
+ "armaap": [
+  "t2 air lab",
+  "adv air lab"
+ ],
+ "armca": [
+  "aircon",
+  "air con",
+  "con air"
+ ],
+ "armaca": [
+  "adv aircon",
+  "t2 aircon"
+ ],
+ "armck": [
+  "con bot",
+  "conbot",
+  "t1 con",
+  "worker"
+ ],
+ "armcom": [
+  "com",
+  "commander"
+ ],
+ "armcv": [
+  "con vehicle",
+  "convee"
+ ],
+ "armestor": [
+  "e storage",
+  "estor",
+  "energy storage"
+ ],
+ "armfark": [
+  "fark"
+ ],
+ "armfus": [
+  "fusion"
+ ],
+ "armafus": [
+  "adv fusion",
+  "advanced fusion"
+ ],
+ "armlab": [
+  "bot lab",
+  "botlab",
+  "t1 lab"
+ ],
+ "armmakr": [
+  "converter",
+  "econverter",
+  "energy converter",
+  "maker"
+ ],
+ "armmmkr": [
+  "adv converter",
+  "t2 converter",
+  "advanced converter"
+ ],
+ "armmex": [
+  "mex",
+  "extractor",
+  "metal extractor"
+ ],
+ "armmstor": [
+  "m storage",
+  "mstor",
+  "metal storage"
+ ],
+ "armnanotc": [
+  "con turret",
+  "conturret",
+  "nano",
+  "nano turret"
+ ],
+ "armsolar": [
+  "solar"
+ ],
+ "armvp": [
+  "vehicle lab",
+  "vp",
+  "vehicle plant"
+ ],
+ "armwin": [
+  "wind",
+  "windmill",
+  "wind turbine"
+ ],
+ "corack": [
+  "adv con bot",
+  "t2 con"
+ ],
+ "corap": [
+  "air lab",
+  "airlab"
+ ],
+ "corca": [
+  "aircon",
+  "air con"
+ ],
+ "corck": [
+  "con bot",
+  "conbot",
+  "worker"
+ ],
+ "corcom": [
+  "com",
+  "commander"
+ ],
+ "corlab": [
+  "bot lab",
+  "botlab",
+  "t1 lab"
+ ],
+ "cormex": [
+  "mex",
+  "extractor"
+ ],
+ "cormoho": [
+  "moho",
+  "t2 mex",
+  "advanced extractor"
+ ],
+ "cormakr": [
+  "converter",
+  "econverter"
+ ],
+ "cornanotc": [
+  "con turret",
+  "nano"
+ ],
+ "corsolar": [
+  "solar"
+ ],
+ "corwin": [
+  "wind",
+  "windmill"
+ ],
+ "legcom": [
+  "com",
+  "commander"
+ ],
+ "legmex": [
+  "mex",
+  "extractor"
+ ],
+ "legsolar": [
+  "solar"
+ ],
+ "legwin": [
+  "wind",
+  "windmill"
+ ],
+ "legnanotc": [
+  "con turret",
+  "nano"
+ ],
+ "legck": [
+  "con bot",
+  "conbot",
+  "worker"
+ ],
+ "leglab": [
+  "bot lab",
+  "botlab",
+  "t1 lab"
+ ],
+ "armmoho": [
+  "moho",
+  "t2 mex",
+  "adv mex",
+  "advanced extractor"
+ ],
+ "legmoho": [
+  "moho",
+  "t2 mex",
+  "advanced extractor"
+ ]
+}

@@ -1,0 +1,887 @@
+{
+ "map": "Supreme Isthmus Winter v1.8.2",
+ "shortname": "SupIsthSnow",
+ "version": "1.8.2",
+ "author": "Nikuksis",
+ "source_archive": "supreme_isthmus_winter_v1.8.2.sd7",
+ "world_width": 12288,
+ "world_height": 12288,
+ "max_metal": 0.93,
+ "extractor_radius": 90.0,
+ "wind": {
+  "min": 1.0,
+  "max": 19.0
+ },
+ "counts": {
+  "mex_spots": 90,
+  "geo_spots": 6,
+  "start_positions": 16
+ },
+ "total_metal_per_s_est": 853.152,
+ "calibration_note": "mex positions are exact; metal_per_s_est = max_metal * metal_sum / 255 \u2014 calibrate against a replay with a mex on each spot. metal_sum is authoritative relative richness.",
+ "start_positions": [
+  {
+   "team": 0,
+   "x": 7600.0,
+   "z": 4900.0
+  },
+  {
+   "team": 1,
+   "x": 4600.0,
+   "z": 7400.0
+  },
+  {
+   "team": 2,
+   "x": 7400.0,
+   "z": 1200.0
+  },
+  {
+   "team": 3,
+   "x": 4800.0,
+   "z": 11100.0
+  },
+  {
+   "team": 4,
+   "x": 11600.0,
+   "z": 5000.0
+  },
+  {
+   "team": 5,
+   "x": 730.0,
+   "z": 7300.0
+  },
+  {
+   "team": 6,
+   "x": 7444.0,
+   "z": 2500.0
+  },
+  {
+   "team": 7,
+   "x": 4850.0,
+   "z": 9800.0
+  },
+  {
+   "team": 8,
+   "x": 11400.0,
+   "z": 1900.0
+  },
+  {
+   "team": 9,
+   "x": 900.0,
+   "z": 10400.0
+  },
+  {
+   "team": 10,
+   "x": 9700.0,
+   "z": 4300.0
+  },
+  {
+   "team": 11,
+   "x": 2560.0,
+   "z": 8000.0
+  },
+  {
+   "team": 12,
+   "x": 7300.0,
+   "z": 3700.0
+  },
+  {
+   "team": 13,
+   "x": 5000.0,
+   "z": 8500.0
+  },
+  {
+   "team": 14,
+   "x": 10150.0,
+   "z": 600.0
+  },
+  {
+   "team": 15,
+   "x": 2200.0,
+   "z": 11750.0
+  }
+ ],
+ "geo_spots": [
+  {
+   "x": 6900.0,
+   "z": 5070.0
+  },
+  {
+   "x": 5430.0,
+   "z": 7188.0
+  },
+  {
+   "x": 10450.0,
+   "z": 6858.0
+  },
+  {
+   "x": 1800.0,
+   "z": 5400.0
+  },
+  {
+   "x": 7165.0,
+   "z": 2662.0
+  },
+  {
+   "x": 5115.0,
+   "z": 9624.0
+  }
+ ],
+ "features": [
+  {
+   "type": "geovent",
+   "x": 6900.0,
+   "z": 5070.0
+  },
+  {
+   "type": "geovent",
+   "x": 5430.0,
+   "z": 7188.0
+  },
+  {
+   "type": "geovent",
+   "x": 10450.0,
+   "z": 6858.0
+  },
+  {
+   "type": "geovent",
+   "x": 1800.0,
+   "z": 5400.0
+  },
+  {
+   "type": "geovent",
+   "x": 7165.0,
+   "z": 2662.0
+  },
+  {
+   "type": "geovent",
+   "x": 5115.0,
+   "z": 9624.0
+  }
+ ],
+ "feature_counts": {
+  "geovent": 6
+ },
+ "mex_spots": [
+  {
+   "id": 0,
+   "x": 6453.0,
+   "z": 315.0,
+   "metal_sum": 2473,
+   "metal_per_s_est": 9.019,
+   "size_cells": 22
+  },
+  {
+   "id": 1,
+   "x": 10005.0,
+   "z": 333.0,
+   "metal_sum": 2475,
+   "metal_per_s_est": 9.026,
+   "size_cells": 23
+  },
+  {
+   "id": 2,
+   "x": 10395.0,
+   "z": 591.1,
+   "metal_sum": 2477,
+   "metal_per_s_est": 9.034,
+   "size_cells": 23
+  },
+  {
+   "id": 3,
+   "x": 9968.9,
+   "z": 758.9,
+   "metal_sum": 2474,
+   "metal_per_s_est": 9.023,
+   "size_cells": 23
+  },
+  {
+   "id": 4,
+   "x": 5001.1,
+   "z": 933.0,
+   "metal_sum": 2477,
+   "metal_per_s_est": 9.034,
+   "size_cells": 23
+  },
+  {
+   "id": 5,
+   "x": 7395.0,
+   "z": 963.0,
+   "metal_sum": 2474,
+   "metal_per_s_est": 9.023,
+   "size_cells": 22
+  },
+  {
+   "id": 6,
+   "x": 7683.0,
+   "z": 1221.0,
+   "metal_sum": 2477,
+   "metal_per_s_est": 9.034,
+   "size_cells": 23
+  },
+  {
+   "id": 7,
+   "x": 9453.0,
+   "z": 1293.0,
+   "metal_sum": 2474,
+   "metal_per_s_est": 9.023,
+   "size_cells": 22
+  },
+  {
+   "id": 8,
+   "x": 237.0,
+   "z": 1491.0,
+   "metal_sum": 2474,
+   "metal_per_s_est": 9.023,
+   "size_cells": 22
+  },
+  {
+   "id": 9,
+   "x": 7407.1,
+   "z": 1503.1,
+   "metal_sum": 2474,
+   "metal_per_s_est": 9.023,
+   "size_cells": 22
+  },
+  {
+   "id": 10,
+   "x": 11625.1,
+   "z": 1670.9,
+   "metal_sum": 2472,
+   "metal_per_s_est": 9.016,
+   "size_cells": 22
+  },
+  {
+   "id": 11,
+   "x": 5600.9,
+   "z": 1695.1,
+   "metal_sum": 2474,
+   "metal_per_s_est": 9.023,
+   "size_cells": 22
+  },
+  {
+   "id": 12,
+   "x": 11139.0,
+   "z": 1791.1,
+   "metal_sum": 2476,
+   "metal_per_s_est": 9.03,
+   "size_cells": 23
+  },
+  {
+   "id": 13,
+   "x": 477.0,
+   "z": 1797.0,
+   "metal_sum": 2477,
+   "metal_per_s_est": 9.034,
+   "size_cells": 23
+  },
+  {
+   "id": 14,
+   "x": 11547.0,
+   "z": 2139.0,
+   "metal_sum": 2473,
+   "metal_per_s_est": 9.019,
+   "size_cells": 22
+  },
+  {
+   "id": 15,
+   "x": 7251.0,
+   "z": 2246.9,
+   "metal_sum": 2184,
+   "metal_per_s_est": 7.965,
+   "size_cells": 23
+  },
+  {
+   "id": 16,
+   "x": 7515.0,
+   "z": 2445.0,
+   "metal_sum": 2187,
+   "metal_per_s_est": 7.976,
+   "size_cells": 22
+  },
+  {
+   "id": 17,
+   "x": 5445.0,
+   "z": 2624.9,
+   "metal_sum": 2477,
+   "metal_per_s_est": 9.034,
+   "size_cells": 23
+  },
+  {
+   "id": 18,
+   "x": 7575.0,
+   "z": 2787.0,
+   "metal_sum": 2184,
+   "metal_per_s_est": 7.965,
+   "size_cells": 23
+  },
+  {
+   "id": 19,
+   "x": 6848.9,
+   "z": 2870.9,
+   "metal_sum": 2474,
+   "metal_per_s_est": 9.023,
+   "size_cells": 23
+  },
+  {
+   "id": 20,
+   "x": 11931.0,
+   "z": 2901.0,
+   "metal_sum": 2473,
+   "metal_per_s_est": 9.019,
+   "size_cells": 22
+  },
+  {
+   "id": 21,
+   "x": 7275.0,
+   "z": 3513.1,
+   "metal_sum": 2476,
+   "metal_per_s_est": 9.03,
+   "size_cells": 23
+  },
+  {
+   "id": 22,
+   "x": 7539.0,
+   "z": 3789.0,
+   "metal_sum": 2474,
+   "metal_per_s_est": 9.023,
+   "size_cells": 22
+  },
+  {
+   "id": 23,
+   "x": 7083.0,
+   "z": 3897.1,
+   "metal_sum": 2476,
+   "metal_per_s_est": 9.03,
+   "size_cells": 23
+  },
+  {
+   "id": 24,
+   "x": 6447.1,
+   "z": 4118.9,
+   "metal_sum": 2474,
+   "metal_per_s_est": 9.023,
+   "size_cells": 23
+  },
+  {
+   "id": 25,
+   "x": 8864.9,
+   "z": 4160.9,
+   "metal_sum": 2474,
+   "metal_per_s_est": 9.023,
+   "size_cells": 22
+  },
+  {
+   "id": 26,
+   "x": 9933.0,
+   "z": 4160.9,
+   "metal_sum": 2476,
+   "metal_per_s_est": 9.03,
+   "size_cells": 23
+  },
+  {
+   "id": 27,
+   "x": 9507.0,
+   "z": 4251.0,
+   "metal_sum": 2477,
+   "metal_per_s_est": 9.034,
+   "size_cells": 23
+  },
+  {
+   "id": 28,
+   "x": 9801.1,
+   "z": 4515.0,
+   "metal_sum": 2476,
+   "metal_per_s_est": 9.03,
+   "size_cells": 23
+  },
+  {
+   "id": 29,
+   "x": 7779.0,
+   "z": 4694.9,
+   "metal_sum": 2475,
+   "metal_per_s_est": 9.026,
+   "size_cells": 23
+  },
+  {
+   "id": 30,
+   "x": 6464.9,
+   "z": 4857.1,
+   "metal_sum": 2474,
+   "metal_per_s_est": 9.023,
+   "size_cells": 23
+  },
+  {
+   "id": 31,
+   "x": 11481.1,
+   "z": 4875.0,
+   "metal_sum": 2477,
+   "metal_per_s_est": 9.034,
+   "size_cells": 23
+  },
+  {
+   "id": 32,
+   "x": 7419.0,
+   "z": 4886.9,
+   "metal_sum": 2476,
+   "metal_per_s_est": 9.03,
+   "size_cells": 23
+  },
+  {
+   "id": 33,
+   "x": 273.0,
+   "z": 5085.0,
+   "metal_sum": 2472,
+   "metal_per_s_est": 9.016,
+   "size_cells": 23
+  },
+  {
+   "id": 34,
+   "x": 7773.0,
+   "z": 5085.0,
+   "metal_sum": 2474,
+   "metal_per_s_est": 9.023,
+   "size_cells": 22
+  },
+  {
+   "id": 35,
+   "x": 11757.0,
+   "z": 5120.9,
+   "metal_sum": 2476,
+   "metal_per_s_est": 9.03,
+   "size_cells": 23
+  },
+  {
+   "id": 36,
+   "x": 4953.1,
+   "z": 5151.1,
+   "metal_sum": 2475,
+   "metal_per_s_est": 9.026,
+   "size_cells": 23
+  },
+  {
+   "id": 37,
+   "x": 11469.0,
+   "z": 5216.9,
+   "metal_sum": 2476,
+   "metal_per_s_est": 9.03,
+   "size_cells": 23
+  },
+  {
+   "id": 38,
+   "x": 854.9,
+   "z": 5253.0,
+   "metal_sum": 2477,
+   "metal_per_s_est": 9.034,
+   "size_cells": 23
+  },
+  {
+   "id": 39,
+   "x": 6033.0,
+   "z": 5415.0,
+   "metal_sum": 4630,
+   "metal_per_s_est": 16.886,
+   "size_cells": 38
+  },
+  {
+   "id": 40,
+   "x": 7077.0,
+   "z": 5583.0,
+   "metal_sum": 4621,
+   "metal_per_s_est": 16.853,
+   "size_cells": 36
+  },
+  {
+   "id": 41,
+   "x": 9189.0,
+   "z": 5792.9,
+   "metal_sum": 2477,
+   "metal_per_s_est": 9.034,
+   "size_cells": 23
+  },
+  {
+   "id": 42,
+   "x": 11133.0,
+   "z": 5894.9,
+   "metal_sum": 2475,
+   "metal_per_s_est": 9.026,
+   "size_cells": 23
+  },
+  {
+   "id": 43,
+   "x": 8054.9,
+   "z": 6057.1,
+   "metal_sum": 2472,
+   "metal_per_s_est": 9.016,
+   "size_cells": 22
+  },
+  {
+   "id": 44,
+   "x": 6567.0,
+   "z": 6099.0,
+   "metal_sum": 4634,
+   "metal_per_s_est": 16.9,
+   "size_cells": 36
+  },
+  {
+   "id": 45,
+   "x": 5721.0,
+   "z": 6189.0,
+   "metal_sum": 4634,
+   "metal_per_s_est": 16.9,
+   "size_cells": 36
+  },
+  {
+   "id": 46,
+   "x": 4233.1,
+   "z": 6230.9,
+   "metal_sum": 2472,
+   "metal_per_s_est": 9.016,
+   "size_cells": 22
+  },
+  {
+   "id": 47,
+   "x": 1155.0,
+   "z": 6393.1,
+   "metal_sum": 2475,
+   "metal_per_s_est": 9.026,
+   "size_cells": 23
+  },
+  {
+   "id": 48,
+   "x": 3099.0,
+   "z": 6495.1,
+   "metal_sum": 2477,
+   "metal_per_s_est": 9.034,
+   "size_cells": 23
+  },
+  {
+   "id": 49,
+   "x": 5211.0,
+   "z": 6705.0,
+   "metal_sum": 4621,
+   "metal_per_s_est": 16.853,
+   "size_cells": 36
+  },
+  {
+   "id": 50,
+   "x": 6255.0,
+   "z": 6873.0,
+   "metal_sum": 4630,
+   "metal_per_s_est": 16.886,
+   "size_cells": 38
+  },
+  {
+   "id": 51,
+   "x": 11433.1,
+   "z": 7035.0,
+   "metal_sum": 2477,
+   "metal_per_s_est": 9.034,
+   "size_cells": 23
+  },
+  {
+   "id": 52,
+   "x": 819.0,
+   "z": 7071.1,
+   "metal_sum": 2476,
+   "metal_per_s_est": 9.03,
+   "size_cells": 23
+  },
+  {
+   "id": 53,
+   "x": 7334.9,
+   "z": 7136.9,
+   "metal_sum": 2475,
+   "metal_per_s_est": 9.026,
+   "size_cells": 23
+  },
+  {
+   "id": 54,
+   "x": 531.0,
+   "z": 7167.1,
+   "metal_sum": 2476,
+   "metal_per_s_est": 9.03,
+   "size_cells": 23
+  },
+  {
+   "id": 55,
+   "x": 4515.0,
+   "z": 7203.0,
+   "metal_sum": 2474,
+   "metal_per_s_est": 9.023,
+   "size_cells": 22
+  },
+  {
+   "id": 56,
+   "x": 12015.0,
+   "z": 7203.0,
+   "metal_sum": 2472,
+   "metal_per_s_est": 9.016,
+   "size_cells": 23
+  },
+  {
+   "id": 57,
+   "x": 4869.0,
+   "z": 7401.1,
+   "metal_sum": 2476,
+   "metal_per_s_est": 9.03,
+   "size_cells": 23
+  },
+  {
+   "id": 58,
+   "x": 806.9,
+   "z": 7413.0,
+   "metal_sum": 2477,
+   "metal_per_s_est": 9.034,
+   "size_cells": 23
+  },
+  {
+   "id": 59,
+   "x": 5823.1,
+   "z": 7430.9,
+   "metal_sum": 2474,
+   "metal_per_s_est": 9.023,
+   "size_cells": 23
+  },
+  {
+   "id": 60,
+   "x": 4509.0,
+   "z": 7593.1,
+   "metal_sum": 2475,
+   "metal_per_s_est": 9.026,
+   "size_cells": 23
+  },
+  {
+   "id": 61,
+   "x": 2486.9,
+   "z": 7773.0,
+   "metal_sum": 2476,
+   "metal_per_s_est": 9.03,
+   "size_cells": 23
+  },
+  {
+   "id": 62,
+   "x": 2781.0,
+   "z": 8037.0,
+   "metal_sum": 2477,
+   "metal_per_s_est": 9.034,
+   "size_cells": 23
+  },
+  {
+   "id": 63,
+   "x": 2355.0,
+   "z": 8127.1,
+   "metal_sum": 2476,
+   "metal_per_s_est": 9.03,
+   "size_cells": 23
+  },
+  {
+   "id": 64,
+   "x": 3423.1,
+   "z": 8127.1,
+   "metal_sum": 2474,
+   "metal_per_s_est": 9.023,
+   "size_cells": 22
+  },
+  {
+   "id": 65,
+   "x": 5840.9,
+   "z": 8169.1,
+   "metal_sum": 2474,
+   "metal_per_s_est": 9.023,
+   "size_cells": 23
+  },
+  {
+   "id": 66,
+   "x": 5205.0,
+   "z": 8390.9,
+   "metal_sum": 2476,
+   "metal_per_s_est": 9.03,
+   "size_cells": 23
+  },
+  {
+   "id": 67,
+   "x": 4749.0,
+   "z": 8499.0,
+   "metal_sum": 2474,
+   "metal_per_s_est": 9.023,
+   "size_cells": 22
+  },
+  {
+   "id": 68,
+   "x": 5013.0,
+   "z": 8774.9,
+   "metal_sum": 2476,
+   "metal_per_s_est": 9.03,
+   "size_cells": 23
+  },
+  {
+   "id": 69,
+   "x": 357.0,
+   "z": 9387.0,
+   "metal_sum": 2473,
+   "metal_per_s_est": 9.019,
+   "size_cells": 22
+  },
+  {
+   "id": 70,
+   "x": 5439.1,
+   "z": 9417.1,
+   "metal_sum": 2474,
+   "metal_per_s_est": 9.023,
+   "size_cells": 23
+  },
+  {
+   "id": 71,
+   "x": 4713.0,
+   "z": 9501.0,
+   "metal_sum": 2184,
+   "metal_per_s_est": 7.965,
+   "size_cells": 23
+  },
+  {
+   "id": 72,
+   "x": 6843.0,
+   "z": 9663.1,
+   "metal_sum": 2477,
+   "metal_per_s_est": 9.034,
+   "size_cells": 23
+  },
+  {
+   "id": 73,
+   "x": 4773.0,
+   "z": 9843.0,
+   "metal_sum": 2187,
+   "metal_per_s_est": 7.976,
+   "size_cells": 22
+  },
+  {
+   "id": 74,
+   "x": 5037.0,
+   "z": 10041.1,
+   "metal_sum": 2184,
+   "metal_per_s_est": 7.965,
+   "size_cells": 23
+  },
+  {
+   "id": 75,
+   "x": 741.0,
+   "z": 10149.0,
+   "metal_sum": 2473,
+   "metal_per_s_est": 9.019,
+   "size_cells": 22
+  },
+  {
+   "id": 76,
+   "x": 11811.0,
+   "z": 10491.0,
+   "metal_sum": 2477,
+   "metal_per_s_est": 9.034,
+   "size_cells": 23
+  },
+  {
+   "id": 77,
+   "x": 1149.0,
+   "z": 10496.9,
+   "metal_sum": 2476,
+   "metal_per_s_est": 9.03,
+   "size_cells": 23
+  },
+  {
+   "id": 78,
+   "x": 6687.1,
+   "z": 10592.9,
+   "metal_sum": 2474,
+   "metal_per_s_est": 9.023,
+   "size_cells": 22
+  },
+  {
+   "id": 79,
+   "x": 662.9,
+   "z": 10617.1,
+   "metal_sum": 2472,
+   "metal_per_s_est": 9.016,
+   "size_cells": 22
+  },
+  {
+   "id": 80,
+   "x": 4880.9,
+   "z": 10784.9,
+   "metal_sum": 2474,
+   "metal_per_s_est": 9.023,
+   "size_cells": 22
+  },
+  {
+   "id": 81,
+   "x": 12051.0,
+   "z": 10797.0,
+   "metal_sum": 2474,
+   "metal_per_s_est": 9.023,
+   "size_cells": 22
+  },
+  {
+   "id": 82,
+   "x": 2835.0,
+   "z": 10995.0,
+   "metal_sum": 2474,
+   "metal_per_s_est": 9.023,
+   "size_cells": 22
+  },
+  {
+   "id": 83,
+   "x": 4605.0,
+   "z": 11067.0,
+   "metal_sum": 2477,
+   "metal_per_s_est": 9.034,
+   "size_cells": 23
+  },
+  {
+   "id": 84,
+   "x": 4893.0,
+   "z": 11325.0,
+   "metal_sum": 2474,
+   "metal_per_s_est": 9.023,
+   "size_cells": 22
+  },
+  {
+   "id": 85,
+   "x": 7286.9,
+   "z": 11355.0,
+   "metal_sum": 2477,
+   "metal_per_s_est": 9.034,
+   "size_cells": 23
+  },
+  {
+   "id": 86,
+   "x": 2319.1,
+   "z": 11529.1,
+   "metal_sum": 2474,
+   "metal_per_s_est": 9.023,
+   "size_cells": 23
+  },
+  {
+   "id": 87,
+   "x": 1893.0,
+   "z": 11696.9,
+   "metal_sum": 2477,
+   "metal_per_s_est": 9.034,
+   "size_cells": 23
+  },
+  {
+   "id": 88,
+   "x": 2283.0,
+   "z": 11955.0,
+   "metal_sum": 2475,
+   "metal_per_s_est": 9.026,
+   "size_cells": 23
+  },
+  {
+   "id": 89,
+   "x": 5835.0,
+   "z": 11973.0,
+   "metal_sum": 2473,
+   "metal_per_s_est": 9.019,
+   "size_cells": 22
+  }
+ ]
+}
