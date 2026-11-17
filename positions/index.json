@@ -1,0 +1,26 @@
+{
+  "_meta": {
+    "purpose": "Opening-book index for BAR economy positions. Each entry is a target economic state with one or more known paths to reach it plus observed real-game timing samples.",
+    "schema": "positions/records/<id>.json",
+    "cli": {
+      "record": "node positions/record.mjs <position-id> <path-id> <completion_s> [--wind=N] [--notes=...]",
+      "detect": "node positions/record.mjs <position-id> <path-id> --detect  (live detection via bar_analytic_server)",
+      "query": "node positions/query.mjs [position-id]"
+    }
+  },
+  "positions": [
+    {
+      "id": "legion-pos6-first-medmex",
+      "file": "records/legion-pos6-first-medmex.json",
+      "description": "Legion pos6 eco/tech: first medmex online. Branch point after worker builds mex 6+7.",
+      "faction": "legion",
+      "map": "all-that-glitters",
+      "paths": [
+        "wind-in-place",
+        "return-to-com"
+      ],
+      "best_projected_s": 280.1,
+      "best_observed_s": null
+    }
+  ]
+}

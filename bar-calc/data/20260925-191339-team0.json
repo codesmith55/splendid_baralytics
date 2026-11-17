@@ -1,0 +1,3380 @@
+{
+ "hard_data_version": 1,
+ "extracted": "2026-09-25T14:56:56",
+ "game": {
+  "id": "20260925-191339",
+  "demo": "2026-09-25_19-13-39-711_All That Glitters v2.2.3_2026.07.04.sdfz",
+  "played_local": "2026-09-25 12:24",
+  "map": "All That Glitters v2.2.3",
+  "engine": "2026.07.04",
+  "matchup": "1v0",
+  "actions": "C:\\Users\\codes\\AppData\\Local\\Temp\\gex_harness\\wd_2026-09-25_19-13-39-711_All_That_Glitters_v2.2.3_2026.07.04.sdfz\\actions.json",
+  "team": 0,
+  "base": [
+   4182.0,
+   614.0
+  ],
+  "map_wind_range": [
+   0.0,
+   16.0
+  ],
+  "map_mex_spots": 152
+ },
+ "player": {
+  "name": "Player",
+  "team_id": 0,
+  "player_id": 0,
+  "user_id": null,
+  "faction": "Armada",
+  "ally_team_id": 0,
+  "skill": 0,
+  "start_x": 4182,
+  "start_z": 614,
+  "sole_player": true,
+  "chosen_because": "only player in the game",
+  "start": [
+   4182,
+   614
+  ]
+ },
+ "roster": [
+  {
+   "name": "Player",
+   "team_id": 0,
+   "player_id": 0,
+   "user_id": null,
+   "faction": "Armada",
+   "ally_team_id": 0,
+   "skill": 0,
+   "start_x": 4182,
+   "start_z": 614,
+   "sole_player": true,
+   "chosen_because": "",
+   "start": [
+    4182,
+    614
+   ]
+  }
+ ],
+ "mexes": [
+  {
+   "n": 1,
+   "t": 9.5,
+   "x": 4304,
+   "z": 720,
+   "dist": 161.6,
+   "walk_sec_conbot": 0.9,
+   "spot": 14,
+   "spot_metal_per_s": 1.827
+  },
+  {
+   "n": 2,
+   "t": 16.0,
+   "x": 4048,
+   "z": 640,
+   "dist": 136.5,
+   "walk_sec_conbot": 0.2,
+   "spot": 8,
+   "spot_metal_per_s": 1.8209
+  },
+  {
+   "n": 3,
+   "t": 22.5,
+   "x": 4256,
+   "z": 496,
+   "dist": 139.3,
+   "walk_sec_conbot": 0.3,
+   "spot": 7,
+   "spot_metal_per_s": 1.8209
+  },
+  {
+   "n": 4,
+   "t": 87.5,
+   "x": 3856,
+   "z": 240,
+   "dist": 496.1,
+   "walk_sec_conbot": 10.2,
+   "spot": 1,
+   "spot_metal_per_s": 1.827
+  },
+  {
+   "n": 5,
+   "t": 120.77,
+   "x": 3952,
+   "z": 1216,
+   "dist": 644.4,
+   "walk_sec_conbot": 14.3,
+   "spot": 20,
+   "spot_metal_per_s": 1.827
+  },
+  {
+   "n": 6,
+   "t": 137.17,
+   "x": 4624,
+   "z": 208,
+   "dist": 600.2,
+   "walk_sec_conbot": 13.1,
+   "spot": 0,
+   "spot_metal_per_s": 1.825
+  },
+  {
+   "n": 7,
+   "t": 166.7,
+   "x": 3680,
+   "z": 1968,
+   "dist": 1444.1,
+   "walk_sec_conbot": 36.5,
+   "spot": 31,
+   "spot_metal_per_s": 1.8209
+  }
+ ],
+ "starts": [
+  {
+   "t": 0.0,
+   "def": "armcom",
+   "type": "Commander",
+   "unitID": 23040,
+   "x": 4182,
+   "z": 614,
+   "from_factory": false
+  },
+  {
+   "t": 3.5,
+   "def": "armmex",
+   "type": "Mex",
+   "unitID": 28551,
+   "x": 4304,
+   "z": 720,
+   "from_factory": false
+  },
+  {
+   "t": 10.0,
+   "def": "armmex",
+   "type": "Mex",
+   "unitID": 15330,
+   "x": 4048,
+   "z": 640,
+   "from_factory": false
+  },
+  {
+   "t": 16.5,
+   "def": "armmex",
+   "type": "Mex",
+   "unitID": 26545,
+   "x": 4256,
+   "z": 496,
+   "from_factory": false
+  },
+  {
+   "t": 23.0,
+   "def": "armsolar",
+   "type": "Solar",
+   "unitID": 19180,
+   "x": 4328,
+   "z": 552,
+   "from_factory": false
+  },
+  {
+   "t": 32.0,
+   "def": "armsolar",
+   "type": "Solar",
+   "unitID": 22192,
+   "x": 4328,
+   "z": 632,
+   "from_factory": false
+  },
+  {
+   "t": 41.0,
+   "def": "armlab",
+   "type": "BotFactory",
+   "unitID": 3231,
+   "x": 4112,
+   "z": 448,
+   "from_factory": false
+  },
+  {
+   "t": 58.0,
+   "def": "armsolar",
+   "type": "Solar",
+   "unitID": 18806,
+   "x": 4248,
+   "z": 568,
+   "from_factory": false
+  },
+  {
+   "t": 74.63,
+   "def": "armck",
+   "type": "BotWorker",
+   "unitID": 27113,
+   "x": null,
+   "z": null,
+   "from_factory": true
+  },
+  {
+   "t": 81.5,
+   "def": "armmex",
+   "type": "Mex",
+   "unitID": 18417,
+   "x": 3856,
+   "z": 240,
+   "from_factory": false
+  },
+  {
+   "t": 88.0,
+   "def": "armwin",
+   "type": "Wind",
+   "unitID": 8973,
+   "x": 3912,
+   "z": 232,
+   "from_factory": false
+  },
+  {
+   "t": 93.5,
+   "def": "armwin",
+   "type": "Wind",
+   "unitID": 4422,
+   "x": 3960,
+   "z": 232,
+   "from_factory": false
+  },
+  {
+   "t": 96.27,
+   "def": "armmex",
+   "type": "Mex",
+   "unitID": 16321,
+   "x": 3952,
+   "z": 1216,
+   "from_factory": false
+  },
+  {
+   "t": 99.0,
+   "def": "armwin",
+   "type": "Wind",
+   "unitID": 2042,
+   "x": 4008,
+   "z": 232,
+   "from_factory": false
+  },
+  {
+   "t": 101.03,
+   "def": "armck",
+   "type": "BotWorker",
+   "unitID": 25209,
+   "x": null,
+   "z": null,
+   "from_factory": true
+  },
+  {
+   "t": 104.5,
+   "def": "armwin",
+   "type": "Wind",
+   "unitID": 15921,
+   "x": 4008,
+   "z": 280,
+   "from_factory": false
+  },
+  {
+   "t": 110.0,
+   "def": "armwin",
+   "type": "Wind",
+   "unitID": 15341,
+   "x": 3960,
+   "z": 280,
+   "from_factory": false
+  },
+  {
+   "t": 114.63,
+   "def": "armmex",
+   "type": "Mex",
+   "unitID": 15642,
+   "x": 4624,
+   "z": 208,
+   "from_factory": false
+  },
+  {
+   "t": 115.5,
+   "def": "armwin",
+   "type": "Wind",
+   "unitID": 25786,
+   "x": 3912,
+   "z": 280,
+   "from_factory": false
+  },
+  {
+   "t": 120.57,
+   "def": "armrectr",
+   "type": null,
+   "unitID": 18387,
+   "x": null,
+   "z": null,
+   "from_factory": true
+  },
+  {
+   "t": 121.0,
+   "def": "armwin",
+   "type": "Wind",
+   "unitID": 29231,
+   "x": 3864,
+   "z": 296,
+   "from_factory": false
+  },
+  {
+   "t": 126.5,
+   "def": "armwin",
+   "type": "Wind",
+   "unitID": 10813,
+   "x": 3816,
+   "z": 296,
+   "from_factory": false
+  },
+  {
+   "t": 132.0,
+   "def": "armwin",
+   "type": "Wind",
+   "unitID": 22753,
+   "x": 3816,
+   "z": 344,
+   "from_factory": false
+  },
+  {
+   "t": 137.5,
+   "def": "armwin",
+   "type": "Wind",
+   "unitID": 9005,
+   "x": 3864,
+   "z": 344,
+   "from_factory": false
+  },
+  {
+   "t": 141.73,
+   "def": "armck",
+   "type": "BotWorker",
+   "unitID": 19789,
+   "x": null,
+   "z": null,
+   "from_factory": true
+  },
+  {
+   "t": 144.13,
+   "def": "armmex",
+   "type": "Mex",
+   "unitID": 31183,
+   "x": 3680,
+   "z": 1968,
+   "from_factory": false
+  },
+  {
+   "t": 149.83,
+   "def": "armck",
+   "type": "BotWorker",
+   "unitID": 5361,
+   "x": null,
+   "z": null,
+   "from_factory": true
+  },
+  {
+   "t": 152.5,
+   "def": "armwin",
+   "type": "Wind",
+   "unitID": 13874,
+   "x": 3864,
+   "z": 392,
+   "from_factory": false
+  },
+  {
+   "t": 158.0,
+   "def": "armwin",
+   "type": "Wind",
+   "unitID": 29240,
+   "x": 3816,
+   "z": 392,
+   "from_factory": false
+  },
+  {
+   "t": 159.9,
+   "def": "armrectr",
+   "type": null,
+   "unitID": 5055,
+   "x": null,
+   "z": null,
+   "from_factory": true
+  },
+  {
+   "t": 160.0,
+   "def": "armestor",
+   "type": "EStorage",
+   "unitID": 2627,
+   "x": 3864,
+   "z": 440,
+   "from_factory": false
+  },
+  {
+   "t": 167.57,
+   "def": "armwin",
+   "type": "Wind",
+   "unitID": 7527,
+   "x": 3848,
+   "z": 1928,
+   "from_factory": false
+  },
+  {
+   "t": 174.27,
+   "def": "armck",
+   "type": "BotWorker",
+   "unitID": 24031,
+   "x": null,
+   "z": null,
+   "from_factory": true
+  },
+  {
+   "t": 176.5,
+   "def": "armmakr",
+   "type": "EConverter",
+   "unitID": 19957,
+   "x": 3976,
+   "z": 504,
+   "from_factory": false
+  },
+  {
+   "t": 182.23,
+   "def": "armwin",
+   "type": "Wind",
+   "unitID": 2988,
+   "x": 3928,
+   "z": 456,
+   "from_factory": false
+  },
+  {
+   "t": 187.4,
+   "def": "armwin",
+   "type": "Wind",
+   "unitID": 31353,
+   "x": 3976,
+   "z": 456,
+   "from_factory": false
+  },
+  {
+   "t": 187.6,
+   "def": "armwin",
+   "type": "Wind",
+   "unitID": 17873,
+   "x": 3800,
+   "z": 1928,
+   "from_factory": false
+  },
+  {
+   "t": 189.0,
+   "def": "armwin",
+   "type": "Wind",
+   "unitID": 13868,
+   "x": 3816,
+   "z": 440,
+   "from_factory": false
+  },
+  {
+   "t": 194.9,
+   "def": "armck",
+   "type": "BotWorker",
+   "unitID": 15167,
+   "x": null,
+   "z": null,
+   "from_factory": true
+  },
+  {
+   "t": 198.0,
+   "def": "armwin",
+   "type": "Wind",
+   "unitID": 20410,
+   "x": 3976,
+   "z": 360,
+   "from_factory": false
+  },
+  {
+   "t": 199.0,
+   "def": "armwin",
+   "type": "Wind",
+   "unitID": 18595,
+   "x": 3928,
+   "z": 360,
+   "from_factory": false
+  },
+  {
+   "t": 203.5,
+   "def": "armck",
+   "type": "BotWorker",
+   "unitID": 14095,
+   "x": null,
+   "z": null,
+   "from_factory": true
+  },
+  {
+   "t": 206.07,
+   "def": "armwin",
+   "type": "Wind",
+   "unitID": 2975,
+   "x": 3928,
+   "z": 408,
+   "from_factory": false
+  },
+  {
+   "t": 207.7,
+   "def": "armwin",
+   "type": "Wind",
+   "unitID": 28765,
+   "x": 3800,
+   "z": 1880,
+   "from_factory": false
+  },
+  {
+   "t": 212.77,
+   "def": "armck",
+   "type": "BotWorker",
+   "unitID": 29452,
+   "x": null,
+   "z": null,
+   "from_factory": true
+  },
+  {
+   "t": 213.4,
+   "def": "armadvsol",
+   "type": "AdvSolar",
+   "unitID": 14133,
+   "x": 4112,
+   "z": 288,
+   "from_factory": false
+  },
+  {
+   "t": 217.87,
+   "def": "armck",
+   "type": "BotWorker",
+   "unitID": 18369,
+   "x": null,
+   "z": null,
+   "from_factory": true
+  },
+  {
+   "t": 222.8,
+   "def": "armck",
+   "type": "BotWorker",
+   "unitID": 27599,
+   "x": null,
+   "z": null,
+   "from_factory": true
+  },
+  {
+   "t": 227.43,
+   "def": "armck",
+   "type": "BotWorker",
+   "unitID": 19717,
+   "x": null,
+   "z": null,
+   "from_factory": true
+  },
+  {
+   "t": 227.8,
+   "def": "armwin",
+   "type": "Wind",
+   "unitID": 21439,
+   "x": 3848,
+   "z": 1880,
+   "from_factory": false
+  },
+  {
+   "t": 228.33,
+   "def": "armck",
+   "type": "BotWorker",
+   "unitID": 10448,
+   "x": 4112.0249023438,
+   "z": 431.91592407227,
+   "from_factory": false
+  },
+  {
+   "t": 234.63,
+   "def": "armsolar",
+   "type": "Solar",
+   "unitID": 22575,
+   "x": 4200,
+   "z": 376,
+   "from_factory": false
+  },
+  {
+   "t": 239.17,
+   "def": "armsolar",
+   "type": "Solar",
+   "unitID": 14782,
+   "x": 4184,
+   "z": 296,
+   "from_factory": false
+  },
+  {
+   "t": 240.77,
+   "def": "armadvsol",
+   "type": "AdvSolar",
+   "unitID": 21042,
+   "x": 4064,
+   "z": 224,
+   "from_factory": false
+  },
+  {
+   "t": 247.9,
+   "def": "armwin",
+   "type": "Wind",
+   "unitID": 22168,
+   "x": 3848,
+   "z": 1832,
+   "from_factory": false
+  },
+  {
+   "t": 254.8,
+   "def": "armalab",
+   "type": null,
+   "unitID": 26602,
+   "x": 4216,
+   "z": 600,
+   "from_factory": false
+  },
+  {
+   "t": 258.73,
+   "def": "armmakr",
+   "type": "EConverter",
+   "unitID": 14194,
+   "x": 3976,
+   "z": 632,
+   "from_factory": false
+  },
+  {
+   "t": 266.23,
+   "def": "armmakr",
+   "type": "EConverter",
+   "unitID": 8734,
+   "x": 3928,
+   "z": 632,
+   "from_factory": false
+  },
+  {
+   "t": 268.0,
+   "def": "armwin",
+   "type": "Wind",
+   "unitID": 30577,
+   "x": 3800,
+   "z": 1832,
+   "from_factory": false
+  },
+  {
+   "t": 274.23,
+   "def": "armmakr",
+   "type": "EConverter",
+   "unitID": 319,
+   "x": 3928,
+   "z": 680,
+   "from_factory": false
+  },
+  {
+   "t": 282.5,
+   "def": "armmakr",
+   "type": "EConverter",
+   "unitID": 5476,
+   "x": 3976,
+   "z": 680,
+   "from_factory": false
+  },
+  {
+   "t": 284.7,
+   "def": "armmakr",
+   "type": "EConverter",
+   "unitID": 7786,
+   "x": 4024,
+   "z": 504,
+   "from_factory": false
+  },
+  {
+   "t": 285.03,
+   "def": "armmakr",
+   "type": "EConverter",
+   "unitID": 18410,
+   "x": 4024,
+   "z": 456,
+   "from_factory": false
+  },
+  {
+   "t": 288.1,
+   "def": "armwin",
+   "type": "Wind",
+   "unitID": 8454,
+   "x": 3800,
+   "z": 1784,
+   "from_factory": false
+  },
+  {
+   "t": 343.77,
+   "def": "armack",
+   "type": null,
+   "unitID": 2861,
+   "x": null,
+   "z": null,
+   "from_factory": true
+  },
+  {
+   "t": 344.27,
+   "def": "armmoho",
+   "type": "AMex",
+   "unitID": 31670,
+   "x": 4304,
+   "z": 720,
+   "from_factory": false
+  },
+  {
+   "t": 345.37,
+   "def": "armmoho",
+   "type": "AMex",
+   "unitID": 6277,
+   "x": 4256,
+   "z": 496,
+   "from_factory": false
+  },
+  {
+   "t": 346.13,
+   "def": "armmoho",
+   "type": "AMex",
+   "unitID": 19490,
+   "x": 4048,
+   "z": 640,
+   "from_factory": false
+  },
+  {
+   "t": 347.87,
+   "def": "armack",
+   "type": null,
+   "unitID": 161,
+   "x": 4216,
+   "z": 623.18359375,
+   "from_factory": false
+  },
+  {
+   "t": 364.23,
+   "def": "armfark",
+   "type": null,
+   "unitID": 29312,
+   "x": null,
+   "z": null,
+   "from_factory": true
+  },
+  {
+   "t": 404.0,
+   "def": "armmakr",
+   "type": "EConverter",
+   "unitID": 3894,
+   "x": 4264,
+   "z": 904,
+   "from_factory": false
+  },
+  {
+   "t": 404.13,
+   "def": "armack",
+   "type": null,
+   "unitID": 1449,
+   "x": null,
+   "z": null,
+   "from_factory": true
+  },
+  {
+   "t": 406.37,
+   "def": "armmoho",
+   "type": "AMex",
+   "unitID": 22564,
+   "x": 4048,
+   "z": 640,
+   "from_factory": false
+  },
+  {
+   "t": 413.0,
+   "def": "armmakr",
+   "type": "EConverter",
+   "unitID": 25596,
+   "x": 4216,
+   "z": 904,
+   "from_factory": false
+  },
+  {
+   "t": 421.8,
+   "def": "armfark",
+   "type": null,
+   "unitID": 26650,
+   "x": null,
+   "z": null,
+   "from_factory": true
+  },
+  {
+   "t": 424.0,
+   "def": "armmakr",
+   "type": "EConverter",
+   "unitID": 8065,
+   "x": 4216,
+   "z": 952,
+   "from_factory": false
+  },
+  {
+   "t": 433.0,
+   "def": "armmakr",
+   "type": "EConverter",
+   "unitID": 14411,
+   "x": 4264,
+   "z": 952,
+   "from_factory": false
+  },
+  {
+   "t": 434.87,
+   "def": "armmoho",
+   "type": "AMex",
+   "unitID": 9829,
+   "x": 3856,
+   "z": 240,
+   "from_factory": false
+  },
+  {
+   "t": 473.87,
+   "def": "armack",
+   "type": null,
+   "unitID": 8257,
+   "x": null,
+   "z": null,
+   "from_factory": true
+  },
+  {
+   "t": 474.4,
+   "def": "armfark",
+   "type": null,
+   "unitID": 28722,
+   "x": 4216,
+   "z": 623.18359375,
+   "from_factory": false
+  }
+ ],
+ "completions": [
+  {
+   "t": 0.0,
+   "def": "armcom",
+   "type": "Commander",
+   "unitID": 23040
+  },
+  {
+   "t": 9.5,
+   "def": "armmex",
+   "type": "Mex",
+   "unitID": 28551
+  },
+  {
+   "t": 16.0,
+   "def": "armmex",
+   "type": "Mex",
+   "unitID": 15330
+  },
+  {
+   "t": 22.5,
+   "def": "armmex",
+   "type": "Mex",
+   "unitID": 26545
+  },
+  {
+   "t": 31.67,
+   "def": "armsolar",
+   "type": "Solar",
+   "unitID": 19180
+  },
+  {
+   "t": 40.67,
+   "def": "armsolar",
+   "type": "Solar",
+   "unitID": 22192
+  },
+  {
+   "t": 57.73,
+   "def": "armlab",
+   "type": "BotFactory",
+   "unitID": 3231
+  },
+  {
+   "t": 66.67,
+   "def": "armsolar",
+   "type": "Solar",
+   "unitID": 18806
+  },
+  {
+   "t": 74.63,
+   "def": "armck",
+   "type": "BotWorker",
+   "unitID": 27113
+  },
+  {
+   "t": 87.5,
+   "def": "armmex",
+   "type": "Mex",
+   "unitID": 18417
+  },
+  {
+   "t": 93.33,
+   "def": "armwin",
+   "type": "Wind",
+   "unitID": 8973
+  },
+  {
+   "t": 98.83,
+   "def": "armwin",
+   "type": "Wind",
+   "unitID": 4422
+  },
+  {
+   "t": 101.03,
+   "def": "armck",
+   "type": "BotWorker",
+   "unitID": 25209
+  },
+  {
+   "t": 104.33,
+   "def": "armwin",
+   "type": "Wind",
+   "unitID": 2042
+  },
+  {
+   "t": 109.83,
+   "def": "armwin",
+   "type": "Wind",
+   "unitID": 15921
+  },
+  {
+   "t": 115.33,
+   "def": "armwin",
+   "type": "Wind",
+   "unitID": 15341
+  },
+  {
+   "t": 120.57,
+   "def": "armrectr",
+   "type": null,
+   "unitID": 18387
+  },
+  {
+   "t": 120.77,
+   "def": "armmex",
+   "type": "Mex",
+   "unitID": 16321
+  },
+  {
+   "t": 120.83,
+   "def": "armwin",
+   "type": "Wind",
+   "unitID": 25786
+  },
+  {
+   "t": 126.33,
+   "def": "armwin",
+   "type": "Wind",
+   "unitID": 29231
+  },
+  {
+   "t": 131.83,
+   "def": "armwin",
+   "type": "Wind",
+   "unitID": 10813
+  },
+  {
+   "t": 137.17,
+   "def": "armmex",
+   "type": "Mex",
+   "unitID": 15642
+  },
+  {
+   "t": 137.33,
+   "def": "armwin",
+   "type": "Wind",
+   "unitID": 22753
+  },
+  {
+   "t": 141.73,
+   "def": "armck",
+   "type": "BotWorker",
+   "unitID": 19789
+  },
+  {
+   "t": 149.83,
+   "def": "armck",
+   "type": "BotWorker",
+   "unitID": 5361
+  },
+  {
+   "t": 151.97,
+   "def": "armwin",
+   "type": "Wind",
+   "unitID": 9005
+  },
+  {
+   "t": 157.83,
+   "def": "armwin",
+   "type": "Wind",
+   "unitID": 13874
+  },
+  {
+   "t": 159.87,
+   "def": "armrectr",
+   "type": null,
+   "unitID": 5055
+  },
+  {
+   "t": 166.7,
+   "def": "armmex",
+   "type": "Mex",
+   "unitID": 31183
+  },
+  {
+   "t": 174.23,
+   "def": "armck",
+   "type": "BotWorker",
+   "unitID": 24031
+  },
+  {
+   "t": 175.83,
+   "def": "armestor",
+   "type": "EStorage",
+   "unitID": 2627
+  },
+  {
+   "t": 182.13,
+   "def": "armmakr",
+   "type": "EConverter",
+   "unitID": 19957
+  },
+  {
+   "t": 187.0,
+   "def": "armwin",
+   "type": "Wind",
+   "unitID": 29240
+  },
+  {
+   "t": 187.6,
+   "def": "armwin",
+   "type": "Wind",
+   "unitID": 7527
+  },
+  {
+   "t": 189.47,
+   "def": "armwin",
+   "type": "Wind",
+   "unitID": 2988
+  },
+  {
+   "t": 194.33,
+   "def": "armwin",
+   "type": "Wind",
+   "unitID": 13868
+  },
+  {
+   "t": 194.87,
+   "def": "armck",
+   "type": "BotWorker",
+   "unitID": 15167
+  },
+  {
+   "t": 203.47,
+   "def": "armck",
+   "type": "BotWorker",
+   "unitID": 14095
+  },
+  {
+   "t": 204.33,
+   "def": "armwin",
+   "type": "Wind",
+   "unitID": 18595
+  },
+  {
+   "t": 205.8,
+   "def": "armwin",
+   "type": "Wind",
+   "unitID": 31353
+  },
+  {
+   "t": 207.47,
+   "def": "armwin",
+   "type": "Wind",
+   "unitID": 20410
+  },
+  {
+   "t": 207.7,
+   "def": "armwin",
+   "type": "Wind",
+   "unitID": 17873
+  },
+  {
+   "t": 212.77,
+   "def": "armck",
+   "type": "BotWorker",
+   "unitID": 29452
+  },
+  {
+   "t": 217.83,
+   "def": "armck",
+   "type": "BotWorker",
+   "unitID": 18369
+  },
+  {
+   "t": 222.8,
+   "def": "armck",
+   "type": "BotWorker",
+   "unitID": 27599
+  },
+  {
+   "t": 227.43,
+   "def": "armck",
+   "type": "BotWorker",
+   "unitID": 19717
+  },
+  {
+   "t": 227.8,
+   "def": "armwin",
+   "type": "Wind",
+   "unitID": 28765
+  },
+  {
+   "t": 237.67,
+   "def": "armsolar",
+   "type": "Solar",
+   "unitID": 22575
+  },
+  {
+   "t": 241.8,
+   "def": "armadvsol",
+   "type": "AdvSolar",
+   "unitID": 14133
+  },
+  {
+   "t": 244.57,
+   "def": "armsolar",
+   "type": "Solar",
+   "unitID": 14782
+  },
+  {
+   "t": 247.9,
+   "def": "armwin",
+   "type": "Wind",
+   "unitID": 21439
+  },
+  {
+   "t": 251.2,
+   "def": "armadvsol",
+   "type": "AdvSolar",
+   "unitID": 21042
+  },
+  {
+   "t": 265.77,
+   "def": "armmakr",
+   "type": "EConverter",
+   "unitID": 14194
+  },
+  {
+   "t": 268.0,
+   "def": "armwin",
+   "type": "Wind",
+   "unitID": 22168
+  },
+  {
+   "t": 273.27,
+   "def": "armmakr",
+   "type": "EConverter",
+   "unitID": 8734
+  },
+  {
+   "t": 282.17,
+   "def": "armmakr",
+   "type": "EConverter",
+   "unitID": 319
+  },
+  {
+   "t": 288.1,
+   "def": "armwin",
+   "type": "Wind",
+   "unitID": 30577
+  },
+  {
+   "t": 293.53,
+   "def": "armmakr",
+   "type": "EConverter",
+   "unitID": 7786
+  },
+  {
+   "t": 294.13,
+   "def": "armmakr",
+   "type": "EConverter",
+   "unitID": 18410
+  },
+  {
+   "t": 298.4,
+   "def": "armmakr",
+   "type": "EConverter",
+   "unitID": 5476
+  },
+  {
+   "t": 327.93,
+   "def": "armalab",
+   "type": null,
+   "unitID": 26602
+  },
+  {
+   "t": 343.77,
+   "def": "armack",
+   "type": null,
+   "unitID": 2861
+  },
+  {
+   "t": 364.23,
+   "def": "armfark",
+   "type": null,
+   "unitID": 29312
+  },
+  {
+   "t": 392.27,
+   "def": "armmoho",
+   "type": "AMex",
+   "unitID": 31670
+  },
+  {
+   "t": 404.13,
+   "def": "armack",
+   "type": null,
+   "unitID": 1449
+  },
+  {
+   "t": 412.67,
+   "def": "armmakr",
+   "type": "EConverter",
+   "unitID": 3894
+  },
+  {
+   "t": 421.67,
+   "def": "armmakr",
+   "type": "EConverter",
+   "unitID": 25596
+  },
+  {
+   "t": 421.8,
+   "def": "armfark",
+   "type": null,
+   "unitID": 26650
+  },
+  {
+   "t": 432.67,
+   "def": "armmakr",
+   "type": "EConverter",
+   "unitID": 8065
+  },
+  {
+   "t": 441.67,
+   "def": "armmakr",
+   "type": "EConverter",
+   "unitID": 14411
+  },
+  {
+   "t": 473.5,
+   "def": "armmoho",
+   "type": "AMex",
+   "unitID": 22564
+  },
+  {
+   "t": 473.87,
+   "def": "armack",
+   "type": null,
+   "unitID": 8257
+  }
+ ],
+ "wind": {
+  "samples": [
+   {
+    "t": 0.0,
+    "value": 0,
+    "x": 7.9899997711182,
+    "z": 0.33000001311302
+   },
+   {
+    "t": 5.0,
+    "value": 7.9706811904907,
+    "x": 7.9699997901917,
+    "z": -0.21999999880791
+   },
+   {
+    "t": 10.0,
+    "value": 8.0182199478149,
+    "x": 7.9200000762939,
+    "z": -1.25
+   },
+   {
+    "t": 15.0,
+    "value": 8.0997486114502,
+    "x": 7.8899998664856,
+    "z": -1.8200000524521
+   },
+   {
+    "t": 20.0,
+    "value": 9.3023462295532,
+    "x": 8.7600002288818,
+    "z": -3.1400001049042
+   },
+   {
+    "t": 25.0,
+    "value": 11.83540058136,
+    "x": 10.39999961853,
+    "z": -5.6599998474121
+   },
+   {
+    "t": 30.0,
+    "value": 13.314373016357,
+    "x": 11.300000190735,
+    "z": -7.039999961853
+   },
+   {
+    "t": 35.0,
+    "value": 12.626521110535,
+    "x": 10.710000038147,
+    "z": -6.6900000572205
+   },
+   {
+    "t": 40.0,
+    "value": 11.303622245789,
+    "x": 9.5699996948242,
+    "z": -6.0199999809265
+   },
+   {
+    "t": 45.0,
+    "value": 10.56701374054,
+    "x": 8.9399995803833,
+    "z": -5.6399998664856
+   },
+   {
+    "t": 50.0,
+    "value": 10.436207771301,
+    "x": 9.4799995422363,
+    "z": -4.3699998855591
+   },
+   {
+    "t": 55.0,
+    "value": 10.69929599762,
+    "x": 10.529999732971,
+    "z": -1.8999999761581
+   },
+   {
+    "t": 60.0,
+    "value": 11.132477760315,
+    "x": 11.119999885559,
+    "z": -0.50999999046326
+   },
+   {
+    "t": 65.0,
+    "value": 9.6678857803345,
+    "x": 9.6499996185303,
+    "z": 0.56999999284744
+   },
+   {
+    "t": 70.0,
+    "value": 7.2798113822937,
+    "x": 6.7600002288818,
+    "z": 2.710000038147
+   },
+   {
+    "t": 75.0,
+    "value": 6.4423666000366,
+    "x": 5.1100001335144,
+    "z": 3.9200000762939
+   },
+   {
+    "t": 80.0,
+    "value": 6.2542128562927,
+    "x": 4.6999998092651,
+    "z": 4.1199998855591
+   },
+   {
+    "t": 85.0,
+    "value": 5.9681797027588,
+    "x": 3.8900001049042,
+    "z": 4.5300002098083
+   },
+   {
+    "t": 90.0,
+    "value": 5.8614554405212,
+    "x": 3.4200000762939,
+    "z": 4.7600002288818
+   },
+   {
+    "t": 95.0,
+    "value": 6.8046765327454,
+    "x": 4.5700001716614,
+    "z": 5.039999961853
+   },
+   {
+    "t": 100.0,
+    "value": 8.8854999542236,
+    "x": 6.9000000953674,
+    "z": 5.5999999046326
+   },
+   {
+    "t": 105.0,
+    "value": 10.158320426941,
+    "x": 8.2600002288818,
+    "z": 5.9200000762939
+   },
+   {
+    "t": 110.0,
+    "value": 10.442341804504,
+    "x": 8.1400003433228,
+    "z": 6.539999961853
+   },
+   {
+    "t": 115.0,
+    "value": 11.105326652527,
+    "x": 7.8899998664856,
+    "z": 7.8099999427795
+   },
+   {
+    "t": 120.0,
+    "value": 11.544539451599,
+    "x": 7.75,
+    "z": 8.5600004196167
+   },
+   {
+    "t": 125.0,
+    "value": 12.41738319397,
+    "x": 8.2799997329712,
+    "z": 9.2600002288818
+   },
+   {
+    "t": 130.0,
+    "value": 14.21600151062,
+    "x": 9.3699998855591,
+    "z": 10.689999580383
+   },
+   {
+    "t": 135.0,
+    "value": 15.283427238464,
+    "x": 10.020000457764,
+    "z": 11.539999961853
+   },
+   {
+    "t": 140.0,
+    "value": 14.692821502686,
+    "x": 10.819999694824,
+    "z": 9.9399995803833
+   },
+   {
+    "t": 145.0,
+    "value": 14.121624946594,
+    "x": 12.489999771118,
+    "z": 6.5799999237061
+   },
+   {
+    "t": 150.0,
+    "value": 14.248712539673,
+    "x": 13.489999771118,
+    "z": 4.5700001716614
+   },
+   {
+    "t": 155.0,
+    "value": 14.642544746399,
+    "x": 13.939999580383,
+    "z": 4.4699997901917
+   },
+   {
+    "t": 160.0,
+    "value": 15.482305526733,
+    "x": 14.880000114441,
+    "z": 4.2800002098083
+   },
+   {
+    "t": 165.0,
+    "value": 15.996865272522,
+    "x": 15.449999809265,
+    "z": 4.1599998474121
+   },
+   {
+    "t": 170.0,
+    "value": 15.98826789856,
+    "x": 15.35000038147,
+    "z": 4.4699997901917
+   },
+   {
+    "t": 175.0,
+    "value": 15.985969543457,
+    "x": 15.140000343323,
+    "z": 5.1500000953674
+   },
+   {
+    "t": 180.0,
+    "value": 15.999858856201,
+    "x": 15,
+    "z": 5.5599999427795
+   },
+   {
+    "t": 185.0,
+    "value": 15.742162704468,
+    "x": 15.210000038147,
+    "z": 4.0500001907349
+   },
+   {
+    "t": 190.0,
+    "value": 15.686433792114,
+    "x": 15.670000076294,
+    "z": 0.76999998092651
+   },
+   {
+    "t": 195.0,
+    "value": 15.996368408203,
+    "x": 15.949999809265,
+    "z": -1.25
+   },
+   {
+    "t": 200.0,
+    "value": 14.735877990723,
+    "x": 14.590000152588,
+    "z": -2.0799999237061
+   },
+   {
+    "t": 205.0,
+    "value": 12.231243133545,
+    "x": 11.60000038147,
+    "z": -3.8599998950958
+   },
+   {
+    "t": 210.0,
+    "value": 10.942945480347,
+    "x": 9.75,
+    "z": -4.9800000190735
+   },
+   {
+    "t": 215.0,
+    "value": 10.452716827393,
+    "x": 9,
+    "z": -5.3099999427795
+   },
+   {
+    "t": 220.0,
+    "value": 9.5402202606201,
+    "x": 7.3899998664856,
+    "z": -6.0300002098083
+   },
+   {
+    "t": 225.0,
+    "value": 9.0949115753174,
+    "x": 6.3800001144409,
+    "z": -6.4800000190735
+   },
+   {
+    "t": 230.0,
+    "value": 10.204821586609,
+    "x": 8,
+    "z": -6.3299999237061
+   },
+   {
+    "t": 235.0,
+    "value": 13.114392280579,
+    "x": 11.670000076294,
+    "z": -5.9899997711182
+   },
+   {
+    "t": 240.0,
+    "value": 15.13677406311,
+    "x": 13.989999771118,
+    "z": -5.7800002098083
+   },
+   {
+    "t": 245.0,
+    "value": 15.335290908813,
+    "x": 14.239999771118,
+    "z": -5.6900000572205
+   },
+   {
+    "t": 250.0,
+    "value": 15.735632896423,
+    "x": 14.739999771118,
+    "z": -5.5
+   },
+   {
+    "t": 255.0,
+    "value": 15.996430397034,
+    "x": 15.060000419617,
+    "z": -5.3800001144409
+   },
+   {
+    "t": 260.0,
+    "value": 15.972540855408,
+    "x": 14.880000114441,
+    "z": -5.8200001716614
+   },
+   {
+    "t": 265.0,
+    "value": 15.964037895203,
+    "x": 14.430000305176,
+    "z": -6.8299999237061
+   },
+   {
+    "t": 270.0,
+    "value": 15.999224662781,
+    "x": 14.140000343323,
+    "z": -7.4800000190735
+   },
+   {
+    "t": 275.0,
+    "value": 15.583177566528,
+    "x": 14.119999885559,
+    "z": -6.5900001525879
+   },
+   {
+    "t": 280.0,
+    "value": 14.780093193054,
+    "x": 14.079999923706,
+    "z": -4.4899997711182
+   },
+   {
+    "t": 285.0,
+    "value": 14.398159980774,
+    "x": 14.060000419617,
+    "z": -3.1199998855591
+   },
+   {
+    "t": 290.0,
+    "value": 14.428867340088,
+    "x": 14.319999694824,
+    "z": -1.789999961853
+   },
+   {
+    "t": 295.0,
+    "value": 14.991061210632,
+    "x": 14.930000305176,
+    "z": 1.2999999523163
+   },
+   {
+    "t": 300.0,
+    "value": 15.698425292969,
+    "x": 15.340000152588,
+    "z": 3.3299999237061
+   },
+   {
+    "t": 305.0,
+    "value": 15.480182647705,
+    "x": 15.279999732971,
+    "z": 2.4500000476837
+   },
+   {
+    "t": 310.0,
+    "value": 15.13364315033,
+    "x": 15.130000114441,
+    "z": 0.27000001072884
+   },
+   {
+    "t": 315.0,
+    "value": 15.07618522644,
+    "x": 15.029999732971,
+    "z": -1.1900000572205
+   },
+   {
+    "t": 320.0,
+    "value": 14.984710693359,
+    "x": 14.979999542236,
+    "z": 0.21999999880791
+   },
+   {
+    "t": 325.0,
+    "value": 15.327409744263,
+    "x": 14.880000114441,
+    "z": 3.6900000572205
+   },
+   {
+    "t": 330.0,
+    "value": 15.982320785522,
+    "x": 14.800000190735,
+    "z": 6.0199999809265
+   },
+   {
+    "t": 335.0,
+    "value": 15.711256980896,
+    "x": 13.979999542236,
+    "z": 7.1599998474121
+   },
+   {
+    "t": 340.0,
+    "value": 15.493777275085,
+    "x": 11.979999542236,
+    "z": 9.8299999237061
+   },
+   {
+    "t": 345.0,
+    "value": 15.751594543457,
+    "x": 10.619999885559,
+    "z": 11.630000114441
+   },
+   {
+    "t": 350.0,
+    "value": 15.796633720398,
+    "x": 10.39999961853,
+    "z": 11.890000343323
+   },
+   {
+    "t": 355.0,
+    "value": 15.905652046204,
+    "x": 9.9399995803833,
+    "z": 12.420000076294
+   },
+   {
+    "t": 360.0,
+    "value": 15.997490882874,
+    "x": 9.6199998855591,
+    "z": 12.779999732971
+   },
+   {
+    "t": 365.0,
+    "value": 15.099310874939,
+    "x": 9.9300003051758,
+    "z": 11.369999885559
+   },
+   {
+    "t": 370.0,
+    "value": 13.27672290802,
+    "x": 10.75,
+    "z": 7.789999961853
+   },
+   {
+    "t": 375.0,
+    "value": 12.504868507385,
+    "x": 11.319999694824,
+    "z": 5.3200001716614
+   },
+   {
+    "t": 380.0,
+    "value": 11.673980712891,
+    "x": 9.8599996566772,
+    "z": 6.2600002288818
+   },
+   {
+    "t": 385.0,
+    "value": 10.711807250977,
+    "x": 6.0900001525879,
+    "z": 8.8100004196167
+   },
+   {
+    "t": 390.0,
+    "value": 11.14263343811,
+    "x": 3.4800000190735,
+    "z": 10.590000152588
+   },
+   {
+    "t": 395.0,
+    "value": 10.528483390808,
+    "x": 2.0499999523163,
+    "z": 10.329999923706
+   },
+   {
+    "t": 400.0,
+    "value": 9.6290798187256,
+    "x": -1.4400000572205,
+    "z": 9.5200004577637
+   },
+   {
+    "t": 405.0,
+    "value": 9.7624635696411,
+    "x": -3.8800001144409,
+    "z": 8.960000038147
+   },
+   {
+    "t": 410.0,
+    "value": 9.7106628417969,
+    "x": -3.1500000953674,
+    "z": 9.1800003051758
+   },
+   {
+    "t": 415.0,
+    "value": 9.8835277557373,
+    "x": -1.0299999713898,
+    "z": 9.8299999237061
+   },
+   {
+    "t": 420.0,
+    "value": 10.294853210449,
+    "x": 0.46000000834465,
+    "z": 10.279999732971
+   },
+   {
+    "t": 425.0,
+    "value": 9.4997472763062,
+    "x": -0.68000000715256,
+    "z": 9.4799995422363
+   },
+   {
+    "t": 430.0,
+    "value": 8.2422981262207,
+    "x": -3.8599998950958,
+    "z": 7.2800002098083
+   },
+   {
+    "t": 435.0,
+    "value": 8.3779983520508,
+    "x": -6.1199998855591,
+    "z": 5.7199997901917
+   },
+   {
+    "t": 440.0,
+    "value": 7.1393885612488,
+    "x": -5.2699999809265,
+    "z": 4.8099999427795
+   },
+   {
+    "t": 445.0,
+    "value": 3.7451386451721,
+    "x": -2.7799999713898,
+    "z": 2.5099999904633
+   },
+   {
+    "t": 450.0,
+    "value": 1.309073805809,
+    "x": -1,
+    "z": 0.85000002384186
+   },
+   {
+    "t": 455.0,
+    "value": 1.9379042387009,
+    "x": -0.75,
+    "z": 1.789999961853
+   },
+   {
+    "t": 460.0,
+    "value": 4.528413772583,
+    "x": -0.25,
+    "z": 4.5199999809265
+   },
+   {
+    "t": 465.0,
+    "value": 6.5007410049438,
+    "x": 0.10999999940395,
+    "z": 6.5
+   },
+   {
+    "t": 470.0,
+    "value": 6.9660611152649,
+    "x": -0.49000000953674,
+    "z": 6.9499998092651
+   },
+   {
+    "t": 475.0,
+    "value": 8.2759056091309,
+    "x": -2.2200000286102,
+    "z": 7.9699997901917
+   },
+   {
+    "t": 480.0,
+    "value": 9.3878269195557,
+    "x": -3.4700000286102,
+    "z": 8.7200002670288
+   }
+  ],
+  "windows_15s": [
+   {
+    "t": 0.0,
+    "value": 0
+   },
+   {
+    "t": 15.0,
+    "value": 8.0997486114502
+   },
+   {
+    "t": 30.0,
+    "value": 13.314373016357
+   },
+   {
+    "t": 45.0,
+    "value": 10.56701374054
+   },
+   {
+    "t": 60.0,
+    "value": 11.132477760315
+   },
+   {
+    "t": 75.0,
+    "value": 6.4423666000366
+   },
+   {
+    "t": 90.0,
+    "value": 5.8614554405212
+   },
+   {
+    "t": 105.0,
+    "value": 10.158320426941
+   },
+   {
+    "t": 120.0,
+    "value": 11.544539451599
+   },
+   {
+    "t": 135.0,
+    "value": 15.283427238464
+   },
+   {
+    "t": 150.0,
+    "value": 14.248712539673
+   },
+   {
+    "t": 165.0,
+    "value": 15.996865272522
+   },
+   {
+    "t": 180.0,
+    "value": 15.999858856201
+   },
+   {
+    "t": 195.0,
+    "value": 15.996368408203
+   },
+   {
+    "t": 210.0,
+    "value": 10.942945480347
+   },
+   {
+    "t": 225.0,
+    "value": 9.0949115753174
+   },
+   {
+    "t": 240.0,
+    "value": 15.13677406311
+   },
+   {
+    "t": 255.0,
+    "value": 15.996430397034
+   },
+   {
+    "t": 270.0,
+    "value": 15.999224662781
+   },
+   {
+    "t": 285.0,
+    "value": 14.398159980774
+   },
+   {
+    "t": 300.0,
+    "value": 15.698425292969
+   },
+   {
+    "t": 315.0,
+    "value": 15.07618522644
+   },
+   {
+    "t": 330.0,
+    "value": 15.982320785522
+   },
+   {
+    "t": 345.0,
+    "value": 15.751594543457
+   },
+   {
+    "t": 360.0,
+    "value": 15.997490882874
+   },
+   {
+    "t": 375.0,
+    "value": 12.504868507385
+   },
+   {
+    "t": 390.0,
+    "value": 11.14263343811
+   },
+   {
+    "t": 405.0,
+    "value": 9.7624635696411
+   },
+   {
+    "t": 420.0,
+    "value": 10.294853210449
+   },
+   {
+    "t": 435.0,
+    "value": 8.3779983520508
+   },
+   {
+    "t": 450.0,
+    "value": 1.309073805809
+   },
+   {
+    "t": 465.0,
+    "value": 6.5007410049438
+   },
+   {
+    "t": 480.0,
+    "value": 9.3878269195557
+   }
+  ],
+  "min": 0,
+  "max": 15.999858856201,
+  "mean": 11.746
+ },
+ "econ": [
+  {
+   "t": 0.0,
+   "team": 0,
+   "metal": 1000,
+   "energy": 1000,
+   "m_inc": 0,
+   "e_inc": 0,
+   "m_store": 1000,
+   "e_store": 1000,
+   "m_recv": 0,
+   "e_recv": 0,
+   "bp_avail": 300,
+   "bp_used": 0,
+   "value_total": 2700,
+   "value_eco": 0,
+   "value_army": 0,
+   "value_def": 0,
+   "value_util": 0,
+   "value_other": 2700,
+   "actions": 1
+  },
+  {
+   "t": 15.0,
+   "team": 0,
+   "metal": 941.72717285156,
+   "energy": 414.61431884766,
+   "m_inc": 3.8388500213623,
+   "e_inc": 30,
+   "m_store": 1050,
+   "e_store": 1000,
+   "m_recv": 0,
+   "e_recv": 0,
+   "bp_avail": 300,
+   "bp_used": 300,
+   "value_total": 2800,
+   "value_eco": 100,
+   "value_army": 0,
+   "value_def": 0,
+   "value_util": 0,
+   "value_other": 2700,
+   "actions": 5
+  },
+  {
+   "t": 30.0,
+   "team": 0,
+   "metal": 855.51116943359,
+   "energy": 169.00616455078,
+   "m_inc": 7.5042500495911,
+   "e_inc": 30,
+   "m_store": 1150,
+   "e_store": 1000,
+   "m_recv": 0,
+   "e_recv": 0,
+   "bp_avail": 300,
+   "bp_used": 300,
+   "value_total": 3005,
+   "value_eco": 305,
+   "value_army": 0,
+   "value_def": 0,
+   "value_util": 0,
+   "value_other": 2700,
+   "actions": 10
+  },
+  {
+   "t": 45.0,
+   "team": 0,
+   "metal": 664.677734375,
+   "energy": 599.80328369141,
+   "m_inc": 7.5042500495911,
+   "e_inc": 70,
+   "m_store": 1150,
+   "e_store": 1100,
+   "m_recv": 0,
+   "e_recv": 0,
+   "bp_avail": 450,
+   "bp_used": 300,
+   "value_total": 3660,
+   "value_eco": 460,
+   "value_army": 0,
+   "value_def": 0,
+   "value_util": 0,
+   "value_other": 3200,
+   "actions": 14
+  },
+  {
+   "t": 60.0,
+   "team": 0,
+   "metal": 353.36877441406,
+   "energy": 691.59686279297,
+   "m_inc": 7.5042500495911,
+   "e_inc": 70,
+   "m_store": 1250,
+   "e_store": 1200,
+   "m_recv": 0,
+   "e_recv": 0,
+   "bp_avail": 530,
+   "bp_used": 450,
+   "value_total": 3925,
+   "value_eco": 615,
+   "value_army": 0,
+   "value_def": 0,
+   "value_util": 0,
+   "value_other": 3310,
+   "actions": 15
+  },
+  {
+   "t": 75.0,
+   "team": 0,
+   "metal": 242.79879760742,
+   "energy": 277.49243164062,
+   "m_inc": 7.5042500495911,
+   "e_inc": 90,
+   "m_store": 1250,
+   "e_store": 1300,
+   "m_recv": 0,
+   "e_recv": 0,
+   "bp_avail": 530,
+   "bp_used": 0,
+   "value_total": 3925,
+   "value_eco": 615,
+   "value_army": 0,
+   "value_def": 0,
+   "value_util": 0,
+   "value_other": 3310,
+   "actions": 28
+  },
+  {
+   "t": 90.0,
+   "team": 0,
+   "metal": 225.86157226562,
+   "energy": 16.765140533447,
+   "m_inc": 9.3430995941162,
+   "e_inc": 97,
+   "m_store": 1300,
+   "e_store": 1300,
+   "m_recv": 0,
+   "e_recv": 0,
+   "bp_avail": 610,
+   "bp_used": 450,
+   "value_total": 4125,
+   "value_eco": 705,
+   "value_army": 0,
+   "value_def": 0,
+   "value_util": 0,
+   "value_other": 3420,
+   "actions": 32
+  },
+  {
+   "t": 105.0,
+   "team": 0,
+   "metal": 177.97705078125,
+   "energy": 16.717247009277,
+   "m_inc": 9.3431005477905,
+   "e_inc": 123.95161437988,
+   "m_store": 1300,
+   "e_store": 1351.5,
+   "m_recv": 0,
+   "e_recv": 0,
+   "bp_avail": 810,
+   "bp_used": 530,
+   "value_total": 4425,
+   "value_eco": 875,
+   "value_army": 0,
+   "value_def": 0,
+   "value_util": 0,
+   "value_other": 3550,
+   "actions": 37
+  },
+  {
+   "t": 120.0,
+   "team": 0,
+   "metal": 82.544921875,
+   "energy": 7.0771789550781,
+   "m_inc": 9.3431005477905,
+   "e_inc": 161.40919494629,
+   "m_store": 1300,
+   "e_store": 1352.5,
+   "m_recv": 0,
+   "e_recv": 0,
+   "bp_avail": 810,
+   "bp_used": 610,
+   "value_total": 4555,
+   "value_eco": 1005,
+   "value_army": 0,
+   "value_def": 0,
+   "value_util": 0,
+   "value_other": 3550,
+   "actions": 40
+  },
+  {
+   "t": 135.0,
+   "team": 0,
+   "metal": 116.85958099365,
+   "energy": 882.60888671875,
+   "m_inc": 11.84861946106,
+   "e_inc": 225.11320495605,
+   "m_store": 1350,
+   "e_store": 1354,
+   "m_recv": 0,
+   "e_recv": 0,
+   "bp_avail": 890,
+   "bp_used": 530,
+   "value_total": 4785,
+   "value_eco": 1125,
+   "value_army": 0,
+   "value_def": 0,
+   "value_util": 0,
+   "value_other": 3660,
+   "actions": 44
+  },
+  {
+   "t": 150.0,
+   "team": 0,
+   "metal": 103.85260009766,
+   "energy": 1236.8415527344,
+   "m_inc": 13.018750190735,
+   "e_inc": 238.89779663086,
+   "m_store": 1400,
+   "e_store": 1454.5,
+   "m_recv": 0,
+   "e_recv": 0,
+   "bp_avail": 970,
+   "bp_used": 80,
+   "value_total": 4985,
+   "value_eco": 1215,
+   "value_army": 0,
+   "value_def": 0,
+   "value_util": 0,
+   "value_other": 3770,
+   "actions": 55
+  },
+  {
+   "t": 165.0,
+   "team": 0,
+   "metal": 31.57886505127,
+   "energy": 1350.7730712891,
+   "m_inc": 13.018750190735,
+   "e_inc": 286.10360717773,
+   "m_store": 1400,
+   "e_store": 1405.5,
+   "m_recv": 0,
+   "e_recv": 0,
+   "bp_avail": 1170,
+   "bp_used": 810,
+   "value_total": 5365,
+   "value_eco": 1465,
+   "value_army": 0,
+   "value_def": 0,
+   "value_util": 0,
+   "value_other": 3900,
+   "actions": 60
+  },
+  {
+   "t": 180.0,
+   "team": 0,
+   "metal": 251.48126220703,
+   "energy": 1587.3864746094,
+   "m_inc": 14.851450920105,
+   "e_inc": 273.96636962891,
+   "m_store": 1450,
+   "e_store": 7405.5,
+   "m_recv": 0,
+   "e_recv": 0,
+   "bp_avail": 1250,
+   "bp_used": 970,
+   "value_total": 5361,
+   "value_eco": 1351,
+   "value_army": 0,
+   "value_def": 0,
+   "value_util": 0,
+   "value_other": 4010,
+   "actions": 66
+  },
+  {
+   "t": 195.0,
+   "team": 0,
+   "metal": 422.46951293945,
+   "energy": 3115.1989746094,
+   "m_inc": 32.101455688477,
+   "e_inc": 301.04315185547,
+   "m_store": 1450,
+   "e_store": 7407.5,
+   "m_recv": 0,
+   "e_recv": 0,
+   "bp_avail": 1250,
+   "bp_used": 280,
+   "value_total": 5366,
+   "value_eco": 1356,
+   "value_army": 0,
+   "value_def": 0,
+   "value_util": 0,
+   "value_other": 4010,
+   "actions": 81
+  },
+  {
+   "t": 210.0,
+   "team": 0,
+   "metal": 621.17254638672,
+   "energy": 4567.2758789062,
+   "m_inc": 14.851450920105,
+   "e_inc": 283.31698608398,
+   "m_store": 1450,
+   "e_store": 7409.5,
+   "m_recv": 0,
+   "e_recv": 0,
+   "bp_avail": 1410,
+   "bp_used": 1130,
+   "value_total": 5591,
+   "value_eco": 1361,
+   "value_army": 0,
+   "value_def": 0,
+   "value_util": 0,
+   "value_other": 4230,
+   "actions": 91
+  },
+  {
+   "t": 225.0,
+   "team": 0,
+   "metal": 429.32162475586,
+   "energy": 2345.2368164062,
+   "m_inc": 33.851448059082,
+   "e_inc": 266.97521972656,
+   "m_store": 1450,
+   "e_store": 7559.5,
+   "m_recv": 0,
+   "e_recv": 0,
+   "bp_avail": 1650,
+   "bp_used": 1370,
+   "value_total": 6231,
+   "value_eco": 1671,
+   "value_army": 0,
+   "value_def": 0,
+   "value_util": 0,
+   "value_other": 4560,
+   "actions": 102
+  },
+  {
+   "t": 240.0,
+   "team": 0,
+   "metal": 652.09197998047,
+   "energy": 1111.6678466797,
+   "m_inc": 37.018123626709,
+   "e_inc": 415.84783935547,
+   "m_store": 1350,
+   "e_store": 7560,
+   "m_recv": 0,
+   "e_recv": 0,
+   "bp_avail": 1500,
+   "bp_used": 860,
+   "value_total": 6081,
+   "value_eco": 2021,
+   "value_army": 0,
+   "value_def": 0,
+   "value_util": 0,
+   "value_other": 4060,
+   "actions": 111
+  },
+  {
+   "t": 255.0,
+   "team": 0,
+   "metal": 435.93359375,
+   "energy": 3703.2712402344,
+   "m_inc": 23.018115997314,
+   "e_inc": 634.99896240234,
+   "m_store": 1350,
+   "e_store": 7810.5,
+   "m_recv": 0,
+   "e_recv": 0,
+   "bp_avail": 2100,
+   "bp_used": 360,
+   "value_total": 9071,
+   "value_eco": 2411,
+   "value_army": 0,
+   "value_def": 0,
+   "value_util": 0,
+   "value_other": 6660,
+   "actions": 121
+  },
+  {
+   "t": 270.0,
+   "team": 0,
+   "metal": 29.351526260376,
+   "energy": 6033.1645507812,
+   "m_inc": 16.85205078125,
+   "e_inc": 631.80340576172,
+   "m_store": 1350,
+   "e_store": 7761,
+   "m_recv": 0,
+   "e_recv": 0,
+   "bp_avail": 2100,
+   "bp_used": 1100,
+   "value_total": 8958,
+   "value_eco": 2298,
+   "value_army": 0,
+   "value_def": 0,
+   "value_util": 0,
+   "value_other": 6660,
+   "actions": 132
+  },
+  {
+   "t": 285.0,
+   "team": 0,
+   "metal": 364.66906738281,
+   "energy": 7534.27734375,
+   "m_inc": 18.852649688721,
+   "e_inc": 571.02514648438,
+   "m_store": 1350,
+   "e_store": 7661,
+   "m_recv": 0,
+   "e_recv": 0,
+   "bp_avail": 2020,
+   "bp_used": 1040,
+   "value_total": 8696,
+   "value_eco": 2146,
+   "value_army": 0,
+   "value_def": 0,
+   "value_util": 0,
+   "value_other": 6550,
+   "actions": 139
+  },
+  {
+   "t": 300.0,
+   "team": 0,
+   "metal": 477.22811889648,
+   "energy": 5722.3666992188,
+   "m_inc": 21.353401184082,
+   "e_inc": 596.83197021484,
+   "m_store": 1350,
+   "e_store": 7561.5,
+   "m_recv": 0,
+   "e_recv": 0,
+   "bp_avail": 1860,
+   "bp_used": 1180,
+   "value_total": 8517,
+   "value_eco": 2187,
+   "value_army": 0,
+   "value_def": 0,
+   "value_util": 0,
+   "value_other": 6330,
+   "actions": 149
+  },
+  {
+   "t": 315.0,
+   "team": 0,
+   "metal": 14.657980918884,
+   "energy": 5812.2973632812,
+   "m_inc": 22.468231201172,
+   "e_inc": 571.75390625,
+   "m_store": 1350,
+   "e_store": 7461.5,
+   "m_recv": 0,
+   "e_recv": 0,
+   "bp_avail": 1700,
+   "bp_used": 1020,
+   "value_total": 8297,
+   "value_eco": 2187,
+   "value_army": 0,
+   "value_def": 0,
+   "value_util": 0,
+   "value_other": 6110,
+   "actions": 151
+  },
+  {
+   "t": 330.0,
+   "team": 0,
+   "metal": 196.57183837891,
+   "energy": 5784.1069335938,
+   "m_inc": 18.41971206665,
+   "e_inc": 575.35766601562,
+   "m_store": 1550,
+   "e_store": 7561.5,
+   "m_recv": 0,
+   "e_recv": 0,
+   "bp_avail": 1750,
+   "bp_used": 600,
+   "value_total": 8467,
+   "value_eco": 2147,
+   "value_army": 0,
+   "value_def": 0,
+   "value_util": 0,
+   "value_other": 6320,
+   "actions": 161
+  },
+  {
+   "t": 345.0,
+   "team": 0,
+   "metal": 30.699848175049,
+   "energy": 5975.3095703125,
+   "m_inc": 18.471858978271,
+   "e_inc": 578.66693115234,
+   "m_store": 1550,
+   "e_store": 7661.5,
+   "m_recv": 0,
+   "e_recv": 0,
+   "bp_avail": 1750,
+   "bp_used": 690,
+   "value_total": 9087,
+   "value_eco": 2767,
+   "value_army": 0,
+   "value_def": 0,
+   "value_util": 0,
+   "value_other": 6320,
+   "actions": 165
+  },
+  {
+   "t": 360.0,
+   "team": 0,
+   "metal": 13.89764881134,
+   "energy": 5838.0610351562,
+   "m_inc": 19.13134765625,
+   "e_inc": 578.53021240234,
+   "m_store": 1550,
+   "e_store": 7561.5,
+   "m_recv": 0,
+   "e_recv": 0,
+   "bp_avail": 1680,
+   "bp_used": 1540,
+   "value_total": 8867,
+   "value_eco": 2767,
+   "value_army": 0,
+   "value_def": 0,
+   "value_util": 0,
+   "value_other": 6100,
+   "actions": 173
+  },
+  {
+   "t": 375.0,
+   "team": 0,
+   "metal": 13.161813735962,
+   "energy": 5815.294921875,
+   "m_inc": 18.702981948853,
+   "e_inc": 513.11999511719,
+   "m_store": 1550,
+   "e_store": 7586.5,
+   "m_recv": 0,
+   "e_recv": 0,
+   "bp_avail": 1680,
+   "bp_used": 1080,
+   "value_total": 8867,
+   "value_eco": 2767,
+   "value_army": 0,
+   "value_def": 0,
+   "value_util": 0,
+   "value_other": 6100,
+   "actions": 175
+  },
+  {
+   "t": 390.0,
+   "team": 0,
+   "metal": 115.32390594482,
+   "energy": 5687.0385742188,
+   "m_inc": 17.488645553589,
+   "e_inc": 475.88272094727,
+   "m_store": 1550,
+   "e_store": 7536.5,
+   "m_recv": 0,
+   "e_recv": 0,
+   "bp_avail": 1810,
+   "bp_used": 1200,
+   "value_total": 9187,
+   "value_eco": 2767,
+   "value_army": 0,
+   "value_def": 0,
+   "value_util": 0,
+   "value_other": 6420,
+   "actions": 179
+  },
+  {
+   "t": 405.0,
+   "team": 0,
+   "metal": 35.450553894043,
+   "energy": 5145.7827148438,
+   "m_inc": 20.368000030518,
+   "e_inc": 438.81723022461,
+   "m_store": 2100,
+   "e_store": 7636.5,
+   "m_recv": 0,
+   "e_recv": 0,
+   "bp_avail": 1950,
+   "bp_used": 900,
+   "value_total": 9348,
+   "value_eco": 2718,
+   "value_army": 0,
+   "value_def": 0,
+   "value_util": 0,
+   "value_other": 6630,
+   "actions": 187
+  },
+  {
+   "t": 420.0,
+   "team": 0,
+   "metal": 20.984720230103,
+   "energy": 5185.41015625,
+   "m_inc": 20.368000030518,
+   "e_inc": 464.56344604492,
+   "m_store": 2100,
+   "e_store": 7636.5,
+   "m_recv": 0,
+   "e_recv": 0,
+   "bp_avail": 1950,
+   "bp_used": 1200,
+   "value_total": 9969,
+   "value_eco": 3339,
+   "value_army": 0,
+   "value_def": 0,
+   "value_util": 0,
+   "value_other": 6630,
+   "actions": 196
+  },
+  {
+   "t": 435.0,
+   "team": 0,
+   "metal": 20.442289352417,
+   "energy": 5472.0942382812,
+   "m_inc": 20.368000030518,
+   "e_inc": 432.47555541992,
+   "m_store": 2100,
+   "e_store": 7661.5,
+   "m_recv": 0,
+   "e_recv": 0,
+   "bp_avail": 2160,
+   "bp_used": 1270,
+   "value_total": 11021,
+   "value_eco": 3961,
+   "value_army": 0,
+   "value_def": 0,
+   "value_util": 0,
+   "value_other": 7060,
+   "actions": 201
+  },
+  {
+   "t": 450.0,
+   "team": 0,
+   "metal": 20.59020614624,
+   "energy": 5173.7280273438,
+   "m_inc": 20.368000030518,
+   "e_inc": 269.1100769043,
+   "m_store": 2100,
+   "e_store": 7561.5,
+   "m_recv": 0,
+   "e_recv": 0,
+   "bp_avail": 1950,
+   "bp_used": 1740,
+   "value_total": 10591,
+   "value_eco": 3961,
+   "value_army": 0,
+   "value_def": 0,
+   "value_util": 0,
+   "value_other": 6630,
+   "actions": 211
+  },
+  {
+   "t": 465.0,
+   "team": 0,
+   "metal": 20.125280380249,
+   "energy": 4743.3740234375,
+   "m_inc": 23.14204788208,
+   "e_inc": 368.48217773438,
+   "m_store": 2100,
+   "e_store": 7561.5,
+   "m_recv": 0,
+   "e_recv": 0,
+   "bp_avail": 1950,
+   "bp_used": 1740,
+   "value_total": 10591,
+   "value_eco": 3961,
+   "value_army": 0,
+   "value_def": 0,
+   "value_util": 0,
+   "value_other": 6630,
+   "actions": 215
+  },
+  {
+   "t": 480.0,
+   "team": 0,
+   "metal": 63.106861114502,
+   "energy": 5445.3583984375,
+   "m_inc": 25.866100311279,
+   "e_inc": 452.58401489258,
+   "m_store": 2650,
+   "e_store": 7661.5,
+   "m_recv": 0,
+   "e_recv": 0,
+   "bp_avail": 2090,
+   "bp_used": 880,
+   "value_total": 10751,
+   "value_eco": 3911,
+   "value_army": 0,
+   "value_def": 0,
+   "value_util": 0,
+   "value_other": 6840,
+   "actions": 219
+  }
+ ],
+ "reclaim": [
+  {
+   "t": 109.17,
+   "sec": 1.46,
+   "metal": 22.0,
+   "by": "armck",
+   "label": "rock_or_wreck",
+   "evidence": "none",
+   "recovered": null,
+   "x": 4314,
+   "z": 316
+  },
+  {
+   "t": 125.27,
+   "sec": 1.46,
+   "metal": 19.0,
+   "by": "armrectr",
+   "label": "rock_or_wreck",
+   "evidence": "none",
+   "recovered": null,
+   "x": 3871,
+   "z": 328
+  },
+  {
+   "t": 127.77,
+   "sec": 0.96,
+   "metal": 12.0,
+   "by": "armrectr",
+   "label": "rock_or_wreck",
+   "evidence": "none",
+   "recovered": null,
+   "x": 3767,
+   "z": 318
+  },
+  {
+   "t": 131.27,
+   "sec": 0.96,
+   "metal": 25.0,
+   "by": "armrectr",
+   "label": "rock_or_wreck",
+   "evidence": "none",
+   "recovered": null,
+   "x": 3559,
+   "z": 275
+  },
+  {
+   "t": 133.27,
+   "sec": 0.96,
+   "metal": 16.0,
+   "by": "armrectr",
+   "label": "rock_or_wreck",
+   "evidence": "none",
+   "recovered": null,
+   "x": 3466,
+   "z": 242
+  },
+  {
+   "t": 134.77,
+   "sec": 1.46,
+   "metal": 10.0,
+   "by": "armrectr",
+   "label": "rock_or_wreck",
+   "evidence": "none",
+   "recovered": null,
+   "x": 3467,
+   "z": 162
+  },
+  {
+   "t": 137.27,
+   "sec": 1.46,
+   "metal": 10.0,
+   "by": "armrectr",
+   "label": "rock_or_wreck",
+   "evidence": "none",
+   "recovered": null,
+   "x": 3367,
+   "z": 222
+  },
+  {
+   "t": 160.2,
+   "sec": 0.97,
+   "metal": 18.0,
+   "by": "armrectr",
+   "label": "rock_or_wreck",
+   "evidence": "none",
+   "recovered": null,
+   "x": 4975,
+   "z": 209
+  },
+  {
+   "t": 162.2,
+   "sec": 0.97,
+   "metal": 15.0,
+   "by": "armrectr",
+   "label": "rock_or_wreck",
+   "evidence": "none",
+   "recovered": null,
+   "x": 5039,
+   "z": 135
+  },
+  {
+   "t": 164.7,
+   "sec": 1.47,
+   "metal": 13.0,
+   "by": "armrectr",
+   "label": "rock_or_wreck",
+   "evidence": "none",
+   "recovered": null,
+   "x": 5181,
+   "z": 196
+  },
+  {
+   "t": 166.7,
+   "sec": 0.97,
+   "metal": 23.0,
+   "by": "armrectr",
+   "label": "rock_or_wreck",
+   "evidence": "none",
+   "recovered": null,
+   "x": 5247,
+   "z": 203
+  },
+  {
+   "t": 168.2,
+   "sec": 0.97,
+   "metal": 11.0,
+   "by": "armrectr",
+   "label": "rock_or_wreck",
+   "evidence": "none",
+   "recovered": null,
+   "x": 5303,
+   "z": 196
+  },
+  {
+   "t": 169.33,
+   "sec": 7.97,
+   "metal": 12.5,
+   "by": "armwin",
+   "label": "rock_or_wreck",
+   "evidence": "none",
+   "recovered": null,
+   "x": 3816,
+   "z": 392
+  },
+  {
+   "t": 176.3,
+   "sec": 0.97,
+   "metal": 155.0,
+   "by": "armrectr",
+   "label": "armsolar",
+   "evidence": "corpse",
+   "recovered": 1.0,
+   "x": 4210,
+   "z": 459
+  },
+  {
+   "t": 177.17,
+   "sec": 1.96,
+   "metal": 42.0,
+   "by": "armrectr",
+   "label": "armwin",
+   "evidence": "value",
+   "recovered": null,
+   "x": 5914,
+   "z": 220
+  },
+  {
+   "t": 179.67,
+   "sec": 1.46,
+   "metal": 11.0,
+   "by": "armrectr",
+   "label": "rock_or_wreck",
+   "evidence": "none",
+   "recovered": null,
+   "x": 5998,
+   "z": 254
+  },
+  {
+   "t": 189.67,
+   "sec": 0.96,
+   "metal": 16.0,
+   "by": "armrectr",
+   "label": "rock_or_wreck",
+   "evidence": "none",
+   "recovered": null,
+   "x": 6043,
+   "z": 903
+  },
+  {
+   "t": 190.3,
+   "sec": 0.97,
+   "metal": 155.0,
+   "by": "armrectr",
+   "label": "armsolar",
+   "evidence": "corpse",
+   "recovered": 1.0,
+   "x": 4251,
+   "z": 454
+  },
+  {
+   "t": 191.17,
+   "sec": 1.46,
+   "metal": 13.0,
+   "by": "armrectr",
+   "label": "rock_or_wreck",
+   "evidence": "none",
+   "recovered": null,
+   "x": 6018,
+   "z": 985
+  },
+  {
+   "t": 194.17,
+   "sec": 0.96,
+   "metal": 19.0,
+   "by": "armrectr",
+   "label": "rock_or_wreck",
+   "evidence": "none",
+   "recovered": null,
+   "x": 5989,
+   "z": 1127
+  },
+  {
+   "t": 197.17,
+   "sec": 1.96,
+   "metal": 37.0,
+   "by": "armrectr",
+   "label": "armwin",
+   "evidence": "value",
+   "recovered": null,
+   "x": 6026,
+   "z": 1306
+  },
+  {
+   "t": 204.8,
+   "sec": 0.93,
+   "metal": 149.83,
+   "by": "armrectr",
+   "label": "armsolar",
+   "evidence": "corpse",
+   "recovered": 0.967,
+   "x": 4309,
+   "z": 514
+  },
+  {
+   "t": 205.67,
+   "sec": 2.46,
+   "metal": 42.0,
+   "by": "armrectr",
+   "label": "armwin",
+   "evidence": "value",
+   "recovered": null,
+   "x": 5955,
+   "z": 1858
+  },
+  {
+   "t": 209.17,
+   "sec": 1.46,
+   "metal": 15.0,
+   "by": "armrectr",
+   "label": "rock_or_wreck",
+   "evidence": "none",
+   "recovered": null,
+   "x": 5979,
+   "z": 1995
+  },
+  {
+   "t": 223.17,
+   "sec": 1.46,
+   "metal": 19.0,
+   "by": "armrectr",
+   "label": "rock_or_wreck",
+   "evidence": "none",
+   "recovered": null,
+   "x": 5006,
+   "z": 2125
+  },
+  {
+   "t": 226.67,
+   "sec": 1.43,
+   "metal": 27.83,
+   "by": "armrectr",
+   "label": "rock_or_wreck",
+   "evidence": "none",
+   "recovered": null,
+   "x": 4880,
+   "z": 1993
+  },
+  {
+   "t": 231.77,
+   "sec": 0.96,
+   "metal": 500.0,
+   "by": "armrectr",
+   "label": "armlab",
+   "evidence": "corpse",
+   "recovered": 1.0,
+   "x": 4222,
+   "z": 534
+  },
+  {
+   "t": 238.1,
+   "sec": 1.47,
+   "metal": 26.0,
+   "by": "armrectr",
+   "label": "rock_or_wreck",
+   "evidence": "none",
+   "recovered": null,
+   "x": 4132,
+   "z": 2067
+  },
+  {
+   "t": 248.1,
+   "sec": 3.97,
+   "metal": 65.0,
+   "by": "armrectr",
+   "label": "rock_or_wreck",
+   "evidence": "none",
+   "recovered": null,
+   "x": 3614,
+   "z": 1722
+  },
+  {
+   "t": 253.1,
+   "sec": 1.47,
+   "metal": 12.0,
+   "by": "armrectr",
+   "label": "rock_or_wreck",
+   "evidence": "none",
+   "recovered": null,
+   "x": 3550,
+   "z": 1614
+  },
+  {
+   "t": 255.1,
+   "sec": 1.47,
+   "metal": 19.0,
+   "by": "armrectr",
+   "label": "rock_or_wreck",
+   "evidence": "none",
+   "recovered": null,
+   "x": 3523,
+   "z": 1531
+  },
+  {
+   "t": 267.7,
+   "sec": 0.97,
+   "metal": 155.0,
+   "by": "armrectr",
+   "label": "armsolar",
+   "evidence": "corpse",
+   "recovered": 1.0,
+   "x": 4298,
+   "z": 434
+  },
+  {
+   "t": 280.83,
+   "sec": 0.97,
+   "metal": 110.0,
+   "by": "armck",
+   "label": "armck",
+   "evidence": "corpse",
+   "recovered": 1.0,
+   "x": 4139,
+   "z": 425
+  },
+  {
+   "t": 282.2,
+   "sec": 0.97,
+   "metal": 155.0,
+   "by": "armrectr",
+   "label": "armsolar",
+   "evidence": "corpse",
+   "recovered": 1.0,
+   "x": 4214,
+   "z": 416
+  },
+  {
+   "t": 286.6,
+   "sec": 0.97,
+   "metal": 110.0,
+   "by": "armrectr",
+   "label": "armck",
+   "evidence": "corpse",
+   "recovered": 1.0,
+   "x": 4162,
+   "z": 414
+  },
+  {
+   "t": 290.7,
+   "sec": 0.97,
+   "metal": 110.0,
+   "by": "armrectr",
+   "label": "armck",
+   "evidence": "corpse",
+   "recovered": 1.0,
+   "x": 4215,
+   "z": 413
+  },
+  {
+   "t": 307.1,
+   "sec": 0.97,
+   "metal": 110.0,
+   "by": "armrectr",
+   "label": "armck",
+   "evidence": "corpse",
+   "recovered": 1.0,
+   "x": 4154,
+   "z": 406
+  },
+  {
+   "t": 309.2,
+   "sec": 0.97,
+   "metal": 110.0,
+   "by": "armrectr",
+   "label": "armck",
+   "evidence": "corpse",
+   "recovered": 1.0,
+   "x": 4177,
+   "z": 415
+  },
+  {
+   "t": 309.93,
+   "sec": 13.54,
+   "metal": 22.19,
+   "by": "armwin",
+   "label": "rock_or_wreck",
+   "evidence": "none",
+   "recovered": null,
+   "x": 3800,
+   "z": 1784
+  },
+  {
+   "t": 322.6,
+   "sec": 0.97,
+   "metal": 110.0,
+   "by": "armrectr",
+   "label": "armck",
+   "evidence": "corpse",
+   "recovered": 1.0,
+   "x": 4154,
+   "z": 406
+  },
+  {
+   "t": 324.6,
+   "sec": 0.97,
+   "metal": 110.0,
+   "by": "armrectr",
+   "label": "armck",
+   "evidence": "corpse",
+   "recovered": 1.0,
+   "x": 4154,
+   "z": 406
+  },
+  {
+   "t": 351.83,
+   "sec": 0.97,
+   "metal": 80.5,
+   "by": "armalab",
+   "label": "armck",
+   "evidence": "corpse",
+   "recovered": 0.732,
+   "x": 4216,
+   "z": 600
+  },
+  {
+   "t": 389.6,
+   "sec": 0.97,
+   "metal": 110.0,
+   "by": "armrectr",
+   "label": "armck",
+   "evidence": "corpse",
+   "recovered": 1.0,
+   "x": 4118,
+   "z": 601
+  },
+  {
+   "t": 481.83,
+   "sec": 0.97,
+   "metal": 147.0,
+   "by": "armalab",
+   "label": "armfark",
+   "evidence": "corpse",
+   "recovered": 0.7,
+   "x": 4216,
+   "z": 600
+  },
+  {
+   "t": 493.33,
+   "sec": 0.97,
+   "metal": 242.18,
+   "by": "armalab",
+   "label": "armack",
+   "evidence": "corpse",
+   "recovered": 0.563,
+   "x": 4216,
+   "z": 600
+  }
+ ],
+ "reclaim_note": "",
+ "deaths": [
+  {
+   "t": 151.83,
+   "def": "armck",
+   "team": 0,
+   "x": 3896.0258789062,
+   "z": 490.60540771484
+  },
+  {
+   "t": 175.83,
+   "def": "armsolar",
+   "team": 0,
+   "x": 4248,
+   "z": 568
+  },
+  {
+   "t": 190.03,
+   "def": "armsolar",
+   "team": 0,
+   "x": 4328,
+   "z": 552
+  },
+  {
+   "t": 204.67,
+   "def": "armsolar",
+   "team": 0,
+   "x": 4328,
+   "z": 632
+  },
+  {
+   "t": 215.93,
+   "def": "armwin",
+   "team": 0,
+   "x": 3928,
+   "z": 408
+  },
+  {
+   "t": 231.33,
+   "def": "armck",
+   "team": 0,
+   "x": 4112.0249023438,
+   "z": 431.91592407227
+  },
+  {
+   "t": 231.33,
+   "def": "armlab",
+   "team": 0,
+   "x": 4112,
+   "z": 448
+  },
+  {
+   "t": 267.3,
+   "def": "armsolar",
+   "team": 0,
+   "x": 4200,
+   "z": 376
+  },
+  {
+   "t": 280.4,
+   "def": "armck",
+   "team": 0,
+   "x": 4127.95703125,
+   "z": 446.49948120117
+  },
+  {
+   "t": 282.0,
+   "def": "armsolar",
+   "team": 0,
+   "x": 4184,
+   "z": 296
+  },
+  {
+   "t": 286.3,
+   "def": "armck",
+   "team": 0,
+   "x": 4139.8930664062,
+   "z": 425.52444458008
+  },
+  {
+   "t": 290.17,
+   "def": "armck",
+   "team": 0,
+   "x": 4117.7348632812,
+   "z": 470.21939086914
+  },
+  {
+   "t": 306.9,
+   "def": "armck",
+   "team": 0,
+   "x": 4104.0561523438,
+   "z": 449.17364501953
+  },
+  {
+   "t": 308.9,
+   "def": "armck",
+   "team": 0,
+   "x": 4092.9038085938,
+   "z": 470.74624633789
+  },
+  {
+   "t": 322.4,
+   "def": "armck",
+   "team": 0,
+   "x": 4170.7490234375,
+   "z": 438.45755004883
+  },
+  {
+   "t": 323.4,
+   "def": "armwin",
+   "team": 0,
+   "x": 3800,
+   "z": 1784
+  },
+  {
+   "t": 324.33,
+   "def": "armck",
+   "team": 0,
+   "x": 4198.8115234375,
+   "z": 439.11123657227
+  },
+  {
+   "t": 351.43,
+   "def": "armack",
+   "team": 0,
+   "x": 4216,
+   "z": 623.18359375
+  },
+  {
+   "t": 352.87,
+   "def": "armack",
+   "team": 0,
+   "x": 4046.8198242188,
+   "z": 596.03680419922
+  },
+  {
+   "t": 352.87,
+   "def": "armmoho",
+   "team": 0,
+   "x": 4048,
+   "z": 640
+  },
+  {
+   "t": 357.4,
+   "def": "armmoho",
+   "team": 0,
+   "x": 4256,
+   "z": 496
+  },
+  {
+   "t": 389.5,
+   "def": "armck",
+   "team": 0,
+   "x": 4156.4072265625,
+   "z": 680.51818847656
+  },
+  {
+   "t": 392.27,
+   "def": "armmex",
+   "team": 0,
+   "x": 4304,
+   "z": 720
+  },
+  {
+   "t": 441.87,
+   "def": "armack",
+   "team": 0,
+   "x": 3618.3911132812,
+   "z": 439.15335083008
+  },
+  {
+   "t": 473.5,
+   "def": "armmex",
+   "team": 0,
+   "x": 4048,
+   "z": 640
+  }
+ ]
+}

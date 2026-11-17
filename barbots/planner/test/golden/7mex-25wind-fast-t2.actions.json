@@ -1,0 +1,928 @@
+{
+  "intentId": "7mex-25wind-fast-t2",
+  "actions": [
+    {
+      "id": "g_mex123#1",
+      "goalId": "g_mex123",
+      "type": "build",
+      "actor": "com",
+      "target": "mex",
+      "metal_cost": 50,
+      "energy_cost": 500,
+      "build_time_s": 6,
+      "after": [],
+      "walk_leg_from": "pos:com_start",
+      "walk_leg_to": "pos:mex_1",
+      "walk_time_s": 1.3
+    },
+    {
+      "id": "g_mex123#2",
+      "goalId": "g_mex123",
+      "type": "build",
+      "actor": "com",
+      "target": "mex",
+      "metal_cost": 50,
+      "energy_cost": 500,
+      "build_time_s": 6,
+      "after": [
+        "g_mex123#1"
+      ],
+      "walk_leg_from": "pos:mex_1",
+      "walk_leg_to": "pos:mex_2",
+      "walk_time_s": 1.3
+    },
+    {
+      "id": "g_mex123#3",
+      "goalId": "g_mex123",
+      "type": "build",
+      "actor": "com",
+      "target": "mex",
+      "metal_cost": 50,
+      "energy_cost": 500,
+      "build_time_s": 6,
+      "after": [
+        "g_mex123#2"
+      ],
+      "walk_leg_from": "pos:mex_2",
+      "walk_leg_to": "pos:mex_3",
+      "walk_time_s": 1.3
+    },
+    {
+      "id": "g_solar12#1",
+      "goalId": "g_solar12",
+      "type": "build",
+      "actor": "com",
+      "target": "solar",
+      "metal_cost": 155,
+      "energy_cost": 0,
+      "build_time_s": 8.7,
+      "after": [
+        "g_mex123#3"
+      ],
+      "walk_leg_from": "pos:mex_3",
+      "walk_leg_to": "pos:solar_1",
+      "walk_time_s": 1.3
+    },
+    {
+      "id": "g_solar12#2",
+      "goalId": "g_solar12",
+      "type": "build",
+      "actor": "com",
+      "target": "solar",
+      "metal_cost": 155,
+      "energy_cost": 0,
+      "build_time_s": 8.7,
+      "after": [
+        "g_solar12#1"
+      ],
+      "walk_leg_from": "pos:solar_1",
+      "walk_leg_to": "pos:solar_2",
+      "walk_time_s": 1.3
+    },
+    {
+      "id": "g_factory#1",
+      "goalId": "g_factory",
+      "type": "build",
+      "actor": "com",
+      "target": "botlab",
+      "metal_cost": 620,
+      "energy_cost": 1200,
+      "build_time_s": 21.7,
+      "after": [
+        "g_solar12#2"
+      ],
+      "walk_leg_from": "pos:solar_2",
+      "walk_leg_to": "pos:botlab_1",
+      "walk_time_s": 1.3
+    },
+    {
+      "id": "g_solar34#1",
+      "goalId": "g_solar34",
+      "type": "build",
+      "actor": "com",
+      "target": "solar",
+      "metal_cost": 155,
+      "energy_cost": 0,
+      "build_time_s": 8.7,
+      "after": [
+        "g_factory#1"
+      ],
+      "walk_leg_from": "pos:botlab_1",
+      "walk_leg_to": "pos:solar_3",
+      "walk_time_s": 1.3
+    },
+    {
+      "id": "g_solar34#2",
+      "goalId": "g_solar34",
+      "type": "build",
+      "actor": "com",
+      "target": "solar",
+      "metal_cost": 155,
+      "energy_cost": 0,
+      "build_time_s": 8.7,
+      "after": [
+        "g_solar34#1"
+      ],
+      "walk_leg_from": "pos:solar_3",
+      "walk_leg_to": "pos:solar_4",
+      "walk_time_s": 1.3
+    },
+    {
+      "id": "g_workers#1",
+      "goalId": "g_workers",
+      "type": "queue_at",
+      "actor": "botlab",
+      "target": "con",
+      "metal_cost": 110,
+      "energy_cost": 1600,
+      "build_time_s": 34.5,
+      "after": [],
+      "assist": "com"
+    },
+    {
+      "id": "g_workers#2",
+      "goalId": "g_workers",
+      "type": "queue_at",
+      "actor": "botlab",
+      "target": "con",
+      "metal_cost": 110,
+      "energy_cost": 1600,
+      "build_time_s": 34.5,
+      "after": [
+        "g_workers#1"
+      ],
+      "assist": "com"
+    },
+    {
+      "id": "g_mex456#1",
+      "goalId": "g_mex456",
+      "type": "build",
+      "actor": "com",
+      "target": "mex",
+      "metal_cost": 50,
+      "energy_cost": 500,
+      "build_time_s": 6,
+      "after": [
+        "g_workers#2"
+      ],
+      "walk_leg_from": "pos:solar_4",
+      "walk_leg_to": "pos:mex_4",
+      "walk_time_s": 1.3
+    },
+    {
+      "id": "g_mex456#2",
+      "goalId": "g_mex456",
+      "type": "build",
+      "actor": "worker1",
+      "target": "mex",
+      "metal_cost": 50,
+      "energy_cost": 500,
+      "build_time_s": 22.5,
+      "after": [
+        "g_workers#2"
+      ],
+      "walk_leg_from": "pos:worker1_start",
+      "walk_leg_to": "pos:mex_5",
+      "walk_time_s": 1.8
+    },
+    {
+      "id": "g_mex456#3",
+      "goalId": "g_mex456",
+      "type": "build",
+      "actor": "worker2",
+      "target": "mex",
+      "metal_cost": 50,
+      "energy_cost": 500,
+      "build_time_s": 22.5,
+      "after": [
+        "g_workers#2"
+      ],
+      "walk_leg_from": "pos:worker2_start",
+      "walk_leg_to": "pos:mex_6",
+      "walk_time_s": 1.8
+    },
+    {
+      "id": "g_give#1",
+      "goalId": "g_give",
+      "type": "give_unit",
+      "actor": "worker2",
+      "target": "ally:air",
+      "metal_cost": 0,
+      "energy_cost": 0,
+      "build_time_s": 0,
+      "after": [
+        "g_mex456#1",
+        "g_mex456#2",
+        "g_mex456#3"
+      ],
+      "timer": {
+        "type": "walk_arrival",
+        "target": "ally_air.bottomLeftMex"
+      },
+      "walk_leg_from": "pos:mex_6",
+      "walk_leg_to": "pos:ally_air.bottomLeftMex",
+      "walk_time_s": 1.8
+    },
+    {
+      "id": "g_mex7#1",
+      "goalId": "g_mex7",
+      "type": "build",
+      "actor": "pool:any",
+      "target": "mex",
+      "metal_cost": 50,
+      "energy_cost": 500,
+      "build_time_s": 22.5,
+      "after": [],
+      "walk_leg_from": "pos:pool:any_start",
+      "walk_leg_to": "pos:mex_7",
+      "walk_time_s": 1.8
+    },
+    {
+      "id": "g_wind25#1",
+      "goalId": "g_wind25",
+      "type": "build",
+      "actor": "pool:any",
+      "target": "wind",
+      "metal_cost": 40,
+      "energy_cost": 175,
+      "build_time_s": 20,
+      "after": [],
+      "walk_leg_from": "pos:mex_7",
+      "walk_leg_to": "pos:wind_1",
+      "walk_time_s": 1.8,
+      "conditional": {
+        "on": "wind",
+        "lowWindSubstitute": "solar_equivalent_eps"
+      }
+    },
+    {
+      "id": "g_wind25#2",
+      "goalId": "g_wind25",
+      "type": "build",
+      "actor": "pool:any",
+      "target": "wind",
+      "metal_cost": 40,
+      "energy_cost": 175,
+      "build_time_s": 20,
+      "after": [
+        "g_wind25#1"
+      ],
+      "walk_leg_from": "pos:wind_1",
+      "walk_leg_to": "pos:wind_2",
+      "walk_time_s": 1.8,
+      "conditional": {
+        "on": "wind",
+        "lowWindSubstitute": "solar_equivalent_eps"
+      }
+    },
+    {
+      "id": "g_wind25#3",
+      "goalId": "g_wind25",
+      "type": "build",
+      "actor": "pool:any",
+      "target": "wind",
+      "metal_cost": 40,
+      "energy_cost": 175,
+      "build_time_s": 20,
+      "after": [
+        "g_wind25#2"
+      ],
+      "walk_leg_from": "pos:wind_2",
+      "walk_leg_to": "pos:wind_3",
+      "walk_time_s": 1.8,
+      "conditional": {
+        "on": "wind",
+        "lowWindSubstitute": "solar_equivalent_eps"
+      }
+    },
+    {
+      "id": "g_wind25#4",
+      "goalId": "g_wind25",
+      "type": "build",
+      "actor": "pool:any",
+      "target": "wind",
+      "metal_cost": 40,
+      "energy_cost": 175,
+      "build_time_s": 20,
+      "after": [
+        "g_wind25#3"
+      ],
+      "walk_leg_from": "pos:wind_3",
+      "walk_leg_to": "pos:wind_4",
+      "walk_time_s": 1.8,
+      "conditional": {
+        "on": "wind",
+        "lowWindSubstitute": "solar_equivalent_eps"
+      }
+    },
+    {
+      "id": "g_wind25#5",
+      "goalId": "g_wind25",
+      "type": "build",
+      "actor": "pool:any",
+      "target": "wind",
+      "metal_cost": 40,
+      "energy_cost": 175,
+      "build_time_s": 20,
+      "after": [
+        "g_wind25#4"
+      ],
+      "walk_leg_from": "pos:wind_4",
+      "walk_leg_to": "pos:wind_5",
+      "walk_time_s": 1.8,
+      "conditional": {
+        "on": "wind",
+        "lowWindSubstitute": "solar_equivalent_eps"
+      }
+    },
+    {
+      "id": "g_wind25#6",
+      "goalId": "g_wind25",
+      "type": "build",
+      "actor": "pool:any",
+      "target": "wind",
+      "metal_cost": 40,
+      "energy_cost": 175,
+      "build_time_s": 20,
+      "after": [
+        "g_wind25#5"
+      ],
+      "walk_leg_from": "pos:wind_5",
+      "walk_leg_to": "pos:wind_6",
+      "walk_time_s": 1.8,
+      "conditional": {
+        "on": "wind",
+        "lowWindSubstitute": "solar_equivalent_eps"
+      }
+    },
+    {
+      "id": "g_wind25#7",
+      "goalId": "g_wind25",
+      "type": "build",
+      "actor": "pool:any",
+      "target": "wind",
+      "metal_cost": 40,
+      "energy_cost": 175,
+      "build_time_s": 20,
+      "after": [
+        "g_wind25#6"
+      ],
+      "walk_leg_from": "pos:wind_6",
+      "walk_leg_to": "pos:wind_7",
+      "walk_time_s": 1.8,
+      "conditional": {
+        "on": "wind",
+        "lowWindSubstitute": "solar_equivalent_eps"
+      }
+    },
+    {
+      "id": "g_wind25#8",
+      "goalId": "g_wind25",
+      "type": "build",
+      "actor": "pool:any",
+      "target": "wind",
+      "metal_cost": 40,
+      "energy_cost": 175,
+      "build_time_s": 20,
+      "after": [
+        "g_wind25#7"
+      ],
+      "walk_leg_from": "pos:wind_7",
+      "walk_leg_to": "pos:wind_8",
+      "walk_time_s": 1.8,
+      "conditional": {
+        "on": "wind",
+        "lowWindSubstitute": "solar_equivalent_eps"
+      }
+    },
+    {
+      "id": "g_wind25#9",
+      "goalId": "g_wind25",
+      "type": "build",
+      "actor": "pool:any",
+      "target": "wind",
+      "metal_cost": 40,
+      "energy_cost": 175,
+      "build_time_s": 20,
+      "after": [
+        "g_wind25#8"
+      ],
+      "walk_leg_from": "pos:wind_8",
+      "walk_leg_to": "pos:wind_9",
+      "walk_time_s": 1.8,
+      "conditional": {
+        "on": "wind",
+        "lowWindSubstitute": "solar_equivalent_eps"
+      }
+    },
+    {
+      "id": "g_wind25#10",
+      "goalId": "g_wind25",
+      "type": "build",
+      "actor": "pool:any",
+      "target": "wind",
+      "metal_cost": 40,
+      "energy_cost": 175,
+      "build_time_s": 20,
+      "after": [
+        "g_wind25#9"
+      ],
+      "walk_leg_from": "pos:wind_9",
+      "walk_leg_to": "pos:wind_10",
+      "walk_time_s": 1.8,
+      "conditional": {
+        "on": "wind",
+        "lowWindSubstitute": "solar_equivalent_eps"
+      }
+    },
+    {
+      "id": "g_wind25#11",
+      "goalId": "g_wind25",
+      "type": "build",
+      "actor": "pool:any",
+      "target": "wind",
+      "metal_cost": 40,
+      "energy_cost": 175,
+      "build_time_s": 20,
+      "after": [
+        "g_wind25#10"
+      ],
+      "walk_leg_from": "pos:wind_10",
+      "walk_leg_to": "pos:wind_11",
+      "walk_time_s": 1.8,
+      "conditional": {
+        "on": "wind",
+        "lowWindSubstitute": "solar_equivalent_eps"
+      }
+    },
+    {
+      "id": "g_wind25#12",
+      "goalId": "g_wind25",
+      "type": "build",
+      "actor": "pool:any",
+      "target": "wind",
+      "metal_cost": 40,
+      "energy_cost": 175,
+      "build_time_s": 20,
+      "after": [
+        "g_wind25#11"
+      ],
+      "walk_leg_from": "pos:wind_11",
+      "walk_leg_to": "pos:wind_12",
+      "walk_time_s": 1.8,
+      "conditional": {
+        "on": "wind",
+        "lowWindSubstitute": "solar_equivalent_eps"
+      }
+    },
+    {
+      "id": "g_wind25#13",
+      "goalId": "g_wind25",
+      "type": "build",
+      "actor": "pool:any",
+      "target": "wind",
+      "metal_cost": 40,
+      "energy_cost": 175,
+      "build_time_s": 20,
+      "after": [
+        "g_wind25#12"
+      ],
+      "walk_leg_from": "pos:wind_12",
+      "walk_leg_to": "pos:wind_13",
+      "walk_time_s": 1.8,
+      "conditional": {
+        "on": "wind",
+        "lowWindSubstitute": "solar_equivalent_eps"
+      }
+    },
+    {
+      "id": "g_wind25#14",
+      "goalId": "g_wind25",
+      "type": "build",
+      "actor": "pool:any",
+      "target": "wind",
+      "metal_cost": 40,
+      "energy_cost": 175,
+      "build_time_s": 20,
+      "after": [
+        "g_wind25#13"
+      ],
+      "walk_leg_from": "pos:wind_13",
+      "walk_leg_to": "pos:wind_14",
+      "walk_time_s": 1.8,
+      "conditional": {
+        "on": "wind",
+        "lowWindSubstitute": "solar_equivalent_eps"
+      }
+    },
+    {
+      "id": "g_wind25#15",
+      "goalId": "g_wind25",
+      "type": "build",
+      "actor": "pool:any",
+      "target": "wind",
+      "metal_cost": 40,
+      "energy_cost": 175,
+      "build_time_s": 20,
+      "after": [
+        "g_wind25#14"
+      ],
+      "walk_leg_from": "pos:wind_14",
+      "walk_leg_to": "pos:wind_15",
+      "walk_time_s": 1.8,
+      "conditional": {
+        "on": "wind",
+        "lowWindSubstitute": "solar_equivalent_eps"
+      }
+    },
+    {
+      "id": "g_wind25#16",
+      "goalId": "g_wind25",
+      "type": "build",
+      "actor": "pool:any",
+      "target": "wind",
+      "metal_cost": 40,
+      "energy_cost": 175,
+      "build_time_s": 20,
+      "after": [
+        "g_wind25#15"
+      ],
+      "walk_leg_from": "pos:wind_15",
+      "walk_leg_to": "pos:wind_16",
+      "walk_time_s": 1.8,
+      "conditional": {
+        "on": "wind",
+        "lowWindSubstitute": "solar_equivalent_eps"
+      }
+    },
+    {
+      "id": "g_wind25#17",
+      "goalId": "g_wind25",
+      "type": "build",
+      "actor": "pool:any",
+      "target": "wind",
+      "metal_cost": 40,
+      "energy_cost": 175,
+      "build_time_s": 20,
+      "after": [
+        "g_wind25#16"
+      ],
+      "walk_leg_from": "pos:wind_16",
+      "walk_leg_to": "pos:wind_17",
+      "walk_time_s": 1.8,
+      "conditional": {
+        "on": "wind",
+        "lowWindSubstitute": "solar_equivalent_eps"
+      }
+    },
+    {
+      "id": "g_wind25#18",
+      "goalId": "g_wind25",
+      "type": "build",
+      "actor": "pool:any",
+      "target": "wind",
+      "metal_cost": 40,
+      "energy_cost": 175,
+      "build_time_s": 20,
+      "after": [
+        "g_wind25#17"
+      ],
+      "walk_leg_from": "pos:wind_17",
+      "walk_leg_to": "pos:wind_18",
+      "walk_time_s": 1.8,
+      "conditional": {
+        "on": "wind",
+        "lowWindSubstitute": "solar_equivalent_eps"
+      }
+    },
+    {
+      "id": "g_wind25#19",
+      "goalId": "g_wind25",
+      "type": "build",
+      "actor": "pool:any",
+      "target": "wind",
+      "metal_cost": 40,
+      "energy_cost": 175,
+      "build_time_s": 20,
+      "after": [
+        "g_wind25#18"
+      ],
+      "walk_leg_from": "pos:wind_18",
+      "walk_leg_to": "pos:wind_19",
+      "walk_time_s": 1.8,
+      "conditional": {
+        "on": "wind",
+        "lowWindSubstitute": "solar_equivalent_eps"
+      }
+    },
+    {
+      "id": "g_wind25#20",
+      "goalId": "g_wind25",
+      "type": "build",
+      "actor": "pool:any",
+      "target": "wind",
+      "metal_cost": 40,
+      "energy_cost": 175,
+      "build_time_s": 20,
+      "after": [
+        "g_wind25#19"
+      ],
+      "walk_leg_from": "pos:wind_19",
+      "walk_leg_to": "pos:wind_20",
+      "walk_time_s": 1.8,
+      "conditional": {
+        "on": "wind",
+        "lowWindSubstitute": "solar_equivalent_eps"
+      }
+    },
+    {
+      "id": "g_wind25#21",
+      "goalId": "g_wind25",
+      "type": "build",
+      "actor": "pool:any",
+      "target": "wind",
+      "metal_cost": 40,
+      "energy_cost": 175,
+      "build_time_s": 20,
+      "after": [
+        "g_wind25#20"
+      ],
+      "walk_leg_from": "pos:wind_20",
+      "walk_leg_to": "pos:wind_21",
+      "walk_time_s": 1.8,
+      "conditional": {
+        "on": "wind",
+        "lowWindSubstitute": "solar_equivalent_eps"
+      }
+    },
+    {
+      "id": "g_wind25#22",
+      "goalId": "g_wind25",
+      "type": "build",
+      "actor": "pool:any",
+      "target": "wind",
+      "metal_cost": 40,
+      "energy_cost": 175,
+      "build_time_s": 20,
+      "after": [
+        "g_wind25#21"
+      ],
+      "walk_leg_from": "pos:wind_21",
+      "walk_leg_to": "pos:wind_22",
+      "walk_time_s": 1.8,
+      "conditional": {
+        "on": "wind",
+        "lowWindSubstitute": "solar_equivalent_eps"
+      }
+    },
+    {
+      "id": "g_wind25#23",
+      "goalId": "g_wind25",
+      "type": "build",
+      "actor": "pool:any",
+      "target": "wind",
+      "metal_cost": 40,
+      "energy_cost": 175,
+      "build_time_s": 20,
+      "after": [
+        "g_wind25#22"
+      ],
+      "walk_leg_from": "pos:wind_22",
+      "walk_leg_to": "pos:wind_23",
+      "walk_time_s": 1.8,
+      "conditional": {
+        "on": "wind",
+        "lowWindSubstitute": "solar_equivalent_eps"
+      }
+    },
+    {
+      "id": "g_wind25#24",
+      "goalId": "g_wind25",
+      "type": "build",
+      "actor": "pool:any",
+      "target": "wind",
+      "metal_cost": 40,
+      "energy_cost": 175,
+      "build_time_s": 20,
+      "after": [
+        "g_wind25#23"
+      ],
+      "walk_leg_from": "pos:wind_23",
+      "walk_leg_to": "pos:wind_24",
+      "walk_time_s": 1.8,
+      "conditional": {
+        "on": "wind",
+        "lowWindSubstitute": "solar_equivalent_eps"
+      }
+    },
+    {
+      "id": "g_wind25#25",
+      "goalId": "g_wind25",
+      "type": "build",
+      "actor": "pool:any",
+      "target": "wind",
+      "metal_cost": 40,
+      "energy_cost": 175,
+      "build_time_s": 20,
+      "after": [
+        "g_wind25#24"
+      ],
+      "walk_leg_from": "pos:wind_24",
+      "walk_leg_to": "pos:wind_25",
+      "walk_time_s": 1.8,
+      "conditional": {
+        "on": "wind",
+        "lowWindSubstitute": "solar_equivalent_eps"
+      }
+    },
+    {
+      "id": "g_facqueue#1",
+      "goalId": "g_facqueue",
+      "type": "queue_at",
+      "actor": "botlab",
+      "target": "con",
+      "metal_cost": 110,
+      "energy_cost": 1600,
+      "build_time_s": 34.5,
+      "after": [
+        "g_workers#2"
+      ]
+    },
+    {
+      "id": "g_facqueue#2",
+      "goalId": "g_facqueue",
+      "type": "queue_at",
+      "actor": "botlab",
+      "target": "laz",
+      "metal_cost": 110,
+      "energy_cost": 1100,
+      "build_time_s": 45,
+      "after": [
+        "g_facqueue#1"
+      ]
+    },
+    {
+      "id": "g_facqueue#3",
+      "goalId": "g_facqueue",
+      "type": "queue_at",
+      "actor": "botlab",
+      "target": "con",
+      "metal_cost": 110,
+      "energy_cost": 1600,
+      "build_time_s": 34.5,
+      "after": [
+        "g_facqueue#2"
+      ]
+    },
+    {
+      "id": "g_facqueue#4",
+      "goalId": "g_facqueue",
+      "type": "queue_at",
+      "actor": "botlab",
+      "target": "laz",
+      "metal_cost": 110,
+      "energy_cost": 1100,
+      "build_time_s": 45,
+      "after": [
+        "g_facqueue#3"
+      ]
+    },
+    {
+      "id": "g_facqueue#5",
+      "goalId": "g_facqueue",
+      "type": "queue_at",
+      "actor": "botlab",
+      "target": "con",
+      "metal_cost": 110,
+      "energy_cost": 1600,
+      "build_time_s": 34.5,
+      "after": [
+        "g_facqueue#4"
+      ]
+    },
+    {
+      "id": "g_facqueue#6",
+      "goalId": "g_facqueue",
+      "type": "queue_at",
+      "actor": "botlab",
+      "target": "con",
+      "metal_cost": 110,
+      "energy_cost": 1600,
+      "build_time_s": 34.5,
+      "after": [
+        "g_facqueue#5"
+      ]
+    },
+    {
+      "id": "g_facqueue#7",
+      "goalId": "g_facqueue",
+      "type": "queue_at",
+      "actor": "botlab",
+      "target": "con",
+      "metal_cost": 110,
+      "energy_cost": 1600,
+      "build_time_s": 34.5,
+      "after": [
+        "g_facqueue#6"
+      ]
+    },
+    {
+      "id": "g_facqueue#8",
+      "goalId": "g_facqueue",
+      "type": "queue_at",
+      "actor": "botlab",
+      "target": "con",
+      "metal_cost": 110,
+      "energy_cost": 1600,
+      "build_time_s": 34.5,
+      "after": [
+        "g_facqueue#7"
+      ]
+    },
+    {
+      "id": "g_facqueue#repeat",
+      "goalId": "g_facqueue",
+      "type": "queue_at",
+      "actor": "botlab",
+      "target": "con",
+      "metal_cost": 110,
+      "energy_cost": 1600,
+      "build_time_s": 34.5,
+      "after": [
+        "g_facqueue#8"
+      ],
+      "repeat": true
+    },
+    {
+      "id": "g_lazrocks#1",
+      "goalId": "g_lazrocks",
+      "type": "reclaim_zone",
+      "actor": "laz1",
+      "target": {
+        "map": "all_that_glitters",
+        "positions": [
+          1,
+          2,
+          3,
+          5,
+          6,
+          7
+        ],
+        "radiusElmos": 900
+      },
+      "metal_cost": 0,
+      "energy_cost": 0,
+      "build_time_s": 0,
+      "after": [],
+      "filter": "features:rocks",
+      "walk_leg_from": "pos:laz1_start",
+      "walk_leg_to": "pos:all_that_glitters_zone",
+      "walk_time_s": 1.8
+    },
+    {
+      "id": "g_t2lab#1",
+      "goalId": "g_t2lab",
+      "type": "build",
+      "actor": "pool:any",
+      "target": "t2lab",
+      "metal_cost": 720,
+      "energy_cost": 1700,
+      "build_time_s": 200,
+      "after": [
+        "g_wind25#25"
+      ],
+      "walk_leg_from": "pos:wind_25",
+      "walk_leg_to": "pos:t2lab_1",
+      "walk_time_s": 1.8,
+      "priority": "critical"
+    },
+    {
+      "id": "g_t2mex#1",
+      "goalId": "g_t2mex",
+      "type": "build",
+      "actor": "pool:any",
+      "target": "t2mex",
+      "metal_cost": 620,
+      "energy_cost": 7700,
+      "build_time_s": 186.3,
+      "after": [
+        "g_t2lab#1"
+      ],
+      "walk_leg_from": "pos:t2lab_1",
+      "walk_leg_to": "pos:t2mex_1",
+      "walk_time_s": 1.8
+    },
+    {
+      "id": "t2mex_online",
+      "goalId": "g_t2mex",
+      "type": "checkpoint",
+      "metric": "lost_seconds",
+      "metal_cost": 0,
+      "energy_cost": 0,
+      "build_time_s": 0,
+      "after": [
+        "g_t2mex#1"
+      ]
+    }
+  ]
+}

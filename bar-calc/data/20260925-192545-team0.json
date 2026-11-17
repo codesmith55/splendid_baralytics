@@ -1,0 +1,184 @@
+{
+ "hard_data_version": 1,
+ "extracted": "2026-09-25T14:55:38",
+ "game": {
+  "id": "20260925-192545",
+  "demo": "2026-09-25_19-25-45-806_All That Glitters v2.2.3_2026.07.04.sdfz",
+  "played_local": "2026-09-25 12:41",
+  "map": "All That Glitters v2.2.3",
+  "engine": "2026.07.04",
+  "matchup": "1vAI",
+  "actions": "C:\\Users\\codes\\AppData\\Local\\Temp\\gex_harness\\wd_2026-09-25_19-25-45-806_All_That_Glitters_v2.2.3_2026.07.04.sdfz\\actions.json",
+  "team": 0,
+  "base": null,
+  "map_wind_range": [
+   0.0,
+   16.0
+  ],
+  "map_mex_spots": 152
+ },
+ "player": {
+  "name": "Player",
+  "team_id": 0,
+  "player_id": 0,
+  "user_id": null,
+  "faction": "Armada",
+  "ally_team_id": 0,
+  "skill": 0,
+  "start_x": null,
+  "start_z": null,
+  "sole_player": true,
+  "chosen_because": "only player in the game",
+  "start": null
+ },
+ "roster": [
+  {
+   "name": "Player",
+   "team_id": 0,
+   "player_id": 0,
+   "user_id": null,
+   "faction": "Armada",
+   "ally_team_id": 0,
+   "skill": 0,
+   "start_x": null,
+   "start_z": null,
+   "sole_player": true,
+   "chosen_because": "",
+   "start": null
+  }
+ ],
+ "mexes": [],
+ "starts": [],
+ "completions": [],
+ "wind": {
+  "samples": [
+   {
+    "t": 0.0,
+    "value": 0,
+    "x": 5.0799999237061,
+    "z": 6.1799998283386
+   },
+   {
+    "t": 5.0,
+    "value": 6.2155003547668,
+    "x": 3.6700000762939,
+    "z": 5.0199999809265
+   },
+   {
+    "t": 10.0,
+    "value": 3.0097606182098,
+    "x": 1.0199999809265,
+    "z": 2.8299999237061
+   },
+   {
+    "t": 15.0,
+    "value": 1.6964776515961,
+    "x": -0.43000000715256,
+    "z": 1.6399999856949
+   },
+   {
+    "t": 20.0,
+    "value": 1.3166017532349,
+    "x": -1.1900000572205,
+    "z": 0.56000000238419
+   },
+   {
+    "t": 25.0,
+    "value": 3.0397655963898,
+    "x": -2.6500000953674,
+    "z": -1.5
+   },
+   {
+    "t": 30.0,
+    "value": 4.3349575996399,
+    "x": -3.4500000476837,
+    "z": -2.6300001144409
+   }
+  ],
+  "windows_15s": [
+   {
+    "t": 0.0,
+    "value": 0
+   },
+   {
+    "t": 15.0,
+    "value": 1.6964776515961
+   },
+   {
+    "t": 30.0,
+    "value": 4.3349575996399
+   }
+  ],
+  "min": 0,
+  "max": 6.2155003547668,
+  "mean": 2.802
+ },
+ "econ": [
+  {
+   "t": 0.0,
+   "team": 0,
+   "metal": 1000,
+   "energy": 1000,
+   "m_inc": 0,
+   "e_inc": 0,
+   "m_store": 1000,
+   "e_store": 1000,
+   "m_recv": 0,
+   "e_recv": 0,
+   "bp_avail": 0,
+   "bp_used": 0,
+   "value_total": 0,
+   "value_eco": 0,
+   "value_army": 0,
+   "value_def": 0,
+   "value_util": 0,
+   "value_other": 0,
+   "actions": 0
+  },
+  {
+   "t": 15.0,
+   "team": 0,
+   "metal": 1000,
+   "energy": 1000,
+   "m_inc": 0,
+   "e_inc": 0,
+   "m_store": 1000,
+   "e_store": 1000,
+   "m_recv": 0,
+   "e_recv": 0,
+   "bp_avail": 0,
+   "bp_used": 0,
+   "value_total": 0,
+   "value_eco": 0,
+   "value_army": 0,
+   "value_def": 0,
+   "value_util": 0,
+   "value_other": 0,
+   "actions": 0
+  },
+  {
+   "t": 30.0,
+   "team": 0,
+   "metal": 1000,
+   "energy": 1000,
+   "m_inc": 0,
+   "e_inc": 0,
+   "m_store": 1000,
+   "e_store": 1000,
+   "m_recv": 0,
+   "e_recv": 0,
+   "bp_avail": 0,
+   "bp_used": 0,
+   "value_total": 0,
+   "value_eco": 0,
+   "value_army": 0,
+   "value_def": 0,
+   "value_util": 0,
+   "value_other": 0,
+   "actions": 0
+  }
+ ],
+ "reclaim": [],
+ "reclaim_note": "actions.json has no `reclaim_sample` events. Re-run the replay with the patched widget (gex_research/vendor/gex.lua, search SPLENDID); older dumps carry only the lifetime totals in `unit_resources`.",
+ "deaths": []
+}

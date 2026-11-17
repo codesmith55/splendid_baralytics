@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>BAR Build Explorer</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    font-family: ui-sans-serif, -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: #0f1115; color: #e6e8ee; margin: 0; padding: 16px;
+  }
+  h1 { margin: 0 0 4px; font-size: 18px; letter-spacing: 0.02em; }
+  .meta { font-size: 12px; color: #8b93a7; margin-bottom: 12px; }
+  .layout { display: grid; grid-template-columns: 280px 1fr 1fr; gap: 12px; }
+  .panel {
+    background: #181b22; border: 1px solid #262a33; border-radius: 6px;
+    padding: 10px; min-height: 200px;
+  }
+  .panel h2 { font-size: 13px; margin: 0 0 8px; color: #9aa3b8;
+              text-transform: uppercase; letter-spacing: 0.06em; }
+  .branch-tree { font-size: 13px; }
+  .branch {
+    padding: 6px 8px; border-radius: 4px; cursor: pointer; margin: 2px 0;
+    border: 1px solid transparent;
+  }
+  .branch:hover { background: #20242d; }
+  .branch.sel-a { border-color: #4cc4ff; background: #1a2a36; }
+  .branch.sel-b { border-color: #ff9d4c; background: #2a221a; }
+  .branch .sub { font-size: 11px; color: #7c8499; }
+  .build-name { font-weight: 600; color: #c8d2e8; margin-top: 8px; font-size: 12px;
+                text-transform: uppercase; letter-spacing: 0.05em; }
+  .resource-row { display: flex; gap: 12px; margin: 6px 0; font-variant-numeric: tabular-nums; }
+  .resource { flex: 1; }
+  .resource .label { font-size: 11px; color: #8b93a7; }
+  .resource .value { font-size: 20px; font-weight: 600; }
+  .resource .delta { font-size: 12px; color: #9aa3b8; }
+  .stall { color: #ff7a7a; font-weight: 600; }
+  .ok    { color: #6ed987; }
+  .controls { display: flex; gap: 6px; flex-wrap: wrap; margin: 8px 0; }
+  button {
+    background: #262c38; color: #e6e8ee; border: 1px solid #353c4b;
+    border-radius: 4px; padding: 4px 10px; cursor: pointer; font-size: 12px;
+  }
+  button:hover { background: #303749; }
+  button.primary { background: #2d6cdf; border-color: #3c7be9; }
+  button:disabled { opacity: 0.4; cursor: not-allowed; }
+  input[type=range] { width: 100%; }
+  .events { font-size: 12px; max-height: 200px; overflow-y: auto;
+            font-variant-numeric: tabular-nums; }
+  .event-row {
+    padding: 3px 6px; border-radius: 3px; margin: 1px 0; cursor: pointer;
+    display: flex; gap: 8px;
+  }
+  .event-row:hover { background: #20242d; }
+  .event-row.active { background: #2a3445; }
+  .event-row .t { color: #8b93a7; width: 50px; text-align: right; }
+  .event-row .kind { width: 70px; color: #c8d2e8; }
+  .event-row.stall { color: #ff9d9d; }
+  .assets { display: grid; grid-template-columns: repeat(2, 1fr); gap: 4px; font-size: 12px; }
+  .asset-pill {
+    background: #20242d; padding: 4px 8px; border-radius: 12px;
+    display: flex; justify-content: space-between;
+  }
+  .asset-pill .count { font-weight: 600; color: #4cc4ff; }
+  .target-block { margin-top: 12px; padding: 8px; background: #1a1e26; border-radius: 4px; }
+  .target-block h3 { font-size: 12px; margin: 0 0 4px; color: #c8d2e8; }
+  .target-progress {
+    height: 6px; background: #262a33; border-radius: 3px;
+    margin: 4px 0; overflow: hidden;
+  }
+  .target-progress > div { height: 100%; background: linear-gradient(90deg, #4cc4ff, #6ed987); }
+  .breakeven-marker {
+    background: #d97c2d; color: #fff; padding: 1px 6px; border-radius: 3px;
+    font-size: 11px; display: inline-block;
+  }
+  .target-hit { color: #6ed987; font-weight: 600; }
+  .target-miss { color: #888; }
+  .queue { font-size: 11px; font-variant-numeric: tabular-nums; max-height: 220px; overflow-y: auto; }
+  .queue-row { padding: 2px 6px; display: flex; gap: 8px; }
+  .queue-row.done { color: #6ed987; }
+  .queue-row.next { background: #2a3445; }
+  .queue-row.future { color: #7c8499; }
+  .chart { width: 100%; height: 160px; }
+  .auto-controls { background: #1a1e26; padding: 8px; border-radius: 4px; margin: 8px 0; }
+  .auto-controls label { font-size: 11px; color: #9aa3b8; display: block; margin-top: 4px; }
+  select { background: #262c38; color: #e6e8ee; border: 1px solid #353c4b;
+           border-radius: 3px; padding: 3px 6px; font-size: 12px; width: 100%; }
+  .compare-toggle { padding: 4px 0; font-size: 12px; color: #8b93a7; }
+  .badge { background: #353c4b; padding: 1px 5px; border-radius: 3px; font-size: 10px; }
+</style>
+</head>
+<body>
+<h1>BAR Build Explorer</h1>
+<div class="meta" id="meta">Loading builds.json…</div>
+
+<div class="layout">
+  <div class="panel">
+    <h2>Builds & branches</h2>
+    <div class="branch-tree" id="branch-tree"></div>
+    <div class="compare-toggle">
+      <input type="checkbox" id="compare-mode"> <label for="compare-mode">Compare two branches</label>
+    </div>
+    <h2 style="margin-top:14px">Targets</h2>
+    <div id="targets-list"></div>
+  </div>
+
+  <div class="panel" id="panel-a"></div>
+  <div class="panel" id="panel-b" style="display:none"></div>
+</div>
+
+<script>
+const STATE = {
+  data: null,
+  selectedBranch: { a: null, b: null },
+  cursor: { a: 0, b: 0 },     // event index within the current branch
+  compare: false,
+};
+
+async function load() {
+  try {
+    const res = await fetch("builds.json");
+    STATE.data = await res.json();
+  } catch (e) {
+    document.getElementById("meta").innerHTML =
+      "<span class='stall'>Could not load builds.json — open this file through a web server (e.g. python -m http.server) or your browser blocks file:// fetch.</span>";
+    return;
+  }
+  document.getElementById("meta").textContent =
+    `Generated ${STATE.data.generated_at}  ·  horizon ${STATE.data.horizon_s}s  ·  `
+    + `${STATE.data.builds.length} builds, `
+    + `${STATE.data.builds.reduce((n,b)=>n+b.branches.length,0)} branches.`;
+  renderTree();
+  renderTargets();
+  // Auto-pick the first branch
+  const firstBuild = STATE.data.builds[0];
+  if (firstBuild) selectBranch("a", firstBuild.branches[0].id);
+}
+
+function findBranch(branchId) {
+  for (const b of STATE.data.builds) {
+    for (const br of b.branches) {
+      if (br.id === branchId) return { build: b, branch: br };
+    }
+  }
+  return null;
+}
+
+function renderTree() {
+  const el = document.getElementById("branch-tree");
+  let html = "";
+  for (const b of STATE.data.builds) {
+    html += `<div class="build-name">${b.name}</div>`;
+    for (const br of b.branches) {
+      const sel =
+        STATE.selectedBranch.a === br.id ? "sel-a" :
+        STATE.selectedBranch.b === br.id ? "sel-b" : "";
+      const be = br.breakeven_t == null ? "no break-even"
+                                        : `break-even ${br.breakeven_t.toFixed(1)}s`;
+      const fork = br.parent_id ? `<span class="badge">fork@${br.fork_at_step}</span> ` : "";
+      html += `<div class="branch ${sel}" data-id="${br.id}">
+                 ${fork}${br.label}
+                 <div class="sub">${be}</div>
+               </div>`;
+    }
+  }
+  el.innerHTML = html;
+  el.querySelectorAll(".branch").forEach(div => {
+    div.onclick = () => {
+      const id = +div.dataset.id;
+      const slot = STATE.compare && STATE.selectedBranch.a !== null
+        ? (STATE.selectedBranch.a === id ? "a" : "b")
+        : "a";
+      selectBranch(slot, id);
+    };
+  });
+}
+
+function renderTargets() {
+  const el = document.getElementById("targets-list");
+  let html = "";
+  for (const t of STATE.data.targets) {
+    const comp = Object.entries(t.composition)
+      .map(([k,v]) => `${STATE.data.abbrev[k]||k}×${v}`).join(" ");
+    html += `<div class="target-block">
+               <h3>${t.name}</h3>
+               <div style="font-size:11px;color:#8b93a7">${comp}</div>
+             </div>`;
+  }
+  el.innerHTML = html;
+}
+
+function selectBranch(slot, branchId) {
+  STATE.selectedBranch[slot] = branchId;
+  STATE.cursor[slot] = 0;
+  renderTree();
+  renderPanel("a");
+  if (STATE.compare) {
+    document.getElementById("panel-b").style.display = "";
+    renderPanel("b");
+  } else {
+    document.getElementById("panel-b").style.display = "none";
+  }
+}
+
+document.getElementById("compare-mode").addEventListener("change", e => {
+  STATE.compare = e.target.checked;
+  if (STATE.compare && STATE.selectedBranch.b === null) {
+    // Pick the next branch as B
+    const ids = STATE.data.builds.flatMap(b => b.branches.map(br => br.id));
+    const a = STATE.selectedBranch.a;
+    STATE.selectedBranch.b = ids.find(id => id !== a) ?? null;
+    STATE.cursor.b = 0;
+  }
+  renderTree();
+  document.getElementById("panel-b").style.display = STATE.compare ? "" : "none";
+  if (STATE.compare) renderPanel("b");
+});
+
+// State derivation -----------------------------------------------------
+function stateAt(branch, eventIdx) {
+  // Walk completion events up to and including eventIdx; that gives us
+  // the asset map and the time.  Sample the resource trace at that time.
+  let t = 3.0, metal = 1000, energy = 1000, assets = {};
+  let mStall = false, eStall = false;
+  const completionsBefore = branch.events
+    .slice(0, eventIdx + 1)
+    .filter(ev => ev.kind === "complete");
+  if (completionsBefore.length) {
+    const last = completionsBefore[completionsBefore.length - 1];
+    t = last.t; assets = last.assets; metal = last.metal; energy = last.energy;
+  }
+  // Find the trace sample nearest to t for income figures.
+  let sample = branch.trace[0];
+  for (const s of branch.trace) {
+    if (s.t > t) break;
+    sample = s;
+  }
+  if (sample) {
+    mStall = sample.stall.includes("M");
+    eStall = sample.stall.includes("E");
+  }
+  return { t, metal, energy, assets, sample, mStall, eStall };
+}
+
+function renderPanel(slot) {
+  const root = document.getElementById("panel-" + slot);
+  const branchId = STATE.selectedBranch[slot];
+  if (branchId == null) { root.innerHTML = ""; return; }
+  const found = findBranch(branchId);
+  if (!found) { root.innerHTML = ""; return; }
+  const { build, branch } = found;
+  const cursor = STATE.cursor[slot];
+  const events = branch.events;
+  const st = stateAt(branch, cursor);
+
+  const netM = st.sample ? st.sample.m_inc - st.sample.m_drain : 0;
+  const netE = st.sample ? st.sample.e_inc - st.sample.e_drain : 0;
+
+  // Asset summary
+  const assetPills = Object.entries(st.assets)
+    .filter(([k]) => k !== "_commander")
+    .map(([k,v]) => `<div class="asset-pill"><span>${STATE.data.abbrev[k]||k}</span><span class="count">${v}</span></div>`)
+    .join("");
+
+  // Queue with cursor highlighting (a queue item is "done" once an event
+  // of the same item key has fired with cursor >= its position).
+  let qDoneCount = 0;
+  const completed = new Map();  // item_key -> count completed so far
+  for (let i = 0; i <= cursor; i++) {
+    const ev = events[i];
+    if (ev && ev.kind === "complete") {
+      completed.set(ev.item, (completed.get(ev.item) || 0) + 1);
+    }
+  }
+  const queue = branch.queue.map(q => ({ ...q, status: "future" }));
+  const remaining = new Map(completed);
+  for (const q of queue) {
+    if ((remaining.get(q.item) || 0) > 0) {
+      q.status = "done";
+      remaining.set(q.item, remaining.get(q.item) - 1);
+    } else if (queue.find(qq => qq.status === "future") === q) {
+      q.status = "next";
+      break;
+    }
+  }
+  const queueHtml = queue.map((q,i) =>
+    `<div class="queue-row ${q.status}">
+       <span style="width:18px;color:#7c8499">${i}.</span>
+       <span style="width:100px">${q.item}</span>
+       <span>${q.mode}</span>
+     </div>`).join("");
+
+  // Event list
+  const eventsHtml = events.map((ev,i) => {
+    const cls = ev.kind.includes("stall") ? "stall" : "";
+    const active = i === cursor ? "active" : "";
+    const label = ev.kind === "complete"
+      ? `${ev.label}`
+      : ev.kind.replace(/_/g, " ");
+    return `<div class="event-row ${cls} ${active}" data-i="${i}">
+              <span class="t">${ev.t.toFixed(1)}s</span>
+              <span class="kind">${label}</span>
+            </div>`;
+  }).join("");
+
+  // Target progress
+  const targetsHtml = STATE.data.targets.map(t => {
+    let total = 0, have = 0;
+    for (const [k,v] of Object.entries(t.composition)) {
+      total += v; have += Math.min(v, st.assets[k] || 0);
+    }
+    const pct = total ? Math.round(100 * have / total) : 0;
+    const hitT = branch.target_hits[t.name];
+    const status = hitT == null
+      ? `<span class="target-miss">not reached within ${branch.horizon}s</span>`
+      : `<span class="target-hit">complete at ${hitT.toFixed(1)}s</span>`;
+    return `<div class="target-block">
+              <h3>${t.name} <span style="float:right;font-weight:400;color:#8b93a7">${have}/${total}</span></h3>
+              <div class="target-progress"><div style="width:${pct}%"></div></div>
+              <div style="font-size:11px">${status}</div>
+            </div>`;
+  }).join("");
+
+  // Chart
+  const chartId = "chart-" + slot;
+
+  const breakevenHtml = branch.breakeven_t == null ? ""
+    : `<span class="breakeven-marker">break-even @ ${branch.breakeven_t.toFixed(1)}s</span>`;
+
+  root.innerHTML = `
+    <h2>${build.name} · <span style="color:#c8d2e8">${branch.label}</span> ${breakevenHtml}</h2>
+    <div class="resource-row">
+      <div class="resource">
+        <div class="label">Time</div>
+        <div class="value">${st.t.toFixed(1)}s</div>
+        <div class="delta">event ${cursor + 1} / ${events.length}</div>
+      </div>
+      <div class="resource">
+        <div class="label">Metal ${st.mStall ? '<span class="stall">M-STALL</span>' : ''}</div>
+        <div class="value">${st.metal.toFixed(0)}</div>
+        <div class="delta ${netM>=0?'ok':'stall'}">${netM>=0?'+':''}${netM.toFixed(2)} /s</div>
+      </div>
+      <div class="resource">
+        <div class="label">Energy ${st.eStall ? '<span class="stall">E-STALL</span>' : ''}</div>
+        <div class="value">${st.energy.toFixed(0)}</div>
+        <div class="delta ${netE>=0?'ok':'stall'}">${netE>=0?'+':''}${netE.toFixed(2)} /s</div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button data-act="first">|&lt;&lt;</button>
+      <button data-act="prev">&lt; back</button>
+      <button data-act="next" class="primary">forward &gt;</button>
+      <button data-act="last">&gt;&gt;|</button>
+    </div>
+
+    <div class="auto-controls">
+      <label>Auto-advance until…</label>
+      <select id="auto-mode-${slot}">
+        <option value="">— pick an auto-advance rule —</option>
+        <option value="all-mex">all mexes built (4)</option>
+        <option value="all-solar">all solars built (4)</option>
+        <option value="lab">first lab done</option>
+        <option value="all-worker">all workers built (2)</option>
+        <option value="target-Light eco">target: Light eco</option>
+        <option value="target-Pre-T2">target: Pre-T2</option>
+        <option value="target-Wind 25">target: Wind 25</option>
+        <option value="breakeven">break-even reached</option>
+      </select>
+      <button data-act="auto-run" class="primary" style="margin-top:6px">Run</button>
+    </div>
+
+    <h2 style="margin-top:10px">Assets at t=${st.t.toFixed(1)}s</h2>
+    <div class="assets">${assetPills || '<span style="color:#7c8499">(none yet)</span>'}</div>
+
+    <h2 style="margin-top:10px">Targets</h2>
+    ${targetsHtml}
+
+    <h2 style="margin-top:10px">Events</h2>
+    <div class="events">${eventsHtml}</div>
+
+    <h2 style="margin-top:10px">Queue</h2>
+    <div class="queue">${queueHtml}</div>
+
+    <h2 style="margin-top:10px">Resource trace</h2>
+    <canvas id="${chartId}" class="chart" width="600" height="160"></canvas>
+  `;
+
+  root.querySelectorAll("button[data-act]").forEach(btn => {
+    btn.onclick = () => handleAct(slot, btn.dataset.act, root);
+  });
+  root.querySelectorAll(".event-row").forEach(div => {
+    div.onclick = () => { STATE.cursor[slot] = +div.dataset.i; renderPanel(slot); };
+  });
+
+  drawChart(chartId, branch, st.t);
+}
+
+function handleAct(slot, act, root) {
+  const branch = findBranch(STATE.selectedBranch[slot]).branch;
+  const last = branch.events.length - 1;
+  let c = STATE.cursor[slot];
+  if (act === "first") c = 0;
+  else if (act === "prev") c = Math.max(0, c - 1);
+  else if (act === "next") c = Math.min(last, c + 1);
+  else if (act === "last") c = last;
+  else if (act === "auto-run") {
+    const mode = root.querySelector("select[id^='auto-mode-']").value;
+    if (mode) c = autoAdvance(branch, c, mode);
+  }
+  STATE.cursor[slot] = c;
+  renderPanel(slot);
+}
+
+function autoAdvance(branch, startIdx, mode) {
+  // Walk events forward from startIdx looking for the stop condition.
+  for (let i = startIdx; i < branch.events.length; i++) {
+    const ev = branch.events[i];
+    if (mode.startsWith("all-")) {
+      const item = mode.slice(4);
+      const itemKey = item === "mex"    ? "mex"
+                    : item === "solar"  ? "solar"
+                    : item === "worker" ? "t1_worker"
+                    : item;
+      const targets = { mex: 4, solar: 4, worker: 2 };
+      if (ev.kind === "complete" && (ev.assets[itemKey] || 0) >= targets[item]) {
+        return i;
+      }
+    } else if (mode === "lab") {
+      if (ev.kind === "complete" && ev.item === "t1_lab") return i;
+    } else if (mode.startsWith("target-")) {
+      const name = mode.slice(7);
+      const t = STATE.data.targets.find(t => t.name === name);
+      if (!t) continue;
+      if (ev.kind === "complete") {
+        const ok = Object.entries(t.composition)
+          .every(([k,v]) => (ev.assets[k] || 0) >= v);
+        if (ok) return i;
+      }
+    } else if (mode === "breakeven") {
+      if (branch.breakeven_t != null && ev.t >= branch.breakeven_t) return i;
+    }
+  }
+  return branch.events.length - 1;
+}
+
+// Tiny inline chart -------------------------------------------------------
+function drawChart(canvasId, branch, cursorT) {
+  const canvas = document.getElementById(canvasId);
+  if (!canvas) return;
+  const ctx = canvas.getContext("2d");
+  const W = canvas.width, H = canvas.height;
+  ctx.clearRect(0, 0, W, H);
+
+  const trace = branch.trace;
+  if (trace.length === 0) return;
+  const tMin = trace[0].t, tMax = trace[trace.length - 1].t;
+  // Two y axes: metal (0..1500) and energy (0..1500)
+  const maxM = Math.max(1300, ...trace.map(s => s.m));
+  const maxE = Math.max(1500, ...trace.map(s => s.e));
+
+  const x = t => (t - tMin) / (tMax - tMin) * (W - 30) + 25;
+  const yM = m => H - (m / maxM) * (H - 20) - 10;
+  const yE = e => H - (e / maxE) * (H - 20) - 10;
+
+  // Grid
+  ctx.strokeStyle = "#262a33"; ctx.lineWidth = 1;
+  for (let i = 0; i <= 4; i++) {
+    const yy = 10 + i * (H - 20) / 4;
+    ctx.beginPath(); ctx.moveTo(25, yy); ctx.lineTo(W, yy); ctx.stroke();
+  }
+
+  // Break-even marker
+  if (branch.breakeven_t != null && branch.breakeven_t <= tMax) {
+    const xx = x(branch.breakeven_t);
+    ctx.strokeStyle = "#d97c2d"; ctx.setLineDash([4, 3]);
+    ctx.beginPath(); ctx.moveTo(xx, 0); ctx.lineTo(xx, H); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle = "#d97c2d"; ctx.font = "10px sans-serif";
+    ctx.fillText("break-even", xx + 3, 12);
+  }
+
+  // Stall shading
+  for (const s of trace) {
+    if (s.stall) {
+      ctx.fillStyle = s.stall.includes("E") ? "rgba(255,140,80,0.10)" : "rgba(255,200,80,0.10)";
+      ctx.fillRect(x(s.t) - 5, 0, 10, H);
+    }
+  }
+
+  // Metal line (blue)
+  ctx.strokeStyle = "#4cc4ff"; ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  trace.forEach((s, i) => {
+    const px = x(s.t), py = yM(s.m);
+    if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+  });
+  ctx.stroke();
+  // Energy line (green)
+  ctx.strokeStyle = "#6ed987"; ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  trace.forEach((s, i) => {
+    const px = x(s.t), py = yE(s.e);
+    if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+  });
+  ctx.stroke();
+
+  // Cursor
+  const cx = x(cursorT);
+  ctx.strokeStyle = "#fff"; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(cx, 0); ctx.lineTo(cx, H); ctx.stroke();
+
+  // Axis labels
+  ctx.fillStyle = "#8b93a7"; ctx.font = "10px sans-serif";
+  ctx.fillText(`${tMin.toFixed(0)}s`, 25, H - 2);
+  ctx.fillText(`${tMax.toFixed(0)}s`, W - 30, H - 2);
+  ctx.fillStyle = "#4cc4ff"; ctx.fillText("Metal", 28, 14);
+  ctx.fillStyle = "#6ed987"; ctx.fillText("Energy", 70, 14);
+}
+
+load();
+</script>
+</body>
+</html>

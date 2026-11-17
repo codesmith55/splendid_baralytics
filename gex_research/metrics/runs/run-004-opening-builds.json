@@ -1,0 +1,38 @@
+{
+  "$comment": "RUN CONFIG — opening-build analysis of the most recent 8v8 (2026-06-10 14:43) containing [APE]Splendi. Drives headless extraction so actions.json (unit_created build events) is produced for all 16 players, plus economy_composition for scaling/T2 comparison.",
+  "runId": "run-004-opening-builds",
+  "title": "Opening builds — most recent 8v8 (All That Glitters, 2026-06-10 14:43)",
+  "created": "2026-06-10",
+
+  "input": {
+    "source": "headless",
+    "demoFile": "C:/Users/codes/AppData/Local/Programs/Beyond-All-Reason/data/demos/2026-06-10_14-43-10-306_All That Glitters v2.2.3_2025.06.24.sdfz",
+    "engine": "recoil_2025.06.24",
+    "reuseExisting": true
+  },
+
+  "roster": { "source": "auto" },
+
+  "sampling": { "everyFrames": 450, "fps": 30 },
+
+  "metrics": [
+    {
+      "id": "economy_composition",
+      "params": {
+        "value": { "formula": "metal_plus_energy_div_70" },
+        "commanderValue": 1200,
+        "commanderBuckets": ["build_power", "military"]
+      }
+    }
+  ],
+
+  "situations": [
+    { "id": "per_user" },
+    { "id": "mirror_by_start_position", "params": { "maxPairDistance": 6000 } }
+  ],
+
+  "output": {
+    "dir": "../../output/run-004",
+    "formats": ["json", "html"]
+  }
+}

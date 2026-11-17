@@ -1,0 +1,28 @@
+{
+  "api_all": "https://api.bar-rts.com/battles",
+  "api_one": "https://api.bar-rts.com/battles/{id}",
+  "api_replays": "https://api.bar-rts.com/replays",
+  "cdn_replays": "https://storage.uk.cloud.ovh.net/v1/AUTH_10286efc0d334efd917d476d7183232e/BAR/demos/",
+  "qualifiers": {
+    "map_contains": "glitters",
+    "min_avg_os": 20.0,
+    "min_top_os": 30.0
+  },
+  "monitor_interval_s": 30.0,
+  "watcher_interval_s": 20.0,
+  "watcher_max_runtime_s": 7200.0,
+  "replay_fetch_delay_s": 900,
+  "replay_fetch_max_attempts": 6,
+  "replay_fetch_backoff_s": 600,
+  "dashboard_interval_s": 60.0,
+  "dashboard_html": "dashboard_out/index.html",
+  "alerts": {
+    "enabled": false,
+    "channels": [],
+    "watchlist_usernames": []
+  },
+  "snapshot_ttl_days": 14,
+  "events_ttl_days": 90,
+  "replay_ttl_days": 60,
+  "stale_after_s": 300
+}

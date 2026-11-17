@@ -1,0 +1,9 @@
+Armada,,,,Cortex,,,
+Solar,0,155,2800,Solar,0,150,28
+Wind,175,40,1600,Wind,175,43,17
+AdvSolar,5000,350,8000,AdvSolar,4000,370,82
+VehCon,1950,135,4100,VehCon,2100,145,42
+E storage,1700,170,4100,E storage,1800,175,43
+Worker,1600,110,3400,Worker,1750,120,85
+Con turret,3200,230,5300,Con turret,3200,230,53
+Econverter,1150,1,2600,Econverter,1250,1,2680

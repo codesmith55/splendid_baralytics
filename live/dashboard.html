@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>bar_analytic_live</title>
+<style>
+  :root{
+    --bg:#0e1116; --panel:#161b22; --panel2:#1c2230; --line:#2a3140;
+    --txt:#e6edf3; --muted:#8b949e;
+    --military:#e5484d; --defense:#f76b15; --build_power:#4493f8; --economy:#30a46c;
+    --infrastructure:#8e4ec6; --commander:#ffb224; --support:#1ab2c9; --other:#6b7280;
+    --essential:#52606e; --construction:#b89238; --storage:#39404c;
+    --building:#828a96; --unspent:#0c0e13;
+    --metal:#c0c5ce; --energy:#f5d90a;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--txt);font:14px/1.4 "Segoe UI",system-ui,Arial,sans-serif}
+  header{display:flex;align-items:center;gap:16px;padding:10px 16px;border-bottom:1px solid var(--line);background:var(--panel)}
+  header h1{font-size:15px;font-weight:600;margin:0;letter-spacing:.3px}
+  header .pill{font-size:12px;color:var(--muted);background:var(--panel2);border:1px solid var(--line);padding:3px 9px;border-radius:20px}
+  header .warn{color:#ffce4d;border-color:#5a4a12;background:#251f0c}
+  .legend{display:flex;flex-wrap:wrap;gap:12px;margin-left:auto;font-size:12px;color:var(--muted)}
+  .legend span{display:flex;align-items:center;gap:5px}
+  .legend i{width:10px;height:10px;border-radius:2px;display:inline-block}
+  .ally{padding:6px 16px 2px;font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.12em}
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:4px 16px 14px}
+  .cell{position:relative;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:8px 6px 6px;display:flex;flex-direction:column;align-items:center;cursor:default}
+  .cell.dead{filter:grayscale(.85);opacity:.5}
+  .pies{display:flex;gap:2px;align-items:flex-end;justify-content:center}
+  .pies svg{display:block}
+  .cmd{position:absolute;top:5px;right:8px;font-size:14px;font-weight:800;letter-spacing:-.5px}
+  .cmd.up{color:var(--commander)} .cmd.down{color:var(--military)}
+  .cell{cursor:grab} .cell:active{cursor:grabbing}
+  .cell.empty{cursor:default;opacity:.5;border-style:dashed;align-items:center;justify-content:center;min-height:150px;font-size:11px;text-align:center;line-height:1.3}
+  .cell.pair{outline:2px dashed var(--commander);outline-offset:-2px}
+  .cell.drop{outline:2px solid var(--build_power);outline-offset:-2px;background:var(--panel2)}
+  .pairbadge{position:absolute;top:5px;left:8px;font-size:10px;font-weight:700;color:var(--commander)}
+  .breakout{width:96px;display:flex;flex-direction:column;justify-content:center;gap:3px;padding:0 4px 14px;font-size:9.5px}
+  .bo-title{font-size:9px;color:var(--muted);margin-bottom:2px;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .bo-row{display:flex;align-items:center;gap:3px}
+  .bo-lab{width:32px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .bo-track{flex:1;height:7px;background:var(--panel2);border-radius:2px;overflow:hidden}
+  .bo-bar{display:block;height:100%}
+  .bo-val{width:24px;text-align:right;font-variant-numeric:tabular-nums}
+  .cell .nm{font-size:12.5px;font-weight:600;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .cell .tot{font-size:11px;color:var(--muted);margin-top:1px}
+  .inc{display:flex;gap:3px;width:84%;margin-top:5px}
+  .inc .track{flex:1;height:5px;background:var(--panel2);border-radius:3px;overflow:hidden}
+  .inc .bar{height:100%;border-radius:3px;transition:width .4s}
+  #tip{position:absolute;pointer-events:none;z-index:10;background:#0b0e13;border:1px solid var(--line);border-radius:8px;padding:9px 11px;font-size:12px;min-width:200px;display:none;box-shadow:0 6px 24px rgba(0,0,0,.5)}
+  #tip h4{margin:0 0 6px;font-size:13px}
+  #tip table{width:100%;border-collapse:collapse}
+  #tip td{padding:1px 0}
+  #tip td.k{color:var(--muted)} #tip td.v{text-align:right;font-variant-numeric:tabular-nums}
+  .sw{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+  .hatch{background:repeating-linear-gradient(45deg,#3c4030 0 3px,#b89238 3px 5px)!important}
+  .empty{color:var(--muted);padding:40px 16px;text-align:center}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <pattern id="hatchC" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+    <rect width="6" height="6" fill="#3c4030"/>
+    <line x1="0" y1="0" x2="0" y2="6" stroke="#b89238" stroke-width="2"/>
+  </pattern>
+</defs></svg>
+<header>
+  <h1>bar_analytic_live</h1>
+  <span class="pill" id="map">—</span>
+  <span class="pill" id="clock">0:00</span>
+  <span class="pill" id="view">connecting…</span>
+  <span class="pill" id="flipH" style="cursor:pointer" title="mirror left/right">⇆</span>
+  <span class="pill" id="flipV" style="cursor:pointer" title="swap top/bottom team">⇅</span>
+  <span class="pill" id="modeEco" style="cursor:pointer" title="default breakout: economy">eco</span>
+  <span class="pill" id="modeMil" style="cursor:pointer" title="default breakout: military">mil</span>
+  <div class="legend" id="legend"></div>
+</header>
+<div id="board"><div class="empty">Waiting for stream… start/spectate a game with the widget enabled.</div></div>
+<div id="tip"></div>
+
+<script>
+// Left pie = ARMY, right pie = ECO. Legend lists every slice across both, then the rings/badge.
+const LEG=[["military","Military (army disc)"],["defense","Defense (army disc)"],
+  ["economy","Producing eco (band)"]];
+const cssv=k=>getComputedStyle(document.documentElement).getPropertyValue('--'+k).trim();
+const fmtK=n=>{n=n||0;return n>=1000?(n/1000).toFixed(1)+'k':Math.round(n).toString()};
+
+(function(){const L=document.getElementById('legend');
+  LEG.forEach(([k,lab])=>{const s=document.createElement('span');
+    s.innerHTML=`<i style="background:var(--${k})"></i>${lab}`;L.appendChild(s);});
+  const cn=document.createElement('span');cn.innerHTML=`<i style="background:var(--building)"></i>Building (eco band)`;L.appendChild(cn);
+  const st=document.createElement('span');st.innerHTML=`<i style="background:var(--unspent);box-shadow:inset 0 0 0 1px #3a4150"></i>Unspent (eco band)`;L.appendChild(st);
+  const s=document.createElement('span');s.innerHTML=`<i style="background:var(--metal)"></i>metal↻ / <i style="background:var(--energy)"></i>energy↺ fill (rim arc)`;L.appendChild(s);
+  const c=document.createElement('span');c.innerHTML=`<b style="color:var(--commander)">+C</b>/<b style="color:var(--military)">0C</b> commander alive/lost`;L.appendChild(c);
+})();
+
+// ---- spectator-arrangeable layout model --------------------------------------------
+// The board is a list of sections, each a grid of slots. A slot holds a teamID or is empty.
+// Built automatically (spawn-sorted) then freely mutated by drag/drop. A teamID appearing in
+// more than one slot = a "pair" (one player covering two positions).
+let layout=null, layoutDirty=true, dragging=false, dragSrcId=null, lastData=null, lastFrame=0, slotSeq=0;
+const deadHandled=new Set();
+const mkSlot=tid=>({id:'s'+(slotSeq++), teamID:(tid==null?null:tid)});
+document.getElementById('flipH').onclick=()=>{ if(layout){for(const s of layout.sections)s.slots.reverse(); layoutDirty=true;} };
+document.getElementById('flipV').onclick=()=>{ if(layout){const d=layout.sections.filter(s=>s.dead),L=layout.sections.filter(s=>!s.dead); L.reverse(); layout.sections=[...L,...d]; layoutDirty=true;} };
+
+// global default for the per-cell breakout panel; hovering a disc band overrides it locally.
+let globalMode='eco', curSplits=null;
+function setMode(m){ globalMode=m;
+  document.getElementById('modeEco').classList.toggle('warn',m==='eco');
+  document.getElementById('modeMil').classList.toggle('warn',m==='mil');
+  for(const cell of document.querySelectorAll('#board .cell[data-slot]')){
+    const sp=curSplits&&curSplits.get(Number(cell.dataset.team)), bo=cell.querySelector('.breakout');
+    if(bo&&sp) bo.outerHTML=breakout(sp,globalMode);
+  }
+}
+document.getElementById('modeEco').onclick=()=>setMode('eco');
+document.getElementById('modeMil').onclick=()=>setMode('mil');
+setMode('eco');
+
+let target=null;
+async function poll(){
+  try{const r=await fetch('/api/state',{cache:'no-store'});target=await r.json();}catch(e){}
+  setTimeout(poll,1000);
+}
+poll();
+
+function animate(){
+  if(target){
+    updateHeader(target);
+    if((target.frame||0)<lastFrame){ layout=null; deadHandled.clear(); }   // new game → rebuild
+    lastFrame=target.frame||0;
+    if(target.teams && target.teams.length){
+      ensureLayout(target);
+      if(layoutDirty && !dragging){ buildBoard(); layoutDirty=false; lastData=null; }
+      if(!dragging && target!==lastData){ refreshContents(target); lastData=target; }
+    }
+  }
+  requestAnimationFrame(animate);
+}
+requestAnimationFrame(animate);
+
+function polar(cx,cy,r,a){return [cx+r*Math.sin(a), cy-r*Math.cos(a)];}
+function slice(cx,cy,rIn,rOut,a0,a1){
+  a1=Math.min(a1,a0+2*Math.PI-0.001);
+  const big=(a1-a0)>Math.PI?1:0;
+  const[x0,y0]=polar(cx,cy,rOut,a0),[x1,y1]=polar(cx,cy,rOut,a1);
+  const[x2,y2]=polar(cx,cy,rIn,a1),[x3,y3]=polar(cx,cy,rIn,a0);
+  return `M${x0.toFixed(1)},${y0.toFixed(1)} A${rOut},${rOut} 0 ${big} 1 ${x1.toFixed(1)},${y1.toFixed(1)} `
+        +`L${x2.toFixed(1)},${y2.toFixed(1)} A${rIn},${rIn} 0 ${big} 0 ${x3.toFixed(1)},${y3.toFixed(1)} Z`;
+}
+function ring(cx,cy,r,frac,color){
+  const C=2*Math.PI*r;
+  return `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#2a3140" stroke-width="3"/>`
+    +`<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${color}" stroke-width="3" stroke-linecap="round"`
+    +` stroke-dasharray="${(frac*C).toFixed(1)} ${C.toFixed(1)}" transform="rotate(-90 ${cx} ${cy})"/>`;
+}
+
+// ---- Per-player split ---------------------------------------------------------------
+// Two discs per player. ARMY disc = mobile army + static defense (angular slices).
+// ECO disc = a partial disc: concentric radial BANDS show economy composition (producing eco
+// → unspent → mid-build), outer radius ∝ total eco (LINEAR, no area/√). Two partial RIM ARCS
+// show storage fill: metal sweeps clockwise from top, energy counter-clockwise, each arc length
+// = that resource's % of its storage capacity.
+function split(t){
+  const b=t.buckets||{};
+  const army=[
+    {v:b.military||0, fill:'var(--military)', lab:'Military'},
+    {v:b.defense||0,  fill:'var(--defense)',  lab:'Defense'},
+  ];
+  const ecoCore=(b.economy||0)+(b.build_power||0)+(b.infrastructure||0)+(b.support||0)+(b.other||0);
+  const unspent=Math.max(0,t.storageValue||0);
+  const construction=Math.max(0,t.constructionValue||0);
+  return {army, armyPool:army.reduce((s,x)=>s+x.v,0),
+    mil:{military:b.military||0, defense:b.defense||0},
+    ecoCore, unspent, construction, ecoTotal:ecoCore+unspent+construction,
+    mFrac:t.metalStorage>0?Math.min(1,t.metalCurrent/t.metalStorage):0,
+    eFrac:t.energyStorage>0?Math.min(1,t.energyCurrent/t.energyStorage):0,
+    comUp:(b.commander||0)>0};
+}
+
+// A full annular band (thick circle stroke). `seg` tags it (eco|mil) so hover can read the band.
+function band(cx,cy,r0,r1,fill,seg){
+  const w=Math.max(0,r1-r0); if(w<=0.01) return '';
+  const a=seg?` data-seg="${seg}" style="pointer-events:stroke"`:'';
+  return `<circle cx="${cx}" cy="${cy}" r="${((r0+r1)/2).toFixed(2)}" fill="none" stroke="${fill}" stroke-width="${w.toFixed(2)}"${a}/>`;
+}
+function linR(val,maxV,rMin,rMax){return rMin+Math.min(1,Math.max(0,val)/Math.max(1,maxV))*(rMax-rMin);}
+
+// ONE disc per player: eco composition as inner radial bands, military as the OUTER SHELL.
+// Outer radius ∝ (eco + military), LINEAR. Bands carry data-seg (eco|mil) for hover. Two rim
+// arcs outside (metal cw, energy ccw) = storage fill %.
+function combinedDisc(sp,maxAll){
+  const W=98,H=112,cx=49,cy=50,rIn=7;
+  const total=(sp.ecoTotal+sp.armyPool)||1;
+  const rOut=linR(total,maxAll,rIn+3,33), Wd=rOut-rIn;
+  let r=rIn, out='';
+  const add=(v,fill,seg)=>{ if(v<=0) return; const r1=r+Wd*(v/total); out+=band(cx,cy,r,r1,fill,seg); r=r1; };
+  // shells inner → outer: Military (core), Defense, Building (grey), Unspent (black), Eco (outer).
+  add(sp.mil.military,'var(--military)','mil');      // mobile army — central core
+  add(sp.mil.defense,'var(--defense)','mil');        // static defense
+  add(sp.construction,'var(--building)','eco');      // grey: value tied up mid-build
+  add(sp.unspent,'var(--unspent)','eco');            // black: unspent banked resource
+  add(sp.ecoCore,'var(--economy)','eco');            // producing economy — outer shell
+  let rim='';
+  if(sp.mFrac>0) rim+=`<path d="${slice(cx,cy,rOut+1,rOut+3.5,0,sp.mFrac*Math.PI)}" fill="var(--metal)" style="pointer-events:none"/>`;
+  if(sp.eFrac>0) rim+=`<path d="${slice(cx,cy,rOut+1,rOut+3.5,-sp.eFrac*Math.PI,0)}" fill="var(--energy)" style="pointer-events:none"/>`;
+  const cval=`<text x="${cx}" y="${cy+4}" text-anchor="middle" fill="#e6edf3" font-size="10" font-weight="600" style="pointer-events:none">${fmtK(total)}</text>`;
+  return `<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">${out}${rim}${cval}</svg>`;
+}
+
+// The 2nd area: a mini stacked-bar breakdown of either eco or military (per global mode / hover).
+function breakout(sp,mode){
+  const rows = mode==='mil'
+    ? [['Military',sp.mil.military,'var(--military)'],['Defense',sp.mil.defense,'var(--defense)']]
+    : [['Eco',sp.ecoCore,'var(--economy)'],['Build',sp.construction,'var(--building)'],['Unspent',sp.unspent,'var(--unspent)']];
+  const max=Math.max(1,...rows.map(r=>r[1]));
+  const title = mode==='mil' ? `⚔ military ${fmtK(sp.armyPool)}` : `🌿 eco ${fmtK(sp.ecoTotal)}`;
+  let h=`<div class="bo-title">${title}</div>`;
+  for(const [lab,v,col] of rows)
+    h+=`<div class="bo-row"><span class="bo-lab">${lab}</span><span class="bo-track"><span class="bo-bar" style="width:${(v/max*100).toFixed(0)}%;background:${col}"></span></span><span class="bo-val">${fmtK(v)}</span></div>`;
+  return `<div class="breakout" data-mode="${mode}">${h}</div>`;
+}
+
+function updateHeader(state){
+  document.getElementById('map').textContent=state.session.mapName||'—';
+  const s=Math.round(state.gameSeconds||0);
+  document.getElementById('clock').textContent=`${Math.floor(s/60)}:${String(s%60).padStart(2,'0')}`;
+  const v=document.getElementById('view');
+  if(state.session.fullView===false){v.textContent='player view — enemy hidden';v.className='pill warn';}
+  else if(state.session.isSpectator){v.textContent='spectating — full vision';v.className='pill';}
+  else {v.textContent='live';v.className='pill';}
+}
+
+// Build the initial layout: spawn-sorted ally rows (mean Z for rows, X within), + dead/left.
+function buildAutoLayout(state){
+  const haveSpawns=state.teams.some(t=>t.startX>=0);
+  const meanZ=a=>{const ts=state.teams.filter(t=>t.allyTeamID===a&&t.startZ>=0);
+    return ts.length?ts.reduce((s,t)=>s+t.startZ,0)/ts.length:a;};
+  const allies=[...new Set(state.teams.map(t=>t.allyTeamID))].sort((a,b)=>haveSpawns?meanZ(a)-meanZ(b):a-b);
+  const sections=[];
+  for(const ally of allies){
+    const ps=state.teams.filter(t=>t.allyTeamID===ally&&!t.dead)
+      .sort((a,b)=>haveSpawns?(a.startX-b.startX):(a.teamID-b.teamID));
+    sections.push({key:'ally'+ally,label:'ally team '+ally,slots:ps.map(t=>mkSlot(t.teamID))});
+  }
+  const deadPs=state.teams.filter(t=>t.dead);
+  deadPs.forEach(t=>deadHandled.add(t.teamID));
+  sections.push({key:'dead',label:'dead / left',dead:true,slots:deadPs.map(t=>mkSlot(t.teamID))});
+  layout={sections};
+}
+function allTeamIDs(){const s=new Set();for(const sec of layout.sections)for(const sl of sec.slots)if(sl.teamID!=null)s.add(sl.teamID);return s;}
+function deadSection(){return layout.sections.find(s=>s.dead);}
+function slotById(id){for(const sec of layout.sections)for(const sl of sec.slots)if(sl.id===id)return sl;return null;}
+function pairSet(){const c={};for(const sec of layout.sections)for(const sl of sec.slots)if(sl.teamID!=null)c[sl.teamID]=(c[sl.teamID]||0)+1;
+  return new Set(Object.keys(c).filter(k=>c[k]>1).map(Number));}
+
+// Reconcile the live state into the existing layout: add new players, retire newly-dead ones.
+function ensureLayout(state){
+  if(!layout){ buildAutoLayout(state); layoutDirty=true; return; }
+  const known=allTeamIDs();
+  for(const t of state.teams){ if(t.dead||known.has(t.teamID)) continue;
+    let sec=layout.sections.find(s=>s.key==='ally'+t.allyTeamID);
+    if(!sec){ sec={key:'ally'+t.allyTeamID,label:'ally team '+t.allyTeamID,slots:[]};
+      layout.sections.splice(Math.max(0,layout.sections.length-1),0,sec); }
+    sec.slots.push(mkSlot(t.teamID)); layoutDirty=true;
+  }
+  for(const t of state.teams){ if(t.dead&&!deadHandled.has(t.teamID)){ deadHandled.add(t.teamID);
+    for(const sec of layout.sections){ if(sec.dead)continue; for(const sl of sec.slots) if(sl.teamID===t.teamID) sl.teamID=null; }
+    deadSection().slots.push(mkSlot(t.teamID)); layoutDirty=true; } }
+}
+
+// Build DOM skeleton (only when layout structure changes). Contents filled by refreshContents.
+function buildBoard(){
+  let html='';
+  for(const sec of layout.sections){
+    html+=`<div class="ally">${sec.label}</div><div class="grid" data-sec="${sec.key}">`;
+    for(const sl of sec.slots) html+=`<div class="cell" data-slot="${sl.id}" draggable="true"></div>`;
+    if(sec.dead) html+=`<div class="cell empty dropzone" data-sec="dead">drop a player here<br>to mark “left”</div>`;
+    html+=`</div>`;
+  }
+  document.getElementById('board').innerHTML=html;
+}
+
+// Refresh each cell's discs/labels in place (every tick) without disturbing the DOM structure.
+function refreshContents(state){
+  const splits=new Map(state.teams.map(t=>[t.teamID,split(t)]));
+  curSplits=splits;
+  const maxAll=Math.max(1,...[...splits.values()].map(s=>s.ecoTotal+s.armyPool));
+  const maxInc=state.maxIncome||1, pairs=pairSet();
+  for(const cell of document.querySelectorAll('#board .cell[data-slot]')){
+    const sl=slotById(cell.dataset.slot);
+    const t=sl&&sl.teamID!=null ? state.teams.find(x=>x.teamID===sl.teamID) : null;
+    if(!t){ cell.className='cell empty'; cell.removeAttribute('data-team'); cell.innerHTML='<span>empty</span>'; continue; }
+    const sp=splits.get(t.teamID), isPair=pairs.has(t.teamID);
+    cell.className='cell'+(t.dead?' dead':'')+(isPair?' pair':'');
+    cell.dataset.team=t.teamID;
+    cell.innerHTML=cellInner(t,sp,maxAll,maxInc,isPair);
+  }
+}
+function cellInner(t,sp,maxAll,maxInc,isPair){
+  const mi=Math.min(1,(t.metalIncome||0)/maxInc), ei=Math.min(1,(t.energyIncome||0)/maxInc);
+  const com=sp.comUp?`<span class="cmd up" title="commander alive">+C</span>`:`<span class="cmd down" title="commander lost">0C</span>`;
+  const pb=isPair?`<span class="pairbadge" title="one player, two positions">⧉ pair</span>`:'';
+  return com+pb
+    +`<div class="pies">${combinedDisc(sp,maxAll)}${breakout(sp,globalMode)}</div>`
+    +`<div class="nm" title="${t.name}">${t.dead?'☠ ':''}${t.name}</div>`
+    +`<div class="tot">eco ${fmtK(sp.ecoTotal)} · mil ${fmtK(sp.armyPool)}</div>`
+    +((t.idleBuilderCount||0)>0?`<div class="tot" style="color:var(--build_power)">⟳ ${t.idleBuilderCount} idle builder${t.idleBuilderCount>1?'s':''}</div>`:'')
+    +`<div class="inc"><div class="track"><div class="bar" style="width:${(mi*100).toFixed(0)}%;background:var(--metal)"></div></div>`
+    +`<div class="track"><div class="bar" style="width:${(ei*100).toFixed(0)}%;background:var(--energy)"></div></div></div>`;
+}
+
+// Drop a player: onto an empty slot → duplicate (pair); onto a player → swap; onto dead zone → retire.
+function doDrop(srcId,cell){
+  const src=slotById(srcId); if(!src||src.teamID==null) return;
+  if(cell.classList.contains('dropzone')){ deadSection().slots.push(mkSlot(src.teamID)); src.teamID=null; return; }
+  const tgt=slotById(cell.dataset.slot); if(!tgt||tgt.id===src.id) return;
+  if(tgt.teamID==null){ tgt.teamID=src.teamID; }                              // empty → duplicate (pair)
+  else { const tmp=tgt.teamID; tgt.teamID=src.teamID; src.teamID=tmp; }       // player → swap (reorder)
+}
+
+(function(){const board=document.getElementById('board');
+  board.addEventListener('dragstart',e=>{const c=e.target.closest('.cell[data-slot]');
+    if(!c||!c.dataset.team){e.preventDefault();return;} dragSrcId=c.dataset.slot; dragging=true; c.style.opacity='.4';});
+  board.addEventListener('dragend',e=>{const c=e.target.closest('.cell'); if(c)c.style.opacity='';
+    dragging=false; dragSrcId=null; document.querySelectorAll('#board .drop').forEach(x=>x.classList.remove('drop'));});
+  board.addEventListener('dragover',e=>{ if(dragging&&e.target.closest('.cell')) e.preventDefault(); });
+  board.addEventListener('dragenter',e=>{const c=e.target.closest('.cell'); if(c&&dragging)c.classList.add('drop');});
+  board.addEventListener('dragleave',e=>{const c=e.target.closest('.cell'); if(c)c.classList.remove('drop');});
+  board.addEventListener('drop',e=>{const c=e.target.closest('.cell'); if(!c||!dragSrcId)return; e.preventDefault();
+    doDrop(dragSrcId,c); dragging=false; dragSrcId=null; layoutDirty=true;});
+  // double-click a paired (duplicated) cell to drop that copy.
+  board.addEventListener('dblclick',e=>{const c=e.target.closest('.cell[data-slot]'); if(!c||!c.dataset.team)return;
+    if(pairSet().has(Number(c.dataset.team))){const sl=slotById(c.dataset.slot); if(sl){sl.teamID=null; layoutDirty=true;}}});
+  // hover a disc band → that cell's breakout shows eco|mil; leaving the cell → back to global mode.
+  const setBO=(cell,mode)=>{ const sp=curSplits&&curSplits.get(Number(cell.dataset.team)), bo=cell.querySelector('.breakout');
+    if(bo&&sp&&bo.dataset.mode!==mode) bo.outerHTML=breakout(sp,mode); };
+  board.addEventListener('mousemove',e=>{ if(dragging) return;
+    const cell=e.target.closest('.cell[data-slot]'); if(!cell||!cell.dataset.team) return;
+    const segEl=e.target.closest('[data-seg]'); setBO(cell, segEl?segEl.dataset.seg:globalMode); });
+  board.addEventListener('mouseout',e=>{ const cell=e.target.closest('.cell[data-slot]');
+    if(cell&&cell.dataset.team&&!cell.contains(e.relatedTarget)) setBO(cell,globalMode); });
+})();
+
+const tip=document.getElementById('tip');
+document.getElementById('board').addEventListener('mousemove',e=>{
+  const cell=e.target.closest('.cell'); if(!cell||!target){tip.style.display='none';return;}
+  const t=target.teams.find(x=>x.teamID==cell.dataset.team); if(!t){tip.style.display='none';return;}
+  const sp=split(t), whole=sp.armyPool+sp.ecoTotal||1;
+  const sw=k=>`<span class="sw" style="background:var(--${k})"></span>`;
+  const grp=(lab,val)=>`<tr><td class="k" style="color:var(--txt);padding-top:5px">${lab}</td><td class="v" style="padding-top:5px">${fmtK(val)} · ${Math.round(val/whole*100)}%</td></tr>`;
+  const row=(swatch,lab,val)=> val>0?`<tr><td class="k">${swatch}${lab}</td><td class="v">${fmtK(val)}</td></tr>`:'';
+  const b=t.buckets||{};
+  const wastePct=Math.round((sp.unspent+sp.construction)/(sp.ecoTotal||1)*100);
+  let rows=grp('⚔ Military shell',sp.armyPool)
+    +row(sw('military'),'Military',b.military||0)
+    +row(sw('defense'),'Defense',b.defense||0)
+    +grp('🌿 Eco core — total',sp.ecoTotal)
+    +row(sw('economy'),'Producing eco',sp.ecoCore)
+    +row(`<span class="sw" style="background:var(--building)"></span>`,'Building',sp.construction)
+    +row(`<span class="sw" style="background:var(--unspent);box-shadow:inset 0 0 0 1px #3a4150"></span>`,'Unspent (m+e/70)',sp.unspent)
+    +`<tr><td class="k" style="padding-top:5px">Storage fill</td><td class="v" style="padding-top:5px">M ${Math.round(sp.mFrac*100)}% · E ${Math.round(sp.eFrac*100)}%</td></tr>`;
+  const com=sp.comUp?`<span style="color:var(--commander)">+C</span>`:`<span style="color:var(--military)">0C com lost</span>`;
+  tip.innerHTML=`<h4>${t.name} <span style="color:var(--muted);font-weight:400">· ${com} · eco waste ${wastePct}%</span></h4>`
+    +`<table>${rows}`
+    +`<tr><td class="k" style="padding-top:6px">Metal</td><td class="v" style="padding-top:6px">${Math.round(t.metalIncome)}/s · ${fmtK(t.metalCurrent)}/${fmtK(t.metalStorage)}</td></tr>`
+    +`<tr><td class="k">Energy</td><td class="v">${Math.round(t.energyIncome)}/s · ${fmtK(t.energyCurrent)}/${fmtK(t.energyStorage)}</td></tr>`
+    +`<tr><td class="k">Build power</td><td class="v">${Math.round(t.bpUsed)}/${Math.round(t.bpAvail)} · idle ${Math.round((1-Math.min(1,(t.bpUsed||0)/Math.max(1,t.bpAvail||1)))*100)}%</td></tr>`
+    +((t.idleBuilderCount||0)>0?`<tr><td class="k" style="color:var(--build_power)">Idle builders</td><td class="v" style="color:var(--build_power)">${t.idleBuilderCount}</td></tr>`:'')
+    +`<tr><td class="k">Extractors</td><td class="v">${t.nMex} · conv ${t.nConv}</td></tr></table>`;
+  tip.style.display='block';
+  const pad=14; let x=e.clientX+pad, y=e.clientY+pad;
+  if(x+230>innerWidth)x=e.clientX-230; if(y+180>innerHeight)y=e.clientY-180;
+  tip.style.left=x+'px'; tip.style.top=y+'px';
+});
+document.getElementById('board').addEventListener('mouseleave',()=>tip.style.display='none');
+</script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+{
+  "_note": "BAR input mapping for the adapter. VERIFY every key against your in-game bindings (Settings > Controls / uikeys). Grid keys assume the default build-menu grid; placements are screen-space placeholders until a camera/world projection source exists.",
+
+  "screen": { "width": 2560, "height": 1440 },
+
+  "select_idle_builder": [
+    { "action": "key", "text": "b" }
+  ],
+  "select_commander": [
+    { "action": "key", "text": "," }
+  ],
+
+  "queue_modifier": "shift",
+  "settle_s": 0.15,
+
+  "builds": {
+    "leg_mex":          { "grid": ["z", "w"], "place": "near", "note": "T1 extractor" },
+    "wind":             { "grid": ["z", "e"], "place": "near", "note": "wind turbine" },
+    "solar":            { "grid": ["z", "r"], "place": "near", "note": "solar collector" },
+    "leg_medmex":       { "grid": ["z", "t"], "place": "on_mex", "note": "T1.5 medmex over existing mex" },
+    "upgrade_t1_moho":  { "grid": ["z", "y"], "place": "on_mex", "note": "T2 moho over T1 mex" },
+    "upgrade_med_moho": { "grid": ["z", "y"], "place": "on_mex", "note": "T2 moho over medmex" }
+  },
+
+  "places": {
+    "near":   { "anchor": "center", "offset": [120, 80] },
+    "on_mex": { "anchor": "center", "offset": [0, 0] },
+    "center": { "anchor": "center", "offset": [0, 0] }
+  },
+
+  "chat": {
+    "open": [ { "action": "key", "text": "Return" } ],
+    "send": [ { "action": "key", "text": "Return" } ]
+  }
+}

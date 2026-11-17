@@ -1,0 +1,16 @@
+08:41] [APE]Splendi: make your ques longer
+[08:42] [APE]Splendi: do this, then do that
+[08:42] [APE]Splendi: build that llt front, then shift the mexs
+[08:42] [APE]Splendi: cut down on idle Build power time, it's so hard to make and use BP anyways
+[08:42] [APE]Splendi: 3 core eco rules:
+[08:43] [APE]Splendi: metal + energy = build power # if we couldn't spend metal, and have the energy, more worker or con turret)
+[08:43] [APE]Splendi: metal + no energy = panic solar # temporary we couldn't spend M on anything else, so solar
+[08:43] [APE]Splendi: default: wind, best scaling, the goal
+[08:43] [APE]Splendi: 3 backup rules:
+[08:44] [APE]Splendi: 170 metal + full Energy = energy storage, you always need at least 1, around 3-6min
+[08:44] [APE]Splendi: like 1estorage/2-3 con turrets?
+[08:45] [APE]Splendi: 0 metal + 5k energy = reclaim solars # we don't need temporary inefficient solars anymore
+[08:45] [APE]Splendi: 0 metal + 5kE + no solars = energy converters # We did all the interesting things with energy first, and convert the rest
+[08:46] [APE]Splendi: learn to use spaceabar to manage your economy(as well as units), and n the inverse k
+[08:46] [APE]Splendi: spacebar prepends action into queue, "do this first, then back to queue"
+[08:46] [APE]Splendi: n skips what you're doing to next command

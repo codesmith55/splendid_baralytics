@@ -1,0 +1,94 @@
+{
+  "$comment": "MASTER LIST of every metric created for BAR replay analysis. One entry per metric. The process (process/run.mjs) executes metrics by `id`. Add new metrics with process/addMetric.mjs (never hand-edit unless you know the shape). granularity: team-per-time | team-final | player | global. 'module' is resolved relative to process/lib/metrics/.",
+  "version": 1,
+  "updated": "2026-06-09",
+  "metrics": [
+    {
+      "id": "self_reclaim",
+      "title": "Self-reclaim — cumulative value of own units reclaimed, by category, per team",
+      "created": "2026-06-09",
+      "status": "active",
+      "granularity": "team-per-time",
+      "module": "self_reclaim.mjs",
+      "value": {
+        "formula": "metal_plus_energy_div_70",
+        "note": "same formula as economy_composition: metalCost + energyCost/70 per unit"
+      },
+      "detection": {
+        "event": "unit_killed",
+        "filter": "attackerTeam === teamID AND weaponDefID === -12",
+        "note": "weaponDefID -12 is Spring/Recoil's internal constant for the reclaim action. 6 enemy-reclaim events also have wid=-12 but different attackerTeam — excluded. Commander (if reclaimed) double-counted into build_power + military."
+      },
+      "categories": {
+        "economy": "reclaimed economy structures (solars, mexes, wind, fusors, etc.)",
+        "military": "reclaimed living combat units (liquidating a unit for metal)",
+        "build_power": "reclaimed constructor units or construction turrets",
+        "infrastructure": "reclaimed factories / labs",
+        "other": "fallback"
+      },
+      "inputs": ["unit_def", "unit_killed", "start", "end"],
+      "params": {
+        "sampling": { "everyFrames": 450, "fps": 30 },
+        "value": { "formula": "metal_plus_energy_div_70" },
+        "commanderValue": 1200
+      },
+      "outputs": ["per-team cumulative self-reclaim time series, split by bucket", "per-team final totals", "raw event list per team"]
+    },
+    {
+      "id": "economy_composition",
+      "title": "Economy composition — % of total value by category, per team, per time",
+      "created": "2026-06-09",
+      "status": "active",
+      "granularity": "team-per-time",
+      "module": "economy_composition.mjs",
+      "value": {
+        "formula": "metal_plus_energy_div_70",
+        "note": "per-unit value = metalCost + energyCost/70",
+        "overrides": { "commander": 1200 }
+      },
+      "categories": {
+        "build_power": {
+          "desc": "worker units (T1 corca/corck/corcv/armca/armck/armcv, butlers/consuls, T2 builders), construction turrets, and the commander's build contribution",
+          "detect": { "buildPowerGt0": true, "isFactory": false, "isCommanderHandledSeparately": true },
+          "seedNames": ["corca","corck","corcv","armca","armck","armcv","cornanotc","armnanotc","cormando","corn","armconsul","corjugg","armaca","armack","armacv","coraca","corack","coracv"]
+        },
+        "economy": {
+          "desc": "energy producers + converters + resource storage buildings + metal extractors",
+          "detect": { "anyOf": ["energyProductionGt0","windGeneratorGt0","tidalGeneratorGt0","energyConversionCapacityGt0","isMetalExtractor","metalStorageBuilding","energyStorageBuilding"], "isFactory": false, "noWeapon": true },
+          "seedNames": ["armsolar","corsolar","armwin","corwin","armadvsol","coradvsol","armestor","corestor","armmstor","cormstor","armmakr","cormakr","armmmkr","cormmkr","armmex","cormex","armuwadves","coruwadves"]
+        },
+        "infrastructure": {
+          "desc": "factories / labs / plants (anything that builds mobile units)",
+          "detect": { "isFactory": true },
+          "seedNames": ["armlab","corlab","armvp","corvp","armap","corap","armsy","corsy","armalab","coralab","armavp","coravp","armaap","coraap"]
+        },
+        "military": {
+          "desc": "combat units, static defenses, radar/jammer; the commander is double-counted here at a flat 1200 value",
+          "detect": { "anyOf": ["weaponCountGt0","attackRangeGt0","radarDistanceGt0"], "plusCommander": true },
+          "seedNames": ["armpw","corak","armrock","corstorm","armllt","corllt","armrad","corrad","armrl","corrl"]
+        },
+        "storage": {
+          "desc": "resources currently sitting in storage (NOT unit value): metalCurrent + energyCurrent/70 from extra_stat_update",
+          "detect": { "source": "extra_stat_update", "fields": ["metalCurrent","energyCurrent"] }
+        },
+        "other": {
+          "desc": "fallback bucket for any unit not matched above"
+        }
+      },
+      "commander": {
+        "value": 1200,
+        "buckets": ["build_power", "military"],
+        "doubleCount": true,
+        "note": "commander value (1200) is added to BOTH build_power and military; the denominator includes both copies so per-category percentages still sum to 100%"
+      },
+      "inputs": ["unit_def", "unit_created", "unit_killed", "unit_given", "unit_taken", "factory_unit_created", "extra_stat_update", "start", "end"],
+      "params": {
+        "sampling": { "everyFrames": 450, "fps": 30 },
+        "value": { "formula": "metal_plus_energy_div_70" },
+        "commanderValue": 1200,
+        "commanderBuckets": ["build_power", "military"]
+      },
+      "outputs": ["per-team time series of bucket %", "per-team final composition", "category value time series"]
+    }
+  ]
+}

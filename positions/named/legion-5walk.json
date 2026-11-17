@@ -1,0 +1,490 @@
+{
+  "_meta": {
+    "name": "Legion 5walk",
+    "map": "All That Glitters",
+    "position": "6",
+    "role": "Tech",
+    "source": "2026-06-22_22-53-03-659_All That Glitters v2.2.3_2025.06.24.sdfz",
+    "capture_t": 50,
+    "notes": "Captured from headless replay at T=50s"
+  },
+  "state": {
+    "t": 50,
+    "metal": 991.7,
+    "energy": 763,
+    "metalStorage": 1200,
+    "energyStorage": 1000,
+    "metalIncome": 7.873,
+    "energyIncome": 58,
+    "totalValue": 2900,
+    "tpv": 3903,
+    "completed": {},
+    "inProgress": [],
+    "buildings": {},
+    "mobile": {}
+  },
+  "build_queue": [
+    {
+      "t": 88.1,
+      "frame": 2644,
+      "defName": "legck",
+      "defClass": "unit",
+      "count": 1,
+      "eco": {
+        "metal": 723.6,
+        "energy": 955.4,
+        "metalIncome": 9.344,
+        "energyIncome": 65,
+        "tpv": 4412
+      }
+    },
+    {
+      "t": 131.4,
+      "frame": 3941,
+      "defName": "legmex",
+      "defClass": "mex_t1",
+      "count": 1,
+      "eco": {
+        "metal": 309.2,
+        "energy": 424.9,
+        "metalIncome": 9.344,
+        "energyIncome": 135,
+        "tpv": 4855
+      }
+    },
+    {
+      "t": 146.5,
+      "frame": 4395,
+      "defName": "legmext15",
+      "defClass": "medmex",
+      "count": 1,
+      "eco": {
+        "metal": 193.1,
+        "energy": 915.2,
+        "metalIncome": 10.815,
+        "energyIncome": 162,
+        "tpv": 5031
+      }
+    },
+    {
+      "t": 152.4,
+      "frame": 4572,
+      "defName": "legrezbot",
+      "defClass": "unit",
+      "count": 1,
+      "eco": {
+        "metal": 166.6,
+        "energy": 296.5,
+        "metalIncome": 13.022,
+        "energyIncome": 170,
+        "tpv": 4846
+      }
+    },
+    {
+      "t": 168.6,
+      "frame": 5058,
+      "defName": "legck",
+      "defClass": "unit",
+      "count": 2,
+      "eco": {
+        "metal": 138.5,
+        "energy": 822.9,
+        "metalIncome": 13.022,
+        "energyIncome": 170,
+        "tpv": 5130
+      }
+    },
+    {
+      "t": 178.2,
+      "frame": 5347,
+      "defName": "legmex",
+      "defClass": "mex_t1",
+      "count": 2,
+      "eco": {
+        "metal": 138.5,
+        "energy": 822.9,
+        "metalIncome": 13.022,
+        "energyIncome": 170,
+        "tpv": 5130
+      }
+    },
+    {
+      "t": 191.2,
+      "frame": 5737,
+      "defName": "legestor",
+      "defClass": "unit",
+      "count": 1,
+      "eco": {
+        "metal": 106.4,
+        "energy": 0.2,
+        "metalIncome": 13.755,
+        "energyIncome": 198.5,
+        "tpv": 5686
+      }
+    },
+    {
+      "t": 199.7,
+      "frame": 5990,
+      "defName": "legrezbot",
+      "defClass": "unit",
+      "count": 2,
+      "eco": {
+        "metal": 201.8,
+        "energy": 63.7,
+        "metalIncome": 10.81,
+        "energyIncome": 202,
+        "tpv": 5783
+      }
+    },
+    {
+      "t": 202.3,
+      "frame": 6068,
+      "defName": "legwin",
+      "defClass": "unit",
+      "count": 1,
+      "eco": {
+        "metal": 201.8,
+        "energy": 63.7,
+        "metalIncome": 10.81,
+        "energyIncome": 202,
+        "tpv": 5783
+      }
+    },
+    {
+      "t": 215.4,
+      "frame": 6462,
+      "defName": "legmext15",
+      "defClass": "medmex",
+      "count": 2,
+      "eco": {
+        "metal": 70.6,
+        "energy": 0,
+        "metalIncome": 10.81,
+        "energyIncome": 230.1,
+        "tpv": 5851
+      }
+    },
+    {
+      "t": 225.2,
+      "frame": 6755,
+      "defName": "legwin",
+      "defClass": "unit",
+      "count": 2,
+      "eco": {
+        "metal": 159.7,
+        "energy": 1511.3,
+        "metalIncome": 16.687,
+        "energyIncome": 237.7,
+        "tpv": 6316
+      }
+    },
+    {
+      "t": 247.6,
+      "frame": 7429,
+      "defName": "legwin",
+      "defClass": "unit",
+      "count": 3,
+      "eco": {
+        "metal": 707.5,
+        "energy": 1034.1,
+        "metalIncome": 16.687,
+        "energyIncome": 255.1,
+        "tpv": 6897
+      }
+    },
+    {
+      "t": 265.7,
+      "frame": 7970,
+      "defName": "legadvsol",
+      "defClass": "unit",
+      "count": 1,
+      "eco": {
+        "metal": 885,
+        "energy": 2082.2,
+        "metalIncome": 16.687,
+        "energyIncome": 261.4,
+        "tpv": 7135
+      }
+    },
+    {
+      "t": 271,
+      "frame": 8130,
+      "defName": "legwin",
+      "defClass": "unit",
+      "count": 4,
+      "eco": {
+        "metal": 945.5,
+        "energy": 2746.6,
+        "metalIncome": 16.687,
+        "energyIncome": 374.1,
+        "tpv": 7205
+      }
+    },
+    {
+      "t": 274.6,
+      "frame": 8237,
+      "defName": "legmext15",
+      "defClass": "medmex",
+      "count": 3,
+      "eco": {
+        "metal": 945.5,
+        "energy": 2746.6,
+        "metalIncome": 16.687,
+        "energyIncome": 374.1,
+        "tpv": 7205
+      }
+    },
+    {
+      "t": 289.8,
+      "frame": 8695,
+      "defName": "legnanotc",
+      "defClass": "unit",
+      "count": 1,
+      "eco": {
+        "metal": 1015.1,
+        "energy": 3654.3,
+        "metalIncome": 18.886,
+        "energyIncome": 391.4,
+        "tpv": 7512
+      }
+    },
+    {
+      "t": 293.5,
+      "frame": 8805,
+      "defName": "legwin",
+      "defClass": "unit",
+      "count": 5,
+      "eco": {
+        "metal": 1015.1,
+        "energy": 3654.3,
+        "metalIncome": 18.886,
+        "energyIncome": 391.4,
+        "tpv": 7512
+      }
+    },
+    {
+      "t": 301.1,
+      "frame": 9032,
+      "defName": "legnanotc",
+      "defClass": "unit",
+      "count": 2,
+      "eco": {
+        "metal": 996.8,
+        "energy": 3749.5,
+        "metalIncome": 18.886,
+        "energyIncome": 378.1,
+        "tpv": 8020
+      }
+    },
+    {
+      "t": 313.2,
+      "frame": 9396,
+      "defName": "legmext15",
+      "defClass": "medmex",
+      "count": 4,
+      "eco": {
+        "metal": 996.8,
+        "energy": 3749.5,
+        "metalIncome": 18.886,
+        "energyIncome": 378.1,
+        "tpv": 8020
+      }
+    },
+    {
+      "t": 316,
+      "frame": 9480,
+      "defName": "legwin",
+      "defClass": "unit",
+      "count": 6,
+      "eco": {
+        "metal": 854.1,
+        "energy": 1309,
+        "metalIncome": 71.09,
+        "energyIncome": 401.3,
+        "tpv": 8258
+      }
+    },
+    {
+      "t": 325.2,
+      "frame": 9756,
+      "defName": "legadvsol",
+      "defClass": "unit",
+      "count": 2,
+      "eco": {
+        "metal": 854.1,
+        "energy": 1309,
+        "metalIncome": 71.09,
+        "energyIncome": 401.3,
+        "tpv": 8258
+      }
+    },
+    {
+      "t": 337.4,
+      "frame": 10121,
+      "defName": "legnanotc",
+      "defClass": "unit",
+      "count": 3,
+      "eco": {
+        "metal": 837.4,
+        "energy": 2896.4,
+        "metalIncome": 21.09,
+        "energyIncome": 517,
+        "tpv": 8539
+      }
+    },
+    {
+      "t": 338.5,
+      "frame": 10155,
+      "defName": "legwin",
+      "defClass": "unit",
+      "count": 7,
+      "eco": {
+        "metal": 837.4,
+        "energy": 2896.4,
+        "metalIncome": 21.09,
+        "energyIncome": 517,
+        "tpv": 8539
+      }
+    },
+    {
+      "t": 344.1,
+      "frame": 10323,
+      "defName": "legmext15",
+      "defClass": "medmex",
+      "count": 5,
+      "eco": {
+        "metal": 837.4,
+        "energy": 2896.4,
+        "metalIncome": 21.09,
+        "energyIncome": 517,
+        "tpv": 8539
+      }
+    },
+    {
+      "t": 359.7,
+      "frame": 10790,
+      "defName": "legadvsol",
+      "defClass": "unit",
+      "count": 3,
+      "eco": {
+        "metal": 696.9,
+        "energy": 906.9,
+        "metalIncome": 21.09,
+        "energyIncome": 532.9,
+        "tpv": 9080
+      }
+    },
+    {
+      "t": 361,
+      "frame": 10830,
+      "defName": "legwin",
+      "defClass": "unit",
+      "count": 8,
+      "eco": {
+        "metal": 504.4,
+        "energy": 1447.2,
+        "metalIncome": 23.297,
+        "energyIncome": 526,
+        "tpv": 9125
+      }
+    },
+    {
+      "t": 373.5,
+      "frame": 11205,
+      "defName": "legnanotc",
+      "defClass": "unit",
+      "count": 4,
+      "eco": {
+        "metal": 504.4,
+        "energy": 1447.2,
+        "metalIncome": 23.297,
+        "energyIncome": 526,
+        "tpv": 9125
+      }
+    },
+    {
+      "t": 405.1,
+      "frame": 12153,
+      "defName": "legalab",
+      "defClass": "t2factory",
+      "count": 1,
+      "eco": {
+        "metal": 78.7,
+        "energy": 3518.9,
+        "metalIncome": 23.297,
+        "energyIncome": 501.7,
+        "tpv": 10089
+      }
+    },
+    {
+      "t": 410.2,
+      "frame": 12307,
+      "defName": "legeconv",
+      "defClass": "unit",
+      "count": 1,
+      "eco": {
+        "metal": 78.7,
+        "energy": 3518.9,
+        "metalIncome": 23.297,
+        "energyIncome": 501.7,
+        "tpv": 10089
+      }
+    },
+    {
+      "t": 421.3,
+      "frame": 12640,
+      "defName": "legack",
+      "defClass": "unit",
+      "count": 1,
+      "eco": {
+        "metal": 24.1,
+        "energy": 59.1,
+        "metalIncome": 23.297,
+        "energyIncome": 428.8,
+        "tpv": 10397
+      }
+    },
+    {
+      "t": 425.2,
+      "frame": 12756,
+      "defName": "legeconv",
+      "defClass": "unit",
+      "count": 2,
+      "eco": {
+        "metal": 24.1,
+        "energy": 59.1,
+        "metalIncome": 23.297,
+        "energyIncome": 428.8,
+        "tpv": 10397
+      }
+    },
+    {
+      "t": 447.9,
+      "frame": 13438,
+      "defName": "legeconv",
+      "defClass": "unit",
+      "count": 3,
+      "eco": {
+        "metal": 154.4,
+        "energy": 39.8,
+        "metalIncome": 21.297,
+        "energyIncome": 461.5,
+        "tpv": 8238
+      }
+    },
+    {
+      "t": 461.4,
+      "frame": 13841,
+      "defName": "legeconv",
+      "defClass": "unit",
+      "count": 4,
+      "eco": {
+        "metal": 212.5,
+        "energy": 54.7,
+        "metalIncome": 19.464,
+        "energyIncome": 422.1,
+        "tpv": 8937
+      }
+    }
+  ]
+}

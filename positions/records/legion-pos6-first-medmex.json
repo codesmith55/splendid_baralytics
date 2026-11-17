@@ -1,0 +1,52 @@
+{
+  "id": "legion-pos6-first-medmex",
+  "version": "1",
+  "description": "Legion commander, pos6 eco/tech, first medmex (legmext15) online",
+  "faction": "legion",
+  "map": "all-that-glitters",
+  "start_pos": "pos6-eco",
+  "target": {
+    "event": "first_medmex_complete",
+    "description": "First medmex (legmext15) completes and comes online",
+    "detect_live": {
+      "metric": "metalIncome",
+      "op": "delta_above",
+      "value": 1.8,
+      "window_s": 5,
+      "note": "legmex→medmex upgrades income by ~2.28 m/s net; threshold 1.8 gives margin for ARM/Legion income variation"
+    }
+  },
+  "branch_point": {
+    "event": "worker1_arrives_mex67",
+    "description": "Worker 1 (first factory-produced legck) has finished building both mex 6 and mex 7",
+    "detect_live": {
+      "metric": "nMex",
+      "op": ">=",
+      "value": 7,
+      "note": "live server nMex reaches 7 when worker1 finishes mex 7"
+    }
+  },
+  "paths": {
+    "wind-in-place": {
+      "description": "After mex 6+7, worker 1 builds winds in place — trickle wind as a separate build queue from the main commander chain",
+      "intent": "barbots/intents/legion-pos6-eco-wind.md",
+      "projected_s": 280.1,
+      "projected_note": "Serial simulation (project.mjs) shows 280s because wind income arrives CONCURRENTLY with medmex build in real game — actual timing will be faster. The 274s mex-stall figure is cumulative from game start, not medmex-specific.",
+      "samples": [],
+      "timing": null
+    },
+    "return-to-com": {
+      "description": "After mex 6+7, worker 1 walks back to commander — adds ~80 BP to build pool for medmex",
+      "intent": "barbots/intents/legion-pos6-eco-bp.md",
+      "projected_s": 280.1,
+      "projected_note": "Projection uses com-only build (500 BP). Worker1 assist adds 580 BP total (300 com + 200 turret + 80 worker1), shortening build time. Actual timing will be faster. Worker1 walk from mex7 (~600 elmos) ≈ 16s at 36 e/s.",
+      "samples": [],
+      "timing": null
+    }
+  },
+  "notes": "Wind condition strongly affects the wind-in-place path: more wind = faster energy fill = less medmex stall. Return-to-com is more stable. Neither branch advantage is captured by project.mjs's serial model — real-game samples determine the winner.",
+  "_unit_calibration": {
+    "leg_medmex_income": "projected as +ARM_mex (1.8 m/s); actual is ΔM ≈+2.28 m/s net over replaced legmex. Correct via samples.",
+    "mex_stall_note": "High mex stall (150s+) during early game is expected — high-priority builds starve mex upkeep (3 E/s each). Not a planning error; it represents real income lost to energy constraints. Queue early mexes LOW priority to eliminate it."
+  }
+}

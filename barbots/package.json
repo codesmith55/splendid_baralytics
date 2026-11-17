@@ -1,0 +1,10 @@
+{
+  "name": "barbots",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Live BAR bot that executes declared build intents (third leg of the BAR analytics stack).",
+  "scripts": {
+    "test": "node planner/test/parse-intent.test.mjs && node planner/test/expand-goals.test.mjs && node planner/test/project.test.mjs"
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "$comment": "BUILD TEMPLATE — Duo Geo Rush (Cortex, ATG). Two commanders (skirmish: /cheat 2nd com + 1000 metal to mimic 2nd player start). Reference run: run-003 (2026-06-10). Energy-gated build: the geo's 13,000 E cost is the wall; the solar bank is its fuel tank.",
+  "buildId": "duo-geo-rush",
+  "displayName": "Duo Geo Rush",
+  "faction": "cortex",
+  "playerCount": 2,
+  "referenceRun": "run-003-skirmish-double-com",
+
+  "sequence": [
+    { "step": 1, "who": "both",    "action": "3 mexes each",                          "by": "0:20" },
+    { "step": 2, "who": "front",   "action": "1 solar, then Cortex Vehicle Plant (corvp)", "by": "0:45" },
+    { "step": 3, "who": "back",    "action": "chain solars continuously — this is the geo's energy bank, not eco greed", "by": "2:00" },
+    { "step": 4, "who": "factory", "action": "2 workers (corcv)",                     "by": "1:25" },
+    { "step": 5, "who": "worker1", "action": "con turret (cornanotc) placed WITHIN 400 elmos of the geo spot — it must reach the geo", "by": "1:30" },
+    { "step": 6, "who": "worker1+turret", "action": "start geo (corgeo)",             "by": "1:55" },
+    { "step": 7, "who": "any",     "action": "energy converters (cormakr) sized to geo surplus: ~(post-geo eInc - baseline) / 70, ≈ 7", "by": "3:45" }
+  ],
+
+  "checkpoints": {
+    "$comment": "Reference times from run-003. Grade future attempts against these; 'gate' = what limits that phase.",
+    "factoryStart":   { "refSec": 42,  "gate": "metal (cheat 1000m covers it)" },
+    "worker1Out":     { "refSec": 83,  "gate": "factory buildTime" },
+    "turretStart":    { "refSec": 89,  "gate": "worker1 walk" },
+    "geoStart":       { "refSec": 111, "gate": "turret completion + walk" },
+    "geoOnline":      { "refSec": 188, "gate": "ENERGY — see efficiency note", "theoreticalMinSec": 155 },
+    "firstConverter": { "refSec": 208, "gate": "geo online" },
+    "metalIncome40":  { "refSec": 270, "gate": "converter count" }
+  },
+
+  "economics": {
+    "corgeo": { "m": 540, "e": 13000, "buildTime": 12900, "output": "300 e/s" },
+    "geoTroiSec": 169,
+    "comparison": "geo TROI 169s vs wind 213s @ wind 14 vs solar 542.5s — best energy investment in the game; the 13,000 E upfront wall is the catch",
+    "geoBuildDrain": "~282 e/s at full 295bp (worker 95 + turret 200) — exceeds typical T1 income, hence the solar bank",
+    "converterSizing": "post-geo surplus ≈ 500 e/s -> 7 converters (70 e/s each) ≈ +7 m/s"
+  },
+
+  "knownIssues": {
+    "run003GeoEfficiency": "geo built at ~57% BP efficiency (77s actual vs 44s theoretical) — energy bottomed at 10 during the dive because 2 corlevlr + expansion mexes (500e each) competed in the geo window",
+    "fixes": [
+      "one more solar in the bank phase before geo start, OR",
+      "hold the levlrs and far expansion mexes until geo is online"
+    ],
+    "estimatedImprovement": "geo online ~20-30s sooner"
+  }
+}

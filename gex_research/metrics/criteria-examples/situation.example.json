@@ -1,0 +1,8 @@
+{
+  "$comment": "TEMPLATE — criteria for a NEW situation. Copy, edit, then: node process/addSituation.mjs <thisfile>. Appends a (draft) entry to metrics/situations.json and scaffolds process/lib/situations/<id>.mjs for you to implement apply().",
+  "id": "by_faction",
+  "title": "Group and compare players by faction (Armada vs Cortex vs Legion)",
+  "needs": [],
+  "params": {},
+  "$notes": "Implement apply(metricResult, ctx, params) in the generated module; ctx.roster gives faction per team. See mirror_by_start_position.mjs for the reference pattern. Set status=active when ready."
+}

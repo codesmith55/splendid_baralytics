@@ -1,0 +1,42 @@
+{
+  "$comment": "RUN CONFIG — the variable input for ONE calculation run. Edit this (or copy it) to drive a new run via: node process/run.mjs metrics/runs/<thisfile>.json. Lists which metrics + which situations to compute over which replay, plus per-metric params.",
+  "runId": "run-001-economy-composition",
+  "title": "Economy composition % per player per time, with mirror-by-start-position comparison",
+  "created": "2026-06-09",
+
+  "input": {
+    "source": "actions",
+    "actionsFile": "../../sample_output/actions.json",
+    "demoFile": "C:/Users/codes/AppData/Local/Programs/Beyond-All-Reason/data/demos/2026-06-09_14-59-25-160_All That Glitters v2.2.3_2025.06.24.sdfz",
+    "engine": "recoil_2025.06.24",
+    "$note_source": "source=actions reuses the already-extracted dump. set source=headless to (re)run spring-headless on demoFile first (see process/lib/headless.mjs). demoFile is also parsed for the player roster (names/faction/skill) when available."
+  },
+
+  "roster": {
+    "source": "auto",
+    "$note": "auto = use demo-header parser (tools/demoparser) if installed, else fall back to commander-spawn start positions from the action log. Names require the parser; start positions do not."
+  },
+
+  "sampling": { "everyFrames": 450, "fps": 30 },
+
+  "metrics": [
+    {
+      "id": "economy_composition",
+      "params": {
+        "value": { "formula": "metal_plus_energy_div_70" },
+        "commanderValue": 1200,
+        "commanderBuckets": ["build_power", "military"]
+      }
+    }
+  ],
+
+  "situations": [
+    { "id": "per_user" },
+    { "id": "mirror_by_start_position", "params": { "maxPairDistance": 6000 } }
+  ],
+
+  "output": {
+    "dir": "../../output/run-001",
+    "formats": ["json", "html"]
+  }
+}

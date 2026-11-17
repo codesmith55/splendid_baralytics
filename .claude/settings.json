@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cd:*)",
+      "Bash(python bar_analytic_server.py:*)",
+      "Bash(python replay_jsonl.py:*)",
+      "Bash(python build_classifier.py:*)",
+      "Bash(python analyses.py:*)",
+      "Bash(python live/bar_analytic_server.py:*)",
+      "Bash(python live/replay_jsonl.py:*)",
+      "Bash(python live/build_classifier.py:*)",
+      "Bash(python live/analyses.py:*)",
+      "Bash(python -m py_compile:*)",
+      "Bash(python ai_processes/capabilities.py:*)",
+      "Bash(python live/ai_processes/capabilities.py:*)",
+      "Bash(node:*)"
+    ]
+  }
+}

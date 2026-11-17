@@ -1,0 +1,458 @@
+{
+ "name": "skirmish-20260923-1807",
+ "description": "observed order from wd_2026-09-23_18-07-06-165_All_That_Glitters_v2.2.3_2026.07.04.sdfz",
+ "wind": null,
+ "start_sec": 3.0,
+ "crew_start": [
+  "Commander"
+ ],
+ "meta": {
+  "source": "wd_2026-09-23_18-07-06-165_All_That_Glitters_v2.2.3_2026.07.04.sdfz",
+  "mex_sec": [
+   10.0,
+   16.0,
+   23.0,
+   96.0,
+   125.0,
+   132.0,
+   135.0
+  ],
+  "analytical": {
+   "wind > metal BE": 55.0,
+   "wind > BP BE": 100.0,
+   "wind back < BP BE": 145.0,
+   "metal outruns BP": 627.0,
+   "energy overflows": 195.0,
+   "energy > metal": null
+  },
+  "built": {
+   "Wind": 47,
+   "EConverter": 22,
+   "ConTurret": 19,
+   "BotWorker": 8,
+   "Mex": 7,
+   "Solar": 7,
+   "AMex": 7,
+   "Commander": 1,
+   "BotFactory": 1,
+   "EStorage": 1
+  }
+ },
+ "steps": [
+  {
+   "unit": "Mex",
+   "walk_sec": 0.08,
+   "note": "replay 10s"
+  },
+  {
+   "unit": "Mex",
+   "walk_sec": 0.47,
+   "note": "replay 16s"
+  },
+  {
+   "unit": "Mex",
+   "walk_sec": 0.83,
+   "note": "replay 22s"
+  },
+  {
+   "unit": "Solar",
+   "walk_sec": 0.0,
+   "note": "replay 32s"
+  },
+  {
+   "unit": "Solar",
+   "walk_sec": 0.0,
+   "note": "replay 41s"
+  },
+  {
+   "unit": "BotFactory",
+   "walk_sec": 0.0,
+   "note": "replay 58s"
+  },
+  {
+   "unit": "Solar",
+   "walk_sec": 0.0,
+   "note": "replay 67s"
+  },
+  {
+   "unit": "Solar",
+   "walk_sec": 0.0,
+   "note": "replay 76s"
+  },
+  {
+   "unit": "BotWorker",
+   "walk_sec": 0.0,
+   "note": "replay 82s"
+  },
+  {
+   "unit": "Mex",
+   "walk_sec": 13.64,
+   "note": "replay 96s"
+  },
+  {
+   "unit": "BotWorker",
+   "walk_sec": 0.0,
+   "note": "replay 98s"
+  },
+  {
+   "unit": "Mex",
+   "walk_sec": 35.86,
+   "note": "replay 125s"
+  },
+  {
+   "unit": "Wind",
+   "walk_sec": 0.0,
+   "note": "replay 131s"
+  },
+  {
+   "unit": "Mex",
+   "walk_sec": 11.03,
+   "note": "replay 132s"
+  },
+  {
+   "unit": "Mex",
+   "walk_sec": 14.0,
+   "note": "replay 134s"
+  },
+  {
+   "unit": "Wind",
+   "walk_sec": 0.0,
+   "note": "replay 136s"
+  },
+  {
+   "unit": "BotWorker",
+   "walk_sec": 0.0,
+   "note": "replay 141s"
+  },
+  {
+   "unit": "Wind",
+   "walk_sec": 0.0,
+   "note": "replay 142s"
+  },
+  {
+   "unit": "Wind",
+   "walk_sec": 0.0,
+   "note": "replay 147s"
+  },
+  {
+   "unit": "Wind",
+   "walk_sec": 0.0,
+   "note": "replay 153s"
+  },
+  {
+   "unit": "Wind",
+   "walk_sec": 0.0,
+   "note": "replay 155s"
+  },
+  {
+   "unit": "Wind",
+   "walk_sec": 0.0,
+   "note": "replay 158s"
+  },
+  {
+   "unit": "Wind",
+   "walk_sec": 0.0,
+   "note": "replay 164s"
+  },
+  {
+   "unit": "BotWorker",
+   "walk_sec": 0.0,
+   "note": "replay 164s"
+  },
+  {
+   "unit": "Wind",
+   "walk_sec": 0.0,
+   "note": "replay 169s"
+  },
+  {
+   "unit": "Wind",
+   "walk_sec": 0.0,
+   "note": "replay 175s"
+  },
+  {
+   "unit": "Wind",
+   "walk_sec": 0.0,
+   "note": "replay 176s"
+  },
+  {
+   "unit": "BotWorker",
+   "walk_sec": 0.0,
+   "note": "replay 188s"
+  },
+  {
+   "unit": "EStorage",
+   "walk_sec": 0.0,
+   "note": "replay 192s"
+  },
+  {
+   "unit": "Wind",
+   "walk_sec": 0.0,
+   "note": "replay 196s"
+  },
+  {
+   "unit": "ConTurret",
+   "walk_sec": 0.0,
+   "note": "replay 199s"
+  },
+  {
+   "unit": "EConverter",
+   "walk_sec": 0.0,
+   "note": "replay 201s"
+  },
+  {
+   "unit": "Wind",
+   "walk_sec": 0.0,
+   "note": "replay 208s"
+  },
+  {
+   "unit": "Wind",
+   "walk_sec": 0.0,
+   "note": "replay 214s"
+  },
+  {
+   "unit": "Wind",
+   "walk_sec": 0.0,
+   "note": "replay 216s"
+  },
+  {
+   "unit": "Wind",
+   "walk_sec": 0.0,
+   "note": "replay 217s"
+  },
+  {
+   "unit": "Wind",
+   "walk_sec": 0.0,
+   "note": "replay 220s"
+  },
+  {
+   "unit": "Wind",
+   "walk_sec": 0.0,
+   "note": "replay 222s"
+  },
+  {
+   "unit": "EConverter",
+   "walk_sec": 0.0,
+   "note": "replay 224s"
+  },
+  {
+   "unit": "ConTurret",
+   "walk_sec": 0.0,
+   "note": "replay 225s"
+  },
+  {
+   "unit": "Wind",
+   "walk_sec": 0.0,
+   "note": "replay 226s"
+  },
+  {
+   "unit": "BotWorker",
+   "walk_sec": 0.0,
+   "note": "replay 228s"
+  },
+  {
+   "unit": "Wind",
+   "walk_sec": 0.0,
+   "note": "replay 233s"
+  },
+  {
+   "unit": "EConverter",
+   "walk_sec": 0.0,
+   "note": "replay 233s"
+  },
+  {
+   "unit": "Wind",
+   "walk_sec": 0.0,
+   "note": "replay 238s"
+  },
+  {
+   "unit": "Wind",
+   "walk_sec": 0.0,
+   "note": "replay 240s"
+  },
+  {
+   "unit": "EConverter",
+   "walk_sec": 0.0,
+   "note": "replay 242s"
+  },
+  {
+   "unit": "Wind",
+   "walk_sec": 0.0,
+   "note": "replay 246s"
+  },
+  {
+   "unit": "ConTurret",
+   "walk_sec": 0.0,
+   "note": "replay 246s"
+  },
+  {
+   "unit": "Wind",
+   "walk_sec": 0.0,
+   "note": "replay 248s"
+  },
+  {
+   "unit": "BotWorker",
+   "walk_sec": 0.0,
+   "note": "replay 250s"
+  },
+  {
+   "unit": "Wind",
+   "walk_sec": 0.0,
+   "note": "replay 250s"
+  },
+  {
+   "unit": "EConverter",
+   "walk_sec": 0.0,
+   "note": "replay 251s"
+  },
+  {
+   "unit": "Wind",
+   "walk_sec": 0.0,
+   "note": "replay 253s"
+  },
+  {
+   "unit": "Wind",
+   "walk_sec": 0.0,
+   "note": "replay 259s"
+  },
+  {
+   "unit": "EConverter",
+   "walk_sec": 0.0,
+   "note": "replay 260s"
+  },
+  {
+   "unit": "Wind",
+   "walk_sec": 0.0,
+   "note": "replay 261s"
+  },
+  {
+   "unit": "Wind",
+   "walk_sec": 0.0,
+   "note": "replay 265s"
+  },
+  {
+   "unit": "Wind",
+   "walk_sec": 0.0,
+   "note": "replay 266s"
+  },
+  {
+   "unit": "Wind",
+   "walk_sec": 0.0,
+   "note": "replay 267s"
+  },
+  {
+   "unit": "Wind",
+   "walk_sec": 0.0,
+   "note": "replay 271s"
+  },
+  {
+   "unit": "Wind",
+   "walk_sec": 0.0,
+   "note": "replay 273s"
+  },
+  {
+   "unit": "Wind",
+   "walk_sec": 0.0,
+   "note": "replay 274s"
+  },
+  {
+   "unit": "BotWorker",
+   "walk_sec": 0.0,
+   "note": "replay 274s"
+  },
+  {
+   "unit": "Wind",
+   "walk_sec": 0.0,
+   "note": "replay 277s"
+  },
+  {
+   "unit": "Wind",
+   "walk_sec": 0.0,
+   "note": "replay 279s"
+  },
+  {
+   "unit": "Wind",
+   "walk_sec": 0.0,
+   "note": "replay 282s"
+  },
+  {
+   "unit": "Wind",
+   "walk_sec": 0.0,
+   "note": "replay 284s"
+  },
+  {
+   "unit": "Wind",
+   "walk_sec": 0.0,
+   "note": "replay 297s"
+  },
+  {
+   "unit": "Wind",
+   "walk_sec": 0.0,
+   "note": "replay 361s"
+  },
+  {
+   "unit": "AMex",
+   "walk_sec": 0.0,
+   "note": "replay 362s"
+  },
+  {
+   "unit": "Wind",
+   "walk_sec": 0.0,
+   "note": "replay 371s"
+  },
+  {
+   "unit": "Wind",
+   "walk_sec": 0.0,
+   "note": "replay 380s"
+  },
+  {
+   "unit": "Wind",
+   "walk_sec": 0.0,
+   "note": "replay 392s"
+  },
+  {
+   "unit": "AMex",
+   "walk_sec": 0.0,
+   "note": "replay 399s"
+  },
+  {
+   "unit": "Wind",
+   "walk_sec": 0.0,
+   "note": "replay 405s"
+  },
+  {
+   "unit": "Wind",
+   "walk_sec": 0.0,
+   "note": "replay 411s"
+  },
+  {
+   "unit": "AMex",
+   "walk_sec": 0.0,
+   "note": "replay 442s"
+  },
+  {
+   "unit": "ConTurret",
+   "walk_sec": 0.0,
+   "note": "replay 464s"
+  },
+  {
+   "unit": "AMex",
+   "walk_sec": 0.0,
+   "note": "replay 490s"
+  },
+  {
+   "unit": "Wind",
+   "walk_sec": 0.0,
+   "note": "replay 512s"
+  },
+  {
+   "unit": "Wind",
+   "walk_sec": 0.0,
+   "note": "replay 523s"
+  },
+  {
+   "unit": "AMex",
+   "walk_sec": 0.0,
+   "note": "replay 562s"
+  }
+ ]
+}
